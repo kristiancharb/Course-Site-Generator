@@ -22,6 +22,7 @@ public class CSGData implements AppDataComponent{
         taData = new TAData(initApp, this);
     }
     
+    
     @Override
     public void resetData(){
         

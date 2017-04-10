@@ -8,6 +8,8 @@ package csg.workspace;
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import csg.CSGApp;
+import csg.data.CSGData;
+import csg.data.TAData;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -39,12 +41,12 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         controller = new CSGController(initApp);
         
-        TabPane tabs = new TabPane();
-        CDTab cdTab = new CDTab(initApp); 
-        TATab taTab = new TATab(initApp, controller);
-        RecTab recTab = new RecTab(initApp);
-        SchedTab schedTab = new SchedTab(initApp);
-        ProjectTab projectTab = new ProjectTab(initApp);
+        tabs = new TabPane();
+        cdTab = new CDTab(initApp, controller, this); 
+        taTab = new TATab(initApp, controller, this);
+        recTab = new RecTab(initApp);
+        schedTab = new SchedTab(initApp);
+        projectTab = new ProjectTab(initApp);
         tabs.getTabs().addAll(cdTab, taTab, recTab, schedTab, projectTab);
         workspace = new BorderPane();
         ((BorderPane) workspace).setCenter(tabs);
@@ -52,11 +54,28 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         jTPS = new jTPS();   
     }
     
+    public TATab getTATab(){
+        return taTab;
+    }
+    
+    @Override
+    public BorderPane getWorkspace(){
+        return (BorderPane)workspace;
+    }
+    
+    @Override
     public void resetWorkspace(){
+        taTab.resetTATab(); 
         
     }
     
-    public void reloadWorkspace(AppDataComponent dataComponent){   
+    @Override
+    public void reloadWorkspace(AppDataComponent dataComponent){ 
+        CSGData csgData = (CSGData)dataComponent;
+        TAData taData = csgData.getTAData();
+        taTab.reloadTATab(taData);
+        
+        
     }
     
 }

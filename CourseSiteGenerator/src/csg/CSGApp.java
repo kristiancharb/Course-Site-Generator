@@ -34,10 +34,18 @@ public class CSGApp extends AppTemplate {
         
         
         dataComponent = new CSGData(this);
+        workspaceComponent = new CSGWorkspace(this);
         fileComponent = new CSGFile(this);
         styleComponent = new CSGStyle(this);
-        workspaceComponent = new CSGWorkspace(this);
 
+    }
+    
+    public CSGWorkspace getCSGWorkspace(){
+        return (CSGWorkspace)workspaceComponent;
+    }
+    
+    public CSGData getCSGData(){
+        return (CSGData)dataComponent;
     }
 
     /**
