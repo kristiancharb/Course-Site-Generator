@@ -13,6 +13,7 @@ import csg.workspace.CSGWorkspace;
 import csg.workspace.TATab;
 import csg.data.TeachingAssistant;
 import csg.CSGApp;
+import csg.workspace.CDTab;
 import java.util.HashMap;
 import javafx.scene.Node;
 
@@ -22,6 +23,7 @@ import javafx.scene.Node;
  */
 public class CSGStyle extends AppStyleComponent {
     // FIRST WE SHOULD DECLARE ALL OF THE STYLE TYPES WE PLAN TO USE
+    public static String CLASS_TAB_PANE = "tab_pane";
 
     // WE'LL USE THIS FOR ORGANIZING LEFT AND RIGHT CONTROLS
     public static String CLASS_PLAIN_PANE = "plain_pane";
@@ -29,6 +31,9 @@ public class CSGStyle extends AppStyleComponent {
     // THESE ARE THE HEADERS FOR EACH SIDE
     public static String CLASS_HEADER_PANE = "header_pane";
     public static String CLASS_HEADER_LABEL = "header_label";
+    public static String CLASS_SUBHEADER_PANE = "subheader_pane";
+    public static String CLASS_SUBHEADER_LABEL = "subheader_label";
+    public static String CLASS_SCROLL_PANE = "scroll_pane";
 
     // ON THE LEFT WE HAVE THE TA ENTRY
     public static String CLASS_TA_TABLE = "ta_table";
@@ -63,7 +68,15 @@ public class CSGStyle extends AppStyleComponent {
         app.getGUI().initFileToolbarStyle();
 
         // AND NOW OUR WORKSPACE STYLE
+        initCSGWorkspaceStyle();
         initTAWorkspaceStyle();
+        initCDWorkspaceStyle();
+    }
+    
+    private void initCSGWorkspaceStyle(){
+        CSGWorkspace csgWorkspace = (CSGWorkspace)app.getWorkspaceComponent();
+        csgWorkspace.getWorkspace().getStyleClass().add(CLASS_HEADER_PANE);
+        csgWorkspace.getTabs().getStyleClass().add(CLASS_TAB_PANE);
     }
 
     private void initTAWorkspaceStyle() {
@@ -71,6 +84,7 @@ public class CSGStyle extends AppStyleComponent {
         TATab taTab = ((CSGWorkspace) app.getWorkspaceComponent()).getTATab();
         taTab.getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         taTab.getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+        taTab.getSPane().getStyleClass().add(CLASS_SCROLL_PANE);
 
         // LEFT SIDE - THE TABLE
         TableView<TeachingAssistant> taTable = taTab.getTATable();
@@ -88,6 +102,19 @@ public class CSGStyle extends AppStyleComponent {
         // RIGHT SIDE - THE HEADER
         taTab.getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         taTab.getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+    }
+    
+    private void initCDWorkspaceStyle(){
+        CDTab cdTab = ((CSGWorkspace) app.getWorkspaceComponent()).getCDTab();
+        cdTab.getSPane().getStyleClass().add(CLASS_SCROLL_PANE);
+        cdTab.getPane().getStyleClass().add(CLASS_SCROLL_PANE);
+        cdTab.getCourseInfoHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        cdTab.getPageStyleHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        cdTab.getSiteTemplateHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        cdTab.getCourseInfoBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        cdTab.getPageStyleBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        cdTab.getSiteTemplateBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        
     }
 
     public void initOfficeHoursGridStyle() {

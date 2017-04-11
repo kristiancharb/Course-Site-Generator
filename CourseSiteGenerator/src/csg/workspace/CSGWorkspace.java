@@ -44,7 +44,7 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         tabs = new TabPane();
         cdTab = new CDTab(initApp, controller, this); 
         taTab = new TATab(initApp, controller, this);
-        recTab = new RecTab(initApp);
+        recTab = new RecTab(initApp, controller, this);
         schedTab = new SchedTab(initApp);
         projectTab = new ProjectTab(initApp);
         tabs.getTabs().addAll(cdTab, taTab, recTab, schedTab, projectTab);
@@ -57,6 +57,15 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     public TATab getTATab(){
         return taTab;
     }
+    
+    public TabPane getTabs(){
+        return tabs;
+    }
+    
+    public CDTab getCDTab(){
+        return cdTab;
+    }
+    
     
     @Override
     public BorderPane getWorkspace(){

@@ -82,6 +82,8 @@ public class TATab extends Tab {
     HashMap<String, Label> officeHoursGridTimeCellLabels;
     HashMap<String, Pane> officeHoursGridTACellPanes;
     HashMap<String, Label> officeHoursGridTACellLabels;
+    
+    SplitPane sPane;
 
     public TATab(CSGApp app, CSGController controller, CSGWorkspace csgWorkspace) {
         this.app = app;
@@ -194,7 +196,7 @@ public class TATab extends Tab {
         rightPane.getChildren().add(officeHoursGridPane);
         
         // BOTH PANES WILL NOW GO IN A SPLIT PANE
-        SplitPane sPane = new SplitPane(leftPane, new ScrollPane(rightPane), farRightPane);
+        sPane = new SplitPane(leftPane, new ScrollPane(rightPane), farRightPane);
         sPane.setDividerPositions(0.35f, 0.9f, 0.35f);
         
        
@@ -274,6 +276,10 @@ public class TATab extends Tab {
 
     public TableView getTATable() {
         return taTable;
+    }
+    
+    public SplitPane getSPane(){
+        return sPane;
     }
 
     public HBox getAddBox() {
