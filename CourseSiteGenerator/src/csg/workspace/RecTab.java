@@ -132,11 +132,86 @@ public class RecTab extends Tab{
         addBox.add(addButton, 0, 8, 1, 1);
         addBox.add(clearButton, 1, 8, 1, 1);
         
+        addBox.setMaxWidth(800);
+        header.setMaxWidth(800);
+        
         box.getChildren().add(addBox);
+        box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
+        box.prefHeightProperty().bind(sPane.heightProperty().multiply(0.98));
         
         sPane.setContent(box);
         this.setContent(sPane);
         
     }
+    
+    public ScrollPane getSPane(){
+        return sPane;
+    }
+    public VBox getBox(){
+        return box;
+    }
+    public HBox getHeader(){
+        return header;
+    }
+    public Label getHeaderLabel(){
+        return headerLabel;
+    }
+    public GridPane getAddBox(){
+        return addBox;
+    }
+    
+    public TableView<Recitation> getRecTable(){
+        return recTable;
+    }
+    public TableColumn<Recitation, String> getSectionCol(){
+        return sectionCol;
+    }
+    public TableColumn<Recitation, String> getInstructorCol(){
+        return instructorCol;
+    }
+    public TableColumn<Recitation, String> getTimeCol(){
+        return timeCol;
+    }
+    public TableColumn<Recitation, String> getLocationCol(){
+        return locationCol;
+    }
+    public TableColumn<Recitation, String> getTa1Col(){
+        return ta1Col;
+    }
+    public TableColumn<Recitation, String> getTa2Col(){
+        return ta2Col;
+    }
+    
+    public Button getRemoveButton(){
+        return removeButton;
+    }
+    
+    public Label getAddHeader(){
+        return addHeader;
+    }
+    public TextField getSectionField(){
+        return sectionField;
+    }
+    public TextField getInstructorField(){
+        return instructorField;
+    }
+    public TextField getTimeField(){
+        return timeField;
+    }
+    public TextField getLocationField(){
+        return locationField;
+    }
+    public ComboBox ta1Box(){
+        return ta1Box;
+    }
+    public ComboBox ta2Box(){
+        return ta2Box;
+    }
+    public Button getAddButton(){
+        return addButton;
+    }
+    public Button getClearButton(){
+        return clearButton;
+    } 
     
 }

@@ -136,13 +136,13 @@ public class CSGController {
     
     public void handleHighlight(Pane pane){
         String cellKey = pane.getId();
-        pane.setStyle("-fx-border-color: #ffff99");
+        pane.setStyle("-fx-border-color: #0026ff");
         
     }
     
     public void handleRCHigh(Pane pane){
         String cellKey = pane.getId();
-        pane.setStyle("-fx-border-color: #cccc00");
+        pane.setStyle("-fx-border-color: #a8b5ff");
     }
     
     public void handleUnHighlight(Pane pane){

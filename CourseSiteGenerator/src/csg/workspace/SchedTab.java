@@ -51,6 +51,7 @@ public class SchedTab extends Tab{
     TableColumn<ScheduleItem, String> titleCol;
     TableColumn<ScheduleItem, String> topicCol;
     
+    Label tabHeader;
     Label boundariesHeader;
     Label itemsHeader;
     Label addHeader;
@@ -77,6 +78,8 @@ public class SchedTab extends Tab{
         this.setText("Schedule");
         
         box = new VBox();
+        tabHeader = new Label("Schedule");
+        box.getChildren().add(tabHeader);
         boundariesHeader = new Label("Calender Boundaries");
         startPicker = new DatePicker();
         endPicker = new DatePicker();
@@ -90,11 +93,12 @@ public class SchedTab extends Tab{
         boundariesBox.add(endPicker, 11, 4, 5, 1);
         box.getChildren().add(boundariesBox);
         
+        itemsBox = new VBox();
         itemsHeaderBox = new HBox();
         removeButton = new Button("-");
         itemsHeader = new Label("Schedule Items");
         itemsHeaderBox.getChildren().addAll(itemsHeader, removeButton);
-        box.getChildren().add(itemsHeaderBox);
+        itemsBox.getChildren().add(itemsHeaderBox);
         
         items = FXCollections.observableArrayList(
             new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
@@ -113,7 +117,7 @@ public class SchedTab extends Tab{
         itemsTable.getColumns().addAll(typeCol, dateCol, titleCol, topicCol);
         itemsTable.setMaxHeight(200);
         
-        box.getChildren().add(itemsTable);
+        itemsBox.getChildren().add(itemsTable);
         
         addBox = new GridPane();
         addBox.setHgap(10);
@@ -146,14 +150,103 @@ public class SchedTab extends Tab{
         addBox.add(criteriaField, 1, 8, 5, 1);
         addBox.add(addButton, 0, 9, 1, 1);
         addBox.add(clearButton, 2, 9, 1, 1);
-        box.getChildren().add(addBox);
-        
-        
-        
+        itemsBox.getChildren().add(addBox);
+        itemsBox.setMaxWidth(800);
+        boundariesBox.setMaxWidth(800);
+        box.getChildren().add(itemsBox);
+
         sPane = new ScrollPane();
         sPane.setContent(box);
+        box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
+      
         this.setContent(sPane);
         
+    }
+    
+    public ScrollPane getSPane(){
+      return sPane;
+    }
+    public Label getTabHeader(){
+        return tabHeader;
+    }
+    public VBox getBox(){
+      return box;
+    }
+    public GridPane getBoundariesBox(){
+      return boundariesBox; 
+    }
+    public VBox getItemsBox(){
+      return itemsBox;
+    } 
+    public HBox getItemsHeaderBox(){
+      return itemsHeaderBox;
+    }
+    public GridPane getAddBox(){
+      return addBox;
+    }
+    public TableView<ScheduleItem> getItemsTable(){
+      return itemsTable;
+    }
+    public TableColumn<ScheduleItem, String> getTypeCol(){
+      return typeCol;
+    }
+    public TableColumn<ScheduleItem, String> getDateCol(){
+      return dateCol;
+    }
+    public TableColumn<ScheduleItem, String> getTitleCol(){
+      return titleCol;
+    }
+    public TableColumn<ScheduleItem, String> getTopicCol(){
+      return topicCol;
+    }
+    
+    public Label getBoundariesHeader(){
+      return boundariesHeader;
+    }
+    public Label getItemsHeader(){
+      return itemsHeader;
+    }
+    public Label getAddHeader(){
+      return addHeader;
+    }
+   
+    
+    public DatePicker getStartPicker(){
+      return startPicker;
+    }
+    public DatePicker getEndPicker(){
+      return endPicker; 
+    }
+    public TextField getTypeField(){
+      return typeField;
+    }
+    public DatePicker getDatePicker(){
+      return datePicker; 
+    }
+    public TextField getTimeField(){
+      return timeField; 
+    }
+    public TextField getTitleField(){
+      return titleField; 
+    }
+    public TextField getTopicField(){
+      return topicField;
+    }
+    public TextField getLinkField(){
+      return linkField;
+    }
+    public TextField getCriteriaField(){
+      return criteriaField;
+    }
+    
+    public Button getRemoveButton(){
+      return removeButton;
+    }
+    public Button getAddButton(){
+      return addButton;
+    }
+    public Button getClearButton(){
+      return clearButton;
     }
     
 }

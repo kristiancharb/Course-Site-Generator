@@ -61,6 +61,7 @@ public class ProjectTab extends Tab{
     TableColumn<Student, String> teamCol;
     TableColumn<Student, String> roleCol;
     
+    Label tabHeader;
     Label teamsHeader;
     Label addTeamHeader;
     Label studentsHeader;
@@ -95,6 +96,8 @@ public class ProjectTab extends Tab{
         studentsBox = new VBox();
         sPane = new ScrollPane();
         
+        tabHeader = new Label("Projects");
+        box.getChildren().add(tabHeader);
         teamsHeaderBox = new HBox();
         teamsHeader = new Label("Teams");
         removeTeamButton = new Button("-");
@@ -118,6 +121,7 @@ public class ProjectTab extends Tab{
         teamsBox.getChildren().add(teamTable);
         teamTable.setMaxHeight(200);
         teamTable.setMinWidth(500);
+        teamTable.setMaxWidth(800);
         
         addTeamsBox = new GridPane();
         addTeamsBox.setHgap(10);
@@ -146,8 +150,8 @@ public class ProjectTab extends Tab{
         studentsHeaderBox = new HBox();
         studentsHeader = new Label("Students");
         removeStudentButton = new Button("-");
-        studentsHeaderBox.getChildren().addAll(teamsHeader, removeTeamButton);
-        studentsBox.getChildren().add(teamsHeaderBox);
+        studentsHeaderBox.getChildren().addAll(studentsHeader, removeStudentButton);
+        studentsBox.getChildren().add(studentsHeaderBox);
         
         studentTable = new TableView();
         students = FXCollections.observableArrayList(
@@ -166,6 +170,7 @@ public class ProjectTab extends Tab{
         studentTable.getColumns().addAll(firstNameCol, lastNameCol, teamCol, roleCol);
         studentTable.setMaxHeight(200);
         studentTable.setMinWidth(500);
+        studentTable.setMaxWidth(800);
         studentsBox.getChildren().add(studentTable);
         
         addStudentsBox = new GridPane();
@@ -192,15 +197,132 @@ public class ProjectTab extends Tab{
         addStudentsBox.add(clearStudentButton, 1, 7, 1, 1);
         studentsBox.getChildren().add(addStudentsBox);
         
-        
-        
-        
-        
-        
+     
+        teamsBox.setMaxWidth(800);
+        studentsBox.setMaxWidth(800);
         box.getChildren().addAll(teamsBox, studentsBox);
         sPane.setContent(box);
+        box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
         this.setContent(sPane);
         this.setText("Projects");
+    }
+    
+    public ScrollPane getSPane(){
+        return sPane;
+    }
+    public VBox getBox(){
+        return box;
+    }
+    public Label getTabHeader(){
+        return tabHeader;
+    }
+    public VBox getTeamsBox(){
+        return teamsBox;
+    }
+    public VBox getStudentsBox(){
+        return studentsBox;
+    }
+    public HBox getTeamsHeaderBox(){
+        return teamsHeaderBox;
+    }
+    public HBox getStudentsHeaderBox(){
+        return studentsHeaderBox;
+    }
+    public GridPane getAddTeamsBox(){
+        return addTeamsBox;
+    }
+    public  GridPane getAddStudentsBox(){
+        return addStudentsBox;
+    }
+    
+   
+    public TableView<Team> getTeamTable(){
+        return teamTable;
+    }
+    public TableView<Student> getStudentTable(){
+        return studentTable;
+    }
+    public TableColumn<Team, String> getNameCol(){
+        return nameCol;
+    }
+    public TableColumn<Team, String> getColorCol(){
+        return colorCol;
+    }
+    public TableColumn<Team, String> getTextColorCol(){
+        return textColorCol;
+    }
+    public TableColumn<Team, String> getLinkCol(){
+        return linkCol;
+    }
+    public TableColumn<Student, String> getFirstNameCol(){
+        return firstNameCol;
+    }
+    public TableColumn<Student, String> getLastNameCol(){
+        return lastNameCol;
+    }
+    public TableColumn<Student, String> getTeamCol(){
+        return teamCol;
+    }
+    public TableColumn<Student, String> getRoleCol(){
+        return roleCol;
+    }
+    
+    public Label getTeamsHeader(){
+        return teamsHeader;
+    }
+    public Label getAddTeamHeader(){
+        return addTeamHeader;
+    }
+    public Label getStudentsHeader(){
+        return studentsHeader;
+    }
+    public Label getAddStudentHeader(){
+        return addStudentHeader;
+    }
+    
+    public Button getRemoveTeamButton(){
+        return removeTeamButton;
+    }
+    public Button getRemoveStudentButton(){
+        return removeStudentButton;
+    }
+    public Button getAddTeamButton(){
+        return addTeamButton;
+    }
+    public Button getAddStudentButton(){
+        return addStudentButton;
+    }
+    public Button getClearTeamButton(){
+        return clearTeamButton;
+    }
+    public Button getClearStudentButton(){
+        return clearStudentButton;
+    }
+    
+    public TextField getNameField(){
+        return nameField;
+    }
+    public ColorPicker getColorPicker(){
+        return colorPicker;
+    }
+    public ColorPicker getTextColorPicker(){
+        return textColorPicker;
+    }
+    public TextField getLinkField(){
+        return linkField;
+    }
+    
+    public TextField getFirstNameField(){
+        return firstNameField;
+    }
+    public TextField getLastNameField(){
+        return lastNameField;
+    }
+    public ComboBox getTeamComboBox(){
+        return teamComboBox;
+    }
+    public  TextField getRoleField(){
+        return roleField;
     }
     
 }

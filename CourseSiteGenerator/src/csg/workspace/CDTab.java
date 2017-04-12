@@ -40,7 +40,7 @@ public class CDTab extends Tab{
     CSGController controller;
     CSGWorkspace workspace;
     
-    BorderPane pane;
+    VBox pane;
     ScrollPane sPane;
     GridPane courseInfoBox;
     VBox siteTemplateBox;
@@ -89,7 +89,7 @@ public class CDTab extends Tab{
         this.setText("Course Details");
 
         
-        pane = new BorderPane();
+        pane = new VBox();
         courseInfoBox = new GridPane();
         courseInfoBox.setHgap(10);
         courseInfoBox.setVgap(10);
@@ -125,7 +125,7 @@ public class CDTab extends Tab{
         changeExportButton = new Button("Change");
         courseInfoBox.add(changeExportButton, 10, 7, 1, 1);
         
-        siteTemplateBox = new VBox(8);
+        siteTemplateBox = new VBox();
         siteTemplateHeader = new Label("Site Template");
         siteTemplateBox.getChildren().add(siteTemplateHeader);
         siteTemplateBox.getChildren().add(new Label("The selected directory should contain the full site template, "
@@ -181,22 +181,24 @@ public class CDTab extends Tab{
         pageStyleBox.add(styleSheetBox, 1, 5, 1, 1);
         pageStyleBox.add(new Label("NOTE: New Stylesheets maybe be placed in work/css to be selectable."), 0, 6, 10, 1);
         
-        pane.setTop(courseInfoBox);
-        pane.setCenter(siteTemplateBox);
-        pane.setBottom(pageStyleBox);
+        courseInfoBox.setMaxWidth(800);
+        siteTemplateBox.setMaxWidth(800);
+        pageStyleBox.setMaxWidth(800);
+        
+        pane.getChildren().add(courseInfoBox);
+        pane.getChildren().add(siteTemplateBox);
+        pane.getChildren().add(pageStyleBox);
         sPane = new ScrollPane();
         sPane.setContent(pane);
         pane.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
-        //siteTemplateBox.prefWidthProperty().bind(sPane.widthProperty().multiply(0.9));
-        //pageStyleBox.prefWidthProperty().bind(sPane.widthProperty().multiply(0.9));
-        //courseInfoBox.prefWidthProperty().bind(sPane.widthProperty().multiply(0.9));
+
         this.setContent(sPane);
     }
     
     public GridPane getCourseInfoBox(){
         return courseInfoBox;
     }
-    public BorderPane getPane(){
+    public VBox getPane(){
         return pane;
     }
     public ScrollPane getSPane(){

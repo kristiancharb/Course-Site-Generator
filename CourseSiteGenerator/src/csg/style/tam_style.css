@@ -37,12 +37,9 @@
 }
 
 .plain_pane{
-    -fx-background-color: #aaaaff;
-    -fx-background-radius: 5.0;
-    -fx-padding: 15;
+    -fx-background-color: #e0e0fc;
+    -fx-padding: 10;
     -fx-spacing: 10;
-    -fx-border-width: 2px;
-    -fx-border-color: #7777dd;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -115,13 +112,13 @@
 .subheader_pane{
     -fx-background-color: #e0e0fc;
     -fx-background-radius: 5.0;
-    -fx-padding: 20;
-    -fx-spacing: 50;
+    -fx-padding: 10;
+    -fx-spacing: 30;
     -fx-border-width: 2px;
     -fx-border-color: #525266;
 }
 .subheader_label{
-    -fx-font-size: 16pt;
+    -fx-font-size: 14pt;
     -fx-font-weight: bold;
 }
 
@@ -151,27 +148,41 @@
     
 }
 
-.add_ta_button{
+.add_button{
     -fx-background-color: 
-        linear-gradient(#f2f2f2, #d6d6d6),
-        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
-        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #d9d9ff 20%, #d6d6ff 100%),
+        linear-gradient(#ddddff 0%, #f6f6ff 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+.add_button:hover{
+    -fx-background-color: 
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #a9a9ff 20%, #b6b6ff 100%),
+        linear-gradient(#ddddff 0%, #e6e6ff 50%);
+}
+
+.clear_button{
+    -fx-background-color: 
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #d9d9ff 20%, #d6d6ff 100%),
+        linear-gradient(#ddddff 0%, #f6f6ff 50%);
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-.clear_button{
-    -fx-background-color: 
-        linear-gradient(#f2f2f2, #d6d6d6),
-        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
-        linear-gradient(#dddddd 0%, #f6f6f6 50%);
-    -fx-background-radius: 8,7,6;
-    -fx-background-insets: 0,1,2;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+.clear_button:hover{
+        -fx-background-color: 
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #a9a9ff 20%, #b6b6ff 100%),
+        linear-gradient(#ddddff 0%, #e6e6ff 50%);
 }
+
 
 .office_hours_grid{
     
@@ -214,7 +225,7 @@
 }
 
 .office_hours_grid_ta_cell_pane{
-    -fx-background-color: #ACAA7A;
+    -fx-background-color: #c9cff2;
     -fx-spacing: 5;
     -fx-padding: 5;
     -fx-border-width: 1.5px;

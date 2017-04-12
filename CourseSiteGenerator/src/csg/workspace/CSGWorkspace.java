@@ -66,6 +66,18 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         return cdTab;
     }
     
+    public RecTab getRecTab(){
+        return recTab;
+    }
+    
+    public SchedTab getSchedTab(){
+        return schedTab;
+    }
+    
+    public ProjectTab getProjectTab(){
+        return projectTab;
+    }
+    
     
     @Override
     public BorderPane getWorkspace(){

@@ -12,8 +12,13 @@ import javafx.scene.control.TableView;
 import csg.workspace.CSGWorkspace;
 import csg.workspace.TATab;
 import csg.data.TeachingAssistant;
+import csg.data.SiteTemplate;
+import csg.data.Recitation;
 import csg.CSGApp;
 import csg.workspace.CDTab;
+import csg.workspace.RecTab;
+import csg.workspace.SchedTab;
+import csg.workspace.ProjectTab;
 import java.util.HashMap;
 import javafx.scene.Node;
 
@@ -40,7 +45,7 @@ public class CSGStyle extends AppStyleComponent {
     public static String CLASS_TA_TABLE_COLUMN_HEADER = "ta_table_column_header";
     public static String CLASS_ADD_TA_PANE = "add_ta_pane";
     public static String CLASS_ADD_TA_TEXT_FIELD = "add_ta_text_field";
-    public static String CLASS_ADD_TA_BUTTON = "add_ta_button";
+    public static String CLASS_ADD_BUTTON = "add_button";
     public static String CLASS_CLEAR_BUTTON = "clear_button";
 
     // ON THE RIGHT WE HAVE THE OFFICE HOURS GRID
@@ -71,6 +76,9 @@ public class CSGStyle extends AppStyleComponent {
         initCSGWorkspaceStyle();
         initTAWorkspaceStyle();
         initCDWorkspaceStyle();
+        initRecWorkspaceStyle();
+        initSchedWorkspaceStyle();
+        initProjectWorkspaceStyle();
     }
     
     private void initCSGWorkspaceStyle(){
@@ -96,7 +104,7 @@ public class CSGStyle extends AppStyleComponent {
         // LEFT SIDE - THE TA DATA ENTRY
         taTab.getAddBox().getStyleClass().add(CLASS_ADD_TA_PANE);
         taTab.getNameTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
-        taTab.getAddButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
+        taTab.getAddButton().getStyleClass().add(CLASS_ADD_BUTTON);
         taTab.getClearButton().getStyleClass().add(CLASS_CLEAR_BUTTON);
 
         // RIGHT SIDE - THE HEADER
@@ -114,10 +122,87 @@ public class CSGStyle extends AppStyleComponent {
         cdTab.getCourseInfoBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
         cdTab.getPageStyleBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
         cdTab.getSiteTemplateBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
-        cdTab.getSelectTemplateButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
-        cdTab.getChangeExportButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
+        cdTab.getSelectTemplateButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        cdTab.getChangeExportButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        cdTab.getChangeBannerButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        cdTab.getLeftFootButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        cdTab.getRightFootButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        TableView<SiteTemplate> siteTemplateTable = cdTab.getSiteTemplateTable();
+        siteTemplateTable.getStyleClass().add(CLASS_TA_TABLE);
+        for(TableColumn tableColumn : siteTemplateTable.getColumns()){
+            tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
+        }
         
     }
+    
+    private void initRecWorkspaceStyle(){
+        RecTab recTab = ((CSGWorkspace) app.getWorkspaceComponent()).getRecTab();
+        recTab.getSPane().getStyleClass().add(CLASS_SCROLL_PANE);
+        recTab.getBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        recTab.getHeader().getStyleClass().add(CLASS_PLAIN_PANE);
+        recTab.getAddBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        
+        recTab.getHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+        recTab.getAddHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        
+        recTab.getAddButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        recTab.getRemoveButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        recTab.getClearButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        
+        TableView<Recitation> recTable = recTab.getRecTable();
+        recTable.getStyleClass().add(CLASS_TA_TABLE);
+        for(TableColumn tableColumn : recTable.getColumns()){
+            tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
+        }
+        
+    }
+    
+    public void initSchedWorkspaceStyle(){
+        SchedTab schedTab = ((CSGWorkspace)app.getWorkspaceComponent()).getSchedTab();
+        schedTab.getSPane().getStyleClass().add(CLASS_SCROLL_PANE);
+        schedTab.getBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        schedTab.getBoundariesBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        schedTab.getItemsHeaderBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        schedTab.getItemsBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        schedTab.getAddBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        
+        schedTab.getTabHeader().getStyleClass().add(CLASS_HEADER_LABEL);
+        schedTab.getItemsHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        schedTab.getAddHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);  
+        schedTab.getBoundariesHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        
+        schedTab.getAddButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        schedTab.getClearButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        schedTab.getRemoveButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        
+    }
+    
+    public void initProjectWorkspaceStyle(){
+        ProjectTab projectTab = ((CSGWorkspace)app.getWorkspaceComponent()).getProjectTab();
+        projectTab.getSPane().getStyleClass().add(CLASS_SCROLL_PANE);
+        projectTab.getBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        projectTab.getTeamsBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        projectTab.getStudentsBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        projectTab.getAddStudentsBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        projectTab.getAddTeamsBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        projectTab.getStudentsHeaderBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        projectTab.getTeamsHeaderBox().getStyleClass().add(CLASS_PLAIN_PANE);
+        
+        projectTab.getAddStudentHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        projectTab.getAddTeamHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        projectTab.getStudentsHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        projectTab.getTeamsHeader().getStyleClass().add(CLASS_SUBHEADER_LABEL);
+        projectTab.getTabHeader().getStyleClass().add(CLASS_HEADER_LABEL);
+        
+        projectTab.getAddTeamButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        projectTab.getAddStudentButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        projectTab.getRemoveTeamButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        projectTab.getRemoveStudentButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        projectTab.getClearTeamButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        projectTab.getClearStudentButton().getStyleClass().add(CLASS_ADD_BUTTON);
+    }
+    
+    
 
     public void initOfficeHoursGridStyle() {
         // RIGHT SIDE - THE OFFICE HOURS GRID TIME HEADERS
