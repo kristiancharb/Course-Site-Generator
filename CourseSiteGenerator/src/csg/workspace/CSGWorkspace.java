@@ -45,8 +45,8 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         cdTab = new CDTab(initApp, controller, this); 
         taTab = new TATab(initApp, controller, this);
         recTab = new RecTab(initApp, controller, this);
-        schedTab = new SchedTab(initApp);
-        projectTab = new ProjectTab(initApp);
+        schedTab = new SchedTab(initApp, controller, this);
+        projectTab = new ProjectTab(initApp, controller, this);
         tabs.getTabs().addAll(cdTab, taTab, recTab, schedTab, projectTab);
         workspace = new BorderPane();
         ((BorderPane) workspace).setCenter(tabs);

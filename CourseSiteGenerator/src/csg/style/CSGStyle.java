@@ -114,6 +114,8 @@ public class CSGStyle extends AppStyleComponent {
         cdTab.getCourseInfoBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
         cdTab.getPageStyleBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
         cdTab.getSiteTemplateBox().getStyleClass().add(CLASS_SUBHEADER_PANE);
+        cdTab.getSelectTemplateButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
+        cdTab.getChangeExportButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
         
     }
 

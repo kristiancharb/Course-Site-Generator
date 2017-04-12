@@ -249,7 +249,15 @@ public class CDTab extends Tab{
     public Button getSelectTemplateButton(){
         return selectTemplateButton;
     }
-
+     public Button getChangeBannerButton(){
+        return changeBannerButton;
+    }
+    public Button getLeftFootButton(){
+        return changeLeftFootButton;
+    }
+    public Button getRightFootButton(){
+        return changeRightFootButton;
+    }
     public TableView<SiteTemplate> getSiteTemplateTable(){
         return siteTemplateTable;
     }

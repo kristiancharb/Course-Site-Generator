@@ -30,4 +30,23 @@ public class Recitation {
     this.ta2 = ta2;
     }
     
+    public String getSection(){
+        return section;
+    }
+    public String getInstructor(){
+        return instructor;
+    }
+    public String getTime(){
+        return time;
+    }
+    public String getLocation(){
+        return location;
+    }
+    public String getTa1(){
+        return ta1;
+    }
+    public String getTa2(){
+        return ta2;
+    }
+    
 }

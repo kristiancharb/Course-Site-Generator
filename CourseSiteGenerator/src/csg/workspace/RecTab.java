@@ -101,7 +101,8 @@ public class RecTab extends Tab{
         ta2Col = new TableColumn("TA");
         ta2Col.setCellValueFactory(new PropertyValueFactory<>("ta2"));
         recTable.getColumns().addAll(sectionCol, instructorCol, timeCol, locationCol, ta1Col, ta2Col);
-        recTable.setMaxWidth(500);
+        recTable.setMinWidth(600);
+        recTable.setMaxWidth(800);
         recTable.setMaxHeight(200);
         box.getChildren().add(recTable);
         
