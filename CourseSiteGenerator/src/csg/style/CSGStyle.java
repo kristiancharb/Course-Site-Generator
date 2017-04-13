@@ -13,6 +13,9 @@ import csg.workspace.CSGWorkspace;
 import csg.workspace.TATab;
 import csg.data.TeachingAssistant;
 import csg.data.SiteTemplate;
+import csg.data.ScheduleItem;
+import csg.data.Student;
+import csg.data.Team;
 import csg.data.Recitation;
 import csg.CSGApp;
 import csg.workspace.CDTab;
@@ -175,6 +178,12 @@ public class CSGStyle extends AppStyleComponent {
         schedTab.getClearButton().getStyleClass().add(CLASS_ADD_BUTTON);
         schedTab.getRemoveButton().getStyleClass().add(CLASS_ADD_BUTTON);
         
+        TableView<ScheduleItem> itemsTable = schedTab.getItemsTable();
+        itemsTable.getStyleClass().add(CLASS_TA_TABLE);
+        for (TableColumn tableColumn : itemsTable.getColumns()) {
+            tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
+        }
+        
     }
     
     public void initProjectWorkspaceStyle(){
@@ -200,6 +209,17 @@ public class CSGStyle extends AppStyleComponent {
         projectTab.getRemoveStudentButton().getStyleClass().add(CLASS_ADD_BUTTON);
         projectTab.getClearTeamButton().getStyleClass().add(CLASS_ADD_BUTTON);
         projectTab.getClearStudentButton().getStyleClass().add(CLASS_ADD_BUTTON);
+        
+        TableView<Student> studentTable = projectTab.getStudentTable();
+        studentTable.getStyleClass().add(CLASS_TA_TABLE);
+        for (TableColumn tableColumn : studentTable.getColumns()) {
+            tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
+        }
+        TableView<Team> teamTable = projectTab.getTeamTable();
+        studentTable.getStyleClass().add(CLASS_TA_TABLE);
+        for (TableColumn tableColumn : teamTable.getColumns()) {
+            tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
+        }
     }
     
     

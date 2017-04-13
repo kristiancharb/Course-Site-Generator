@@ -6,7 +6,9 @@
 package csg.workspace;
 
 import csg.CSGApp;
+import csg.CSGProp;
 import csg.data.SiteTemplate;
+import csg.data.TeachingAssistant;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
 import static djf.settings.AppStartupConstants.PATH_IMAGES;
 import javafx.collections.FXCollections;
@@ -29,7 +31,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.beans.property.BooleanProperty;
 import properties_manager.PropertiesManager;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 /**
  *
@@ -83,10 +88,11 @@ public class CDTab extends Tab{
     
     
     public CDTab(CSGApp app, CSGController controller, CSGWorkspace workspace){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
-        this.setText("Course Details");
+        this.setText(props.getProperty(CSGProp.CDTAB_HEADER));
 
         
         pane = new VBox();
@@ -94,46 +100,42 @@ public class CDTab extends Tab{
         courseInfoBox.setHgap(10);
         courseInfoBox.setVgap(10);
         courseInfoBox.setPadding(new Insets(5,5,5,5));
-        courseInfoHeader = new Label("Course Information");
+        courseInfoHeader = new Label(props.getProperty(CSGProp.COURSEINFO_HEADER));
         courseInfoBox.add(courseInfoHeader, 0, 0, 2, 2);
         subjectBox = new ComboBox();
         numberBox = new ComboBox();
         semesterBox = new ComboBox();
         yearBox = new ComboBox();
-        courseInfoBox.add(new Label("Subject: "), 0, 2, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.SUBJECT)), 0, 2, 1, 1);
         courseInfoBox.add(subjectBox, 1, 2, 1, 1);
-        courseInfoBox.add(new Label("Number: "), 9, 2, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.NUMBER)), 9, 2, 1, 1);
         courseInfoBox.add(numberBox, 10, 2, 1, 1);
-        courseInfoBox.add(new Label("Semester: "), 0, 3, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.SEMESTER)), 0, 3, 1, 1);
         courseInfoBox.add(semesterBox, 1, 3, 1, 1);
-        courseInfoBox.add(new Label("Year: "), 9, 3, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.YEAR)), 9, 3, 1, 1);
         courseInfoBox.add(yearBox, 10, 3, 1, 1);
         titleField = new TextField();
-        titleField.setPromptText("Computer Science III");
         instrNameField = new TextField();
-        instrNameField.setPromptText("Richard McKenna");
         instrHomeField = new TextField();
-        instrNameField.setPromptText("http://www.cs.stonybrook.edu");
-        courseInfoBox.add(new Label("Title: "), 0, 4, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.TITLE)), 0, 4, 1, 1);
         courseInfoBox.add(titleField, 1, 4, 10, 1);
-        courseInfoBox.add(new Label("Instructor Name: "), 0, 5, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.INSTRNAME)), 0, 5, 1, 1);
         courseInfoBox.add(instrNameField, 1, 5, 10, 1);
-        courseInfoBox.add(new Label("Instructor Home: "), 0, 6, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.INSTRHOME)), 0, 6, 1, 1);
         courseInfoBox.add(instrHomeField, 1, 6, 10, 1);
-        courseInfoBox.add(new Label("Change Export Dir: "), 0, 7, 1, 1);
+        courseInfoBox.add(new Label(props.getProperty(CSGProp.CHANGEEXPORTDIR)), 0, 7, 1, 1);
         courseInfoBox.add(new Label("..\\..\\Courses\\CSE219\\Summer2017\\public"), 1, 7, 9, 1);
-        changeExportButton = new Button("Change");
+        changeExportButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         courseInfoBox.add(changeExportButton, 10, 7, 1, 1);
         
         siteTemplateBox = new VBox();
-        siteTemplateHeader = new Label("Site Template");
+        siteTemplateHeader = new Label(props.getProperty(CSGProp.SITETEMP_HEADER));
         siteTemplateBox.getChildren().add(siteTemplateHeader);
-        siteTemplateBox.getChildren().add(new Label("The selected directory should contain the full site template, "
-                + "including the HTML files"));
+        siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITETEMP_NOTE)));
         siteTemplateBox.getChildren().add(new Label(".\\templates\\CSE219"));
-        selectTemplateButton = new Button("Select Template Directory");
+        selectTemplateButton = new Button(props.getProperty(CSGProp.SELECTTEMPLATEDIR));
         siteTemplateBox.getChildren().add(selectTemplateButton);
-        siteTemplateBox.getChildren().add(new Label("SitePages: "));
+        siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITEPAGES)));
         
         siteTemplates = FXCollections.observableArrayList(
                 new SiteTemplate("Home", "index.html", "HomeBuilder.js"),
@@ -144,42 +146,44 @@ public class CDTab extends Tab{
         );
         siteTemplateTable = new TableView();
         siteTemplateTable.setItems(siteTemplates);
-        useColumn = new TableColumn("Use");
-        useColumn.setCellValueFactory(new PropertyValueFactory<SiteTemplate, Boolean>("use"));
-        titleColumn = new TableColumn("Navbar Title");
+        useColumn = new TableColumn(props.getProperty(CSGProp.USE_COL));
+        useColumn.setCellValueFactory((CellDataFeatures<SiteTemplate, Boolean> param) -> param.getValue().getUse());
+        useColumn.setCellFactory(CheckBoxTableCell.forTableColumn(useColumn));
+        titleColumn = new TableColumn(props.getProperty(CSGProp.NAVTITLE_COL));
         titleColumn.setCellValueFactory(new PropertyValueFactory<SiteTemplate, String>("navbarTitle"));
-        fileNameColumn = new TableColumn("File Name");
+        fileNameColumn = new TableColumn(props.getProperty(CSGProp.FILENAME_COL));
         fileNameColumn.setCellValueFactory(new PropertyValueFactory<SiteTemplate, String>("fileName"));
-        scriptColumn = new TableColumn("Script");
+        scriptColumn = new TableColumn(props.getProperty(CSGProp.SCRIPT_COL));
         scriptColumn.setCellValueFactory(new PropertyValueFactory<SiteTemplate, String>("script"));
         siteTemplateTable.getColumns().addAll(useColumn, titleColumn, fileNameColumn, scriptColumn);
         siteTemplateTable.setMaxWidth(500);
         siteTemplateTable.setMaxHeight(200);
+        siteTemplateTable.setEditable(true);
         siteTemplateBox.getChildren().add(siteTemplateTable);
         
         pageStyleBox = new GridPane();
         pageStyleBox.setHgap(10);
         pageStyleBox.setVgap(10);
         pageStyleBox.setPadding(new Insets(5,5,5,5));
-        pageStyleHeader = new Label("Page Style");
+        pageStyleHeader = new Label(props.getProperty(CSGProp.PAGESTYLE_HEADER));
         pageStyleBox.add(pageStyleHeader, 0, 0, 2, 2);
-        pageStyleBox.add(new Label("Banner School Image"), 0, 2, 1, 1);
+        pageStyleBox.add(new Label(props.getProperty(CSGProp.BANNER)), 0, 2, 1, 1);
         String imagePath = FILE_PROTOCOL + PATH_IMAGES + "yale.png";
         pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 2, 5, 1);
-        changeBannerButton = new Button("Change");
+        changeBannerButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeBannerButton, 6, 2, 1, 1);
-        pageStyleBox.add(new Label("Left Footer Image"), 0, 3, 1, 1);
+        pageStyleBox.add(new Label(props.getProperty(CSGProp.LEFTFOOT)), 0, 3, 1, 1);
         pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 3, 5, 1);
-        changeLeftFootButton = new Button("Change");
+        changeLeftFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeLeftFootButton, 6, 3, 1, 1);
-        pageStyleBox.add(new Label("Right Footer Image"), 0, 4, 1, 1);
+        pageStyleBox.add(new Label(props.getProperty(CSGProp.RIGHTFOOT)), 0, 4, 1, 1);
         pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 4, 5, 1);
-        changeRightFootButton = new Button("Change");
+        changeRightFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeRightFootButton, 6, 4, 1, 1);
-        pageStyleBox.add(new Label("Stylesheet"), 0, 5, 1, 1);
+        pageStyleBox.add(new Label(props.getProperty(CSGProp.STYLESHEET)), 0, 5, 1, 1);
         styleSheetBox = new ComboBox();
         pageStyleBox.add(styleSheetBox, 1, 5, 1, 1);
-        pageStyleBox.add(new Label("NOTE: New Stylesheets maybe be placed in work/css to be selectable."), 0, 6, 10, 1);
+        pageStyleBox.add(new Label(props.getProperty(CSGProp.STYLESHEET_NOTE)), 0, 6, 10, 1);
         
         courseInfoBox.setMaxWidth(800);
         siteTemplateBox.setMaxWidth(800);

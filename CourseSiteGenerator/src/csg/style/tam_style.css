@@ -153,7 +153,7 @@
         linear-gradient(#f2f2ff, #d6d6ff),
         linear-gradient(#fcfcff 0%, #d9d9ff 20%, #d6d6ff 100%),
         linear-gradient(#ddddff 0%, #f6f6ff 50%);
-    -fx-background-radius: 8,7,6;
+    -fx-background-radius: 6,5,4;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
@@ -165,12 +165,29 @@
         linear-gradient(#ddddff 0%, #e6e6ff 50%);
 }
 
+.file_button{
+    -fx-background-color: 
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #d9d9ff 20%, #d6d6ff 100%),
+        linear-gradient(#ddddff 0%, #f6f6ff 50%);
+    -fx-background-radius: 6,5,4;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+.file_button:hover{
+    -fx-background-color: 
+        linear-gradient(#f2f2ff, #d6d6ff),
+        linear-gradient(#fcfcff 0%, #a9a9ff 20%, #b6b6ff 100%),
+        linear-gradient(#ddddff 0%, #e6e6ff 50%);
+}
+
 .clear_button{
     -fx-background-color: 
         linear-gradient(#f2f2ff, #d6d6ff),
         linear-gradient(#fcfcff 0%, #d9d9ff 20%, #d6d6ff 100%),
         linear-gradient(#ddddff 0%, #f6f6ff 50%);
-    -fx-background-radius: 8,7,6;
+    -fx-background-radius: 6,5,4;
     -fx-background-insets: 0,1,2;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );

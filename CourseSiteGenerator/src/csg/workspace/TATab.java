@@ -11,7 +11,6 @@ import csg.CSGProp;
 import csg.data.TAData;
 import csg.data.CSGData;
 import csg.style.CSGStyle;
-import djf.components.AppDataComponent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.value.ChangeListener;
@@ -25,18 +24,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import jtps.jTPS;
 import properties_manager.PropertiesManager;
 
 /**
@@ -58,6 +56,7 @@ public class TATab extends Tab {
     TableView<TeachingAssistant> taTable;
     TableColumn<TeachingAssistant, String> nameColumn;
     TableColumn<TeachingAssistant, String> emailColumn;
+    TableColumn<TeachingAssistant, Boolean> gradColumn;
 
     // THE TA INPUT
     HBox addBox;
@@ -89,15 +88,16 @@ public class TATab extends Tab {
         this.app = app;
         this.controller = controller;
         this.csgWorkspace = csgWorkspace;
-        this.setText("TA Office Hours");
-        
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        this.setText(props.getProperty(CSGProp.TATAB_HEADER));
+        
+   
         
                 // INIT THE HEADER ON THE LEFT
         tasHeaderBox = new HBox();
         String tasHeaderText = props.getProperty(CSGProp.TAS_HEADER_TEXT.toString());
         tasHeaderLabel = new Label(tasHeaderText);
-        removeButton = new Button("-");
+        removeButton = new Button(props.getProperty(CSGProp.REMOVE_BUTTON));
         tasHeaderBox.getChildren().add(tasHeaderLabel);
         tasHeaderBox.getChildren().add(removeButton);
 
@@ -109,16 +109,22 @@ public class TATab extends Tab {
         taTable.setItems(tableData);
         String nameColumnText = props.getProperty(CSGProp.NAME_COLUMN_TEXT.toString());
         String emailColumnText = props.getProperty(CSGProp.EMAIL_COLUMN_TEXT.toString());
+        String gradColumnText = props.getProperty(CSGProp.UNDERGRAD);
         nameColumn = new TableColumn(nameColumnText);
         emailColumn = new TableColumn(emailColumnText);
+        gradColumn = new TableColumn(gradColumnText);
         nameColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("name")
         );
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("email")
         );
+        gradColumn.setCellValueFactory((CellDataFeatures<TeachingAssistant, Boolean> param) -> param.getValue().getGrad());
+        gradColumn.setCellFactory(CheckBoxTableCell.forTableColumn(gradColumn));
+        taTable.getColumns().add(gradColumn);
         taTable.getColumns().add(nameColumn);
         taTable.getColumns().add(emailColumn);
+        taTable.setEditable(true);
         
         
         // ADD BOX FOR ADDING A TA

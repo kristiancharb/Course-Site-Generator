@@ -4,18 +4,21 @@
  * and open the template in the editor.
  */
 package csg.data;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  *
  * @author kristiancharbonneau
  */
 public class SiteTemplate {
-    boolean use;
+    BooleanProperty use;
     String navbarTitle;
     String fileName;
     String script;
     
     public SiteTemplate(String navbarTitle, String fileName, String script){
+        this.use = new SimpleBooleanProperty(true);
         this.navbarTitle = navbarTitle;
         this.fileName = fileName;
         this.script = script;
@@ -32,5 +35,8 @@ public class SiteTemplate {
     public String getScript(){
         return script;
     }
-    
+    public BooleanProperty getUse(){
+        return use;
+    }
+   
 }

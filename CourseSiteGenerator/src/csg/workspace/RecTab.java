@@ -6,6 +6,7 @@
 package csg.workspace;
 
 import csg.CSGApp;
+import csg.CSGProp;
 import csg.data.Recitation;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -29,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
+import properties_manager.PropertiesManager;
 
 /**
  *
@@ -67,16 +69,17 @@ public class RecTab extends Tab{
     Button clearButton; 
     
     public RecTab(CSGApp app, CSGController controller, CSGWorkspace workspace){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
-        this.setText("Recitations");
+        this.setText(props.getProperty(CSGProp.RECTAB_HEADER));
         
         sPane = new ScrollPane();
         box = new VBox();
         header = new HBox();
-        headerLabel = new Label("Recitations");
-        removeButton = new Button("-");
+        headerLabel = new Label(props.getProperty(CSGProp.RECTAB_HEADER));
+        removeButton = new Button(props.getProperty(CSGProp.REMOVE_BUTTON));
         header.getChildren().addAll(headerLabel, removeButton);
         box.getChildren().add(header);
         
@@ -88,17 +91,17 @@ public class RecTab extends Tab{
         );
         recTable = new TableView();
         recTable.setItems(recitations);
-        sectionCol = new TableColumn("Section");
+        sectionCol = new TableColumn(props.getProperty(CSGProp.SECTION_COL));
         sectionCol.setCellValueFactory(new PropertyValueFactory<>("section"));
-        instructorCol = new TableColumn("Instructor");
+        instructorCol = new TableColumn(props.getProperty(CSGProp.INSTRUCTOR_COL));
         instructorCol.setCellValueFactory(new PropertyValueFactory<>("instructor"));
-        timeCol = new TableColumn("Day/Time");
+        timeCol = new TableColumn(props.getProperty(CSGProp.TIME_COL));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
-        locationCol = new TableColumn("Location");
+        locationCol = new TableColumn(props.getProperty(CSGProp.LOCATION_COL));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-        ta1Col = new TableColumn("TA");
+        ta1Col = new TableColumn(props.getProperty(CSGProp.TA_COL));
         ta1Col.setCellValueFactory(new PropertyValueFactory<>("ta1"));
-        ta2Col = new TableColumn("TA");
+        ta2Col = new TableColumn(props.getProperty(CSGProp.TA_COL));
         ta2Col.setCellValueFactory(new PropertyValueFactory<>("ta2"));
         recTable.getColumns().addAll(sectionCol, instructorCol, timeCol, locationCol, ta1Col, ta2Col);
         recTable.setMinWidth(600);
@@ -110,27 +113,30 @@ public class RecTab extends Tab{
         addBox.setHgap(10);
         addBox.setVgap(10);
         addBox.setPadding(new Insets(5,5,5,5));
-        addHeader = new Label("Add/Edit");
+        addHeader = new Label(props.getProperty(CSGProp.ADDEDIT));
         addBox.add(addHeader, 0, 0, 2, 2);
-        addBox.add(new Label("Section"), 0, 3, 1, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.SECTION)), 0, 3, 1, 1);
         sectionField = new TextField();
         addBox.add(sectionField, 1, 3, 15, 1);
-        addBox.add(new Label("Instructor"), 0, 4, 1, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.INSTRUCTOR)), 0, 4, 1, 1);
         instructorField = new TextField();
         addBox.add(instructorField, 1, 4, 15, 1);
-        addBox.add(new Label("Day/Time"), 0, 5, 1, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.TIME)), 0, 5, 1, 1);
         timeField = new TextField();
         addBox.add(timeField, 1, 5, 15, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.LOCATION)), 0, 6, 1, 1);
+        locationField = new TextField();
+        addBox.add(locationField, 1, 6, 15, 1);
         ta1Box = new ComboBox();
         ta2Box = new ComboBox();
-        addBox.add(new Label("Supervising TA"), 0, 6, 1, 1);
-        addBox.add(new Label("Supervising TA"), 0, 7, 1, 1);
-        addBox.add(ta1Box, 1, 6, 15, 1);
-        addBox.add(ta2Box, 1, 7, 15, 1);
-        addButton = new Button("Add/Edit");
-        clearButton = new Button("Clear");
-        addBox.add(addButton, 0, 8, 1, 1);
-        addBox.add(clearButton, 1, 8, 1, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.TA)), 0, 7, 1, 1);
+        addBox.add(new Label(props.getProperty(CSGProp.TA)), 0, 8, 1, 1);
+        addBox.add(ta1Box, 1, 7, 15, 1);
+        addBox.add(ta2Box, 1, 8, 15, 1);
+        addButton = new Button(props.getProperty(CSGProp.ADDEDIT_BUTTON));
+        clearButton = new Button(props.getProperty(CSGProp.CLEAR_BUTTON));
+        addBox.add(addButton, 0, 9, 1, 1);
+        addBox.add(clearButton, 1, 9, 1, 1);
         
         addBox.setMaxWidth(800);
         header.setMaxWidth(800);

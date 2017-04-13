@@ -21,6 +21,10 @@
         <property name="SAVE_AS_ICON"       value="SaveAs.png"></property>
         <property name="EXPORT_ICON"       value="Export.png"></property>  
         
+        <property name="ABOUT_ICON"       value="About.png"></property>
+        <property name="UNDO_ICON"       value="Undo.png"></property>  
+        <property name="REDO_ICON"       value="Redo.png"></property>    
+        
         <!-- TOOLTIPS FOR BUTTONS -->
         <property name="NEW_TOOLTIP"		value="Build a new TA Grid"></property>
         <property name="LOAD_TOOLTIP"		value="Load an existing TA Grid"></property>
@@ -28,6 +32,9 @@
         <property name="SAVE_AS_TOOLTIP"        value="Save the current TA Grid to a new file"></property>
         <property name="EXIT_TOOLTIP"		value="Exit the Application"></property>
         <property name="EXPORT_TOOLTIP"		value="Export the files"></property>
+        <property name="ABOUT_TOOLTIP"		value="About the application"></property>
+        <property name="UNDO_TOOLTIP"		value="Undo"></property>
+        <property name="REDO_TOOLTIP"		value="Redo"></property>
         
         <!-- ERROR MESSAGES -->
         <property name="CLOSE_BUTTON_TEXT"              value="Close"></property>
@@ -89,6 +96,96 @@
         <property name="ENDHOUR_NOT_VALID_MESSAGE"     value="End time cannot be before the current start time"></property>
         <property name="OFFICE_HOURS_CONFLICT_TITLE"     value="Office Hours Conflict"></property>
         <property name="OFFICE_HOURS_CONFLICT_MESSAGE"     value="Office Hours outside the start and end time will be removed. Do you wish to continue?"></property>
+        
+        <property name="ADDEDIT"     value="Add/Edit"></property>
+        <property name="CDTAB_HEADER"     value="Course Details"></property>
+        <property name="COURSEINFO_HEADER"     value="Course Information"></property>
+        <property name="SUBJECT"     value="Subject: "></property>
+        <property name="NUMBER"     value="Number: "></property>
+        <property name="SEMESTER"     value="Project Data"></property>
+        <property name="YEAR"     value="Year: "></property>
+        <property name="TITLE"     value="Title: "></property>
+        <property name="INSTRNAME"     value="Instructor Name: "></property>
+        <property name="INSTRHOME"     value="Instructor Home: "></property>
+        <property name="CHANGEEXPORTDIR"     value="Change Export Dir: "></property>
+        <property name="SITETEMP_HEADER"     value="Site Template"></property>
+        <property name="SITETEMP_NOTE"     value="The selected directory should contain the full site template, including the HTML files"></property>
+        <property name="SELECTTEMPLATEDIR"     value="Select Template Directory"></property>
+        <property name="SITEPAGES"     value="Site Pages: "></property>
+        <property name="USE_COL"     value="Use"></property>
+        <property name="NAVTITLE_COL"     value="Navbar Title"></property>
+        <property name="FILENAME_COL"     value="File Name"></property>
+        <property name="SCRIPT_COL"     value="Script: "></property>
+        <property name="PAGESTYLE_HEADER"     value="Page Style"></property>
+        <property name="BANNER"     value="Banner School Image: "></property>
+        <property name="LEFTFOOT"     value="Left Footer Image: "></property>
+        <property name="RIGHTFOOT"     value="Right Footer Image"></property>
+        <property name="STYLESHEET"     value="Style Sheet"></property>
+        <property name="STYLESHEET_NOTE"     value="NOTE: New Stylesheets maybe be placed in work/css to be selectable."></property>
+        
+        
+        <property name="RECTAB_HEADER"     value="Recitation Data"></property>
+        <property name="SECTION_COL"     value="Section"></property>
+        <property name="INSTRUCTOR_COL"     value="Instructor"></property>
+        <property name="TIME_COL"     value="Date/Time"></property>
+        <property name="LOCATION_COL"     value="Location"></property>
+        <property name="TA_COL"     value="TA"></property>
+        <property name="SECTION"     value="Section: "></property>
+        <property name="INSTRUCTOR"     value="Instructor: "></property>
+        <property name="TIME"     value="Date/Time: "></property>
+        <property name="LOCATION"     value="Location: "></property>
+        <property name="TA"     value="Supervising TA: "></property>
+        
+        <property name="SCHEDTAB_HEADER"     value="Schedule Data"></property>
+        <property name="SCHEDULE"     value="Schedule"></property>
+        <property name="BOUNDARIES"     value="Calender Boundaries"></property>
+        <property name="STARTINGMON"     value="Starting Monday: "></property>
+        <property name="ENDINGFRI"     value="Ending Friday: "></property>
+        <property name="SCHEDULEITEMS"     value="Schedule Items"></property>
+        <property name="TYPE_COL"     value="Type"></property>
+        <property name="DATE_COL"     value="Date"></property>
+        <property name="TITLE_COL"     value="Title"></property>
+        <property name="TOPIC_COL"     value="Topic"></property>
+        <property name="TYPE"     value="Type: "></property>
+        <property name="DATE"     value="Date: "></property>
+        <property name="TIME"     value="Time: "></property>
+        <property name="TOPIC"     value="Topic: "></property>
+        <property name="LINK"     value="Link: "></property>
+        <property name="CRITERIA"     value="Criteria: "></property>
+        
+        <property name="TATAB_HEADER"     value="TA Data"></property>
+        <property name="UNDERGRAD"     value="Undergraduate"></property>
+   
+        <property name="PROJTAB_HEADER"     value="Project Data"></property>
+        <property name="PROJECTS"     value="Projects"></property>
+        <property name="TEAMS"     value="Teams"></property>
+        <property name="NAME_COL"     value="Name"></property>
+        <property name="COLOR_COL"     value="Color"></property>
+        <property name="TEXTCOLOR_COL"     value="Text Color"></property>
+        <property name="LINK_COL"     value="Link"></property>
+        <property name="NAME"     value="Name: "></property>
+        <property name="COLOR"     value="Color: "></property>
+        <property name="TEXTCOLOR"     value="Text Color: "></property>
+        <property name="STUDENTS"     value="Students"></property>
+        <property name="FIRSTNAME_COL"     value="First Name"></property>
+        <property name="LASTNAME_COL"     value="Last Name"></property>
+        <property name="TEAM_COL"     value="Team"></property>
+        <property name="ROLE_COL"     value="Role"></property>
+        <property name="FIRSTNAME"     value="First Name: "></property>
+        <property name="LASTNAME"     value="Last Name: "></property>
+        <property name="TEAM"     value="Team: "></property>
+        <property name="ROLE"     value="Role: "></property>
+        
+        
+        
+        <property name="CHANGE_BUTTON"     value="Change: "></property>
+        <property name="REMOVE_BUTTON"     value=" - "></property>
+        <property name="ADDEDIT_BUTTON"     value="Add/Update"></property>
+        <property name="CLEAR_BUTTON"     value="Clear"></property>
+        
+        
+        
+        
 	
 	
     </property_list>
