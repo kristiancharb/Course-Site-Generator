@@ -124,64 +124,64 @@
         <property name="STYLESHEET_NOTE"     value="HINWEIS: Neue Stylesheets werden eventuell in Arbeit/CSS platziert."></property>
         
         
-        <property name="RECTAB_HEADER"     value="Recitation Data"></property>
-        <property name="SECTION_COL"     value="Section"></property>
-        <property name="INSTRUCTOR_COL"     value="Instructor"></property>
-        <property name="TIME_COL"     value="Date/Time"></property>
-        <property name="LOCATION_COL"     value="Location"></property>
+        <property name="RECTAB_HEADER"     value="Rezitativdaten"></property>
+        <property name="SECTION_COL"     value="Sektion"></property>
+        <property name="INSTRUCTOR_COL"     value="Instruktor"></property>
+        <property name="TIME_COL"     value="Datum/Zeit"></property>
+        <property name="LOCATION_COL"     value="Lage"></property>
         <property name="TA_COL"     value="TA"></property>
-        <property name="SECTION"     value="Section: "></property>
-        <property name="INSTRUCTOR"     value="Instructor: "></property>
-        <property name="TIME"     value="Date/Time: "></property>
-        <property name="LOCATION"     value="Location: "></property>
-        <property name="TA"     value="Supervising TA: "></property>
+        <property name="SECTION"     value="Sektion: "></property>
+        <property name="INSTRUCTOR"     value="Instruktor: "></property>
+        <property name="TIME"     value="Datum/Zeit: "></property>
+        <property name="LOCATION"     value="Lage: "></property>
+        <property name="TA"     value="Überwachungs TA: "></property>
         
-        <property name="SCHEDTAB_HEADER"     value="Schedule Data"></property>
-        <property name="SCHEDULE"     value="Schedule"></property>
-        <property name="BOUNDARIES"     value="Calender Boundaries"></property>
-        <property name="STARTINGMON"     value="Starting Monday: "></property>
-        <property name="ENDINGFRI"     value="Ending Friday: "></property>
-        <property name="SCHEDULEITEMS"     value="Schedule Items"></property>
-        <property name="TYPE_COL"     value="Type"></property>
-        <property name="DATE_COL"     value="Date"></property>
-        <property name="TITLE_COL"     value="Title"></property>
-        <property name="TOPIC_COL"     value="Topic"></property>
-        <property name="TYPE"     value="Type: "></property>
-        <property name="DATE"     value="Date: "></property>
-        <property name="TIME"     value="Time: "></property>
-        <property name="TOPIC"     value="Topic: "></property>
+        <property name="SCHEDTAB_HEADER"     value="Zeitplan Daten"></property>
+        <property name="SCHEDULE"     value="Zeitplan"></property>
+        <property name="BOUNDARIES"     value="Kalander Grenzen"></property>
+        <property name="STARTINGMON"     value="Ab Montag:"></property>
+        <property name="ENDINGFRI"     value="Bis Freitag: "></property>
+        <property name="SCHEDULEITEMS"     value="Termin Artikel"></property>
+        <property name="TYPE_COL"     value="Art"></property>
+        <property name="DATE_COL"     value="Datum"></property>
+        <property name="TITLE_COL"     value="Titel"></property>
+        <property name="TOPIC_COL"     value="Thema"></property>
+        <property name="TYPE"     value="Art: "></property>
+        <property name="DATE"     value="Datum: "></property>
+        <property name="TIME"     value="Zeit: "></property>
+        <property name="TOPIC"     value="Thema: "></property>
         <property name="LINK"     value="Link: "></property>
-        <property name="CRITERIA"     value="Criteria: "></property>
+        <property name="CRITERIA"     value="Kriterien: "></property>
         
-        <property name="TATAB_HEADER"     value="TA Data"></property>
+        <property name="TATAB_HEADER"     value="TA Dateien"></property>
         <property name="UNDERGRAD"     value="Undergraduate"></property>
    
-        <property name="PROJTAB_HEADER"     value="Project Data"></property>
-        <property name="PROJECTS"     value="Projects"></property>
+        <property name="PROJTAB_HEADER"     value="Projekt Daeien"></property>
+        <property name="PROJECTS"     value="Projekte"></property>
         <property name="TEAMS"     value="Teams"></property>
         <property name="NAME_COL"     value="Name"></property>
-        <property name="COLOR_COL"     value="Color"></property>
-        <property name="TEXTCOLOR_COL"     value="Text Color"></property>
+        <property name="COLOR_COL"     value="Farbe"></property>
+        <property name="TEXTCOLOR_COL"     value="Text Farbe"></property>
         <property name="LINK_COL"     value="Link"></property>
         <property name="NAME"     value="Name: "></property>
-        <property name="COLOR"     value="Color: "></property>
-        <property name="TEXTCOLOR"     value="Text Color: "></property>
-        <property name="STUDENTS"     value="Students"></property>
-        <property name="FIRSTNAME_COL"     value="First Name"></property>
-        <property name="LASTNAME_COL"     value="Last Name"></property>
+        <property name="COLOR"     value="Farbe: "></property>
+        <property name="TEXTCOLOR"     value="Text Farbe: "></property>
+        <property name="STUDENTS"     value="Studenten"></property>
+        <property name="FIRSTNAME_COL"     value="Vorname"></property>
+        <property name="LASTNAME_COL"     value="Nachname"></property>
         <property name="TEAM_COL"     value="Team"></property>
-        <property name="ROLE_COL"     value="Role"></property>
-        <property name="FIRSTNAME"     value="First Name: "></property>
-        <property name="LASTNAME"     value="Last Name: "></property>
+        <property name="ROLE_COL"     value="Rolle"></property>
+        <property name="FIRSTNAME"     value="Vorname: "></property>
+        <property name="LASTNAME"     value="Nachname: "></property>
         <property name="TEAM"     value="Team: "></property>
-        <property name="ROLE"     value="Role: "></property>
+        <property name="ROLE"     value="Rolle: "></property>
         
         
         
-        <property name="CHANGE_BUTTON"     value="Change: "></property>
+        <property name="CHANGE_BUTTON"     value="Wechseln: "></property>
         <property name="REMOVE_BUTTON"     value=" - "></property>
-        <property name="ADDEDIT_BUTTON"     value="Add/Update"></property>
-        <property name="CLEAR_BUTTON"     value="Clear"></property>
+        <property name="ADDEDIT_BUTTON"     value="Hinzufügen/Aktualisieren"></property>
+        <property name="CLEAR_BUTTON"     value="Löschen"></property>
         
         
     </property_list>

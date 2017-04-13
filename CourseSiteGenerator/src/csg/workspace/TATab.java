@@ -272,6 +272,10 @@ public class TATab extends Tab {
         return controller;
     }
     
+    public Button getRemoveButton(){
+        return removeButton;
+    }
+    
     public HBox getTAsHeaderBox() {
         return tasHeaderBox;
     }

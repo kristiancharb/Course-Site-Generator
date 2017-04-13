@@ -37,7 +37,7 @@
 }
 
 .plain_pane{
-    -fx-background-color: #e0e0fc;
+    -fx-background-color: #e0eafc;
     -fx-padding: 10;
     -fx-spacing: 10;
 }
@@ -63,7 +63,7 @@
 }
 .tab-pane .tab
 {
-    -fx-background-color: #aaa0f7;
+    -fx-background-color: #8fa7e8;
 
     
 
@@ -90,19 +90,26 @@
 .bordered_pane {
     -fx-background-color: #aaaaff;
     -fx-background-radius: 5.0;
-    -fx-padding: 15;
-    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-spacing: 5;
     -fx-border-width: 2px;
     -fx-border-color: #7777dd;
 }
 
 .header_pane{
-    -fx-background-color: rgb(207,203,253);
+    -fx-background-color: #ccddff;
     -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-spacing: 5;
     -fx-border-width: 0.5px;
     -fx-border-color: #525266;
     
 }
+
+.table_view{
+   -fx-background-color: transparent;
+}
+
 
 .header_label {
     -fx-font-size: 18pt;
@@ -110,7 +117,7 @@
 }
 
 .subheader_pane{
-    -fx-background-color: #e0e0fc;
+    -fx-background-color: #e0eafc;
     -fx-background-radius: 5.0;
     -fx-padding: 10;
     -fx-spacing: 30;
@@ -123,21 +130,24 @@
 }
 
 .scroll_pane{
-    -fx-background-color: #e0e0fc;
+    -fx-background-color: #e0eafc;
     -fx-padding: 10;
     -fx-spacing: 10;
 
 }
 
 .ta_table{
-    
+    -fx-background-color: transparent;
+}
+
+.table-view .column_header_background{
+    -fx-background-color: #020963;
+    -fx-text-fill: #ffffff;  
 }
 
 .table-view .column-header.ta_table_column_header .label {
     -fx-background-color: #020963;
-    -fx-text-fill: #ffffff;
-        
-    
+    -fx-text-fill: #ffffff;  
 }
 
 .add_ta_pane{
@@ -242,7 +252,7 @@
 }
 
 .office_hours_grid_ta_cell_pane{
-    -fx-background-color: #c9cff2;
+    -fx-background-color: #c9dbed;
     -fx-spacing: 5;
     -fx-padding: 5;
     -fx-border-width: 1.5px;

@@ -109,6 +109,7 @@ public class CSGStyle extends AppStyleComponent {
         taTab.getNameTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
         taTab.getAddButton().getStyleClass().add(CLASS_ADD_BUTTON);
         taTab.getClearButton().getStyleClass().add(CLASS_CLEAR_BUTTON);
+        taTab.getRemoveButton().getStyleClass().add(CLASS_CLEAR_BUTTON);
 
         // RIGHT SIDE - THE HEADER
         taTab.getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
