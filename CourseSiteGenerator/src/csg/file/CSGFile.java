@@ -130,5 +130,14 @@ public class CSGFile implements AppFileComponent {
     public TAFile getTAFile(){
         return taFile;
     }
+    public RecFile getRecFile(){
+        return recFile;
+    }
+    public SchedFile getSchedFile(){
+        return schedFile;
+    }
+    public ProjectFile getProjectFile(){
+        return projectFile;
+    }
 
 }
