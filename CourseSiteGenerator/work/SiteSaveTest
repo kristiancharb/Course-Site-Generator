@@ -1,0 +1,165 @@
+
+[
+    {
+        "startHour":"1",
+        "endHour":"12",
+        "undergrad_tas":[
+            {
+                "name":"John Doe",
+                "email":"jdoe@gmail.com"
+            },
+            {
+                "name":"Jane Doe",
+                "email":"jane@gmail.com"
+            },
+            {
+                "name":"Bob",
+                "email":"bob@yahoo.com"
+            }
+        ],
+        "officeHours":[
+            {
+                "day":"MONDAY",
+                "time":"2_30am",
+                "name":"Bob"
+            },
+            {
+                "day":"TUESDAY",
+                "time":"4_00am",
+                "name":"John Doe"
+            },
+            {
+                "day":"MONDAY",
+                "time":"4_30am",
+                "name":"Bob"
+            }
+        ]
+    },
+    {
+        "subject":"CSE",
+        "semester":"Fall",
+        "number":"219",
+        "year":"2017",
+        "title":"Comp Sci III",
+        "instructorName":"McKenna",
+        "instructorHome":"mckenna.com",
+        "exportDirPath":"CSE219\\Summer2017\\public",
+        "siteTemplateDir":"\\templates\\CSE219",
+        "siteTemplates":[
+            {
+                "use":true,
+                "navbarTitle":"Home",
+                "fileName":"index.html",
+                "script":"HomeBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Syllabus",
+                "fileName":"syllabus.html",
+                "script":"SyllabusBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Schedule",
+                "fileName":"schedule.html",
+                "script":"ScheduleBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"HWs",
+                "fileName":"hws.html",
+                "script":"HWsBuilder"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Projects",
+                "fileName":"projects.html",
+                "script":"ProjectBuilder.js"
+            }
+        ],
+        "bannerImagePath":"yale.png",
+        "leftFootPath":"yale.png",
+        "rightFootPath":"yale.png",
+        "stylesheet":"seawolf.css"
+    },
+    {
+        "recitations":[
+            {
+                "section":"R02",
+                "instructor":"McKenna",
+                "time":"Wed 3:30pm - 4:23pm",
+                "location":"Old CS 2114",
+                "ta1":"Jane Doe",
+                "ta2":"Joe Shmo"
+            },
+            {
+                "section":"R05",
+                "instructor":"Banerjee",
+                "time":"Tues 5:30pm-6:23pm",
+                "location":"Old CS 2114",
+                "ta1":"",
+                "ta2":""
+            }
+        ]
+    },
+    {
+        "startingMonday":"23.04.2017",
+        "endingFriday":"30.06.2017",
+        "items":[
+            {
+                "type":"Holiday",
+                "date":"2/9/17",
+                "title":"Snow Day",
+                "topic":""
+            },
+            {
+                "type":"Lecture",
+                "date":"2/14/17",
+                "title":"Lecture 3",
+                "topic":"Event Programming"
+            },
+            {
+                "type":"Holiday",
+                "date":"3/3/17",
+                "title":"Spring Break",
+                "topic":""
+            }
+        ]
+    },
+    {
+        "teams":[
+            {
+                "name":"Atomic Comics",
+                "color":"552211",
+                "textColor":"ffffff",
+                "link":"atomiccomic.com"
+            },
+            {
+                "name":"C4 Comics",
+                "color":"235511",
+                "textColor":"ffffff",
+                "link":"c4comic.com"
+            }
+        ],
+        "students":[
+            {
+                "firstName":"Joe",
+                "lastName":"Shmo",
+                "team":"Atomic Comics",
+                "role":"Lead Designer"
+            },
+            {
+                "firstName":"Jane",
+                "lastName":"Doe",
+                "team":"Atomic Comics",
+                "role":"Lead Programmer"
+            },
+            {
+                "firstName":"Bob",
+                "lastName":"Johnson",
+                "team":"C4 Comics",
+                "role":"Lead Designer"
+            }
+        ]
+    }
+]

@@ -26,10 +26,10 @@
         <property name="REDO_ICON"       value="Redo.png"></property>    
         
         <!-- TOOLTIPS FOR BUTTONS -->
-        <property name="NEW_TOOLTIP"		value="Build a new TA Grid"></property>
-        <property name="LOAD_TOOLTIP"		value="Load an existing TA Grid"></property>
-        <property name="SAVE_TOOLTIP"		value="Save the current TA Grid"></property>
-        <property name="SAVE_AS_TOOLTIP"        value="Save the current TA Grid to a new file"></property>
+        <property name="NEW_TOOLTIP"		value="Build a new Project"></property>
+        <property name="LOAD_TOOLTIP"		value="Load an existing Project"></property>
+        <property name="SAVE_TOOLTIP"		value="Save the current Project"></property>
+        <property name="SAVE_AS_TOOLTIP"        value="Save the current Project to a new file"></property>
         <property name="EXIT_TOOLTIP"		value="Exit the Application"></property>
         <property name="EXPORT_TOOLTIP"		value="Export the files"></property>
         <property name="ABOUT_TOOLTIP"		value="About the application"></property>
@@ -178,7 +178,7 @@
         
         
         
-        <property name="CHANGE_BUTTON"     value="Change: "></property>
+        <property name="CHANGE_BUTTON"     value="Change"></property>
         <property name="REMOVE_BUTTON"     value=" - "></property>
         <property name="ADDEDIT_BUTTON"     value="Add/Update"></property>
         <property name="CLEAR_BUTTON"     value="Clear"></property>

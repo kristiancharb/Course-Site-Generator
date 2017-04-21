@@ -39,6 +39,7 @@ public class TAData {
         // TO UI LABELS, WHICH MEANS IF WE CHANGE VALUES IN THESE
         // PROPERTIES IT CHANGES WHAT APPEARS IN THOSE LABELS
         HashMap<String, StringProperty> officeHours;
+        ArrayList<TimeSlot> officeHoursList;
 
         // THESE ARE THE LANGUAGE-DEPENDENT VALUES FOR
         // THE OFFICE HOURS GRID HEADERS. NOTE THAT WE
@@ -62,6 +63,7 @@ public class TAData {
         
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
         teachingAssistants = FXCollections.observableArrayList();
+        
 
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
@@ -69,6 +71,7 @@ public class TAData {
 
         //THIS WILL STORE OUR OFFICE HOURS
         officeHours = new HashMap();
+        officeHoursList = new ArrayList<TimeSlot>();
 
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -109,6 +112,9 @@ public class TAData {
 
     public ObservableList getTeachingAssistants() {
         return teachingAssistants;
+    }
+    public ArrayList<TimeSlot> getOfficeHoursList(){
+        return officeHoursList;
     }
 
     public String getCellKey(int col, int row) {
@@ -198,6 +204,10 @@ public class TAData {
             int column, int row, StringProperty prop) {
         grid.get(row).set(column, prop);
     }
+    
+    public void setOfficeHoursList(ArrayList<TimeSlot> list){
+        officeHoursList = list;
+    }
 
     private void initOfficeHours(int initStartHour, int initEndHour) {
         // NOTE THAT THESE VALUES MUST BE PRE-VERIFIED
@@ -263,6 +273,19 @@ public class TAData {
         Collections.sort(teachingAssistants);
 
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
+    public void addTALoad(String initName, String initEmail) {
+        // MAKE THE TA
+        TeachingAssistant ta = new TeachingAssistant(initName, initEmail);
+
+        // ADD THE TA
+        if ((!containsTA(initName, initEmail)) && isValidEmail(initEmail)) {
+            teachingAssistants.add(ta);
+        }
+
+        // SORT THE TAS
+        Collections.sort(teachingAssistants);
     }
 
     public void removeTA(TeachingAssistant ta) {
@@ -370,6 +393,8 @@ public class TAData {
                 cellProp.setValue(cellText + "\n" + taName);
             }
         }
+        
+        officeHoursList = TimeSlot.buildOfficeHoursList(this);
 
     }
 

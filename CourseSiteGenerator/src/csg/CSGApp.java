@@ -47,6 +47,16 @@ public class CSGApp extends AppTemplate {
     public CSGData getCSGData(){
         return (CSGData)dataComponent;
     }
+    public CSGFile getCSGFile(){
+        return (CSGFile)fileComponent;
+    }
+    public void setDataComponent(CSGData csgData){
+        dataComponent = csgData;
+    }
+    public void setFileComponent(CSGFile csgFile){
+        fileComponent = csgFile;
+    }
+    
 
     /**
      * This is where program execution begins. Since this is a JavaFX app it

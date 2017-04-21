@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CSGApp;
 import csg.CSGProp;
+import csg.data.CDData;
 import csg.data.SiteTemplate;
 import csg.data.TeachingAssistant;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
@@ -92,6 +93,7 @@ public class CDTab extends Tab{
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
+        CDData cdData = app.getCSGData().getCDData();
         this.setText(props.getProperty(CSGProp.CDTAB_HEADER));
 
         
@@ -103,9 +105,13 @@ public class CDTab extends Tab{
         courseInfoHeader = new Label(props.getProperty(CSGProp.COURSEINFO_HEADER));
         courseInfoBox.add(courseInfoHeader, 0, 0, 2, 2);
         subjectBox = new ComboBox();
+        subjectBox.setValue(cdData.getSubject());
         numberBox = new ComboBox();
+        numberBox.setValue(cdData.getNumber());
         semesterBox = new ComboBox();
+        semesterBox.setValue(cdData.getSemester());
         yearBox = new ComboBox();
+        yearBox.setValue(cdData.getYear());
         courseInfoBox.add(new Label(props.getProperty(CSGProp.SUBJECT)), 0, 2, 1, 1);
         courseInfoBox.add(subjectBox, 1, 2, 1, 1);
         courseInfoBox.add(new Label(props.getProperty(CSGProp.NUMBER)), 9, 2, 1, 1);
@@ -115,8 +121,11 @@ public class CDTab extends Tab{
         courseInfoBox.add(new Label(props.getProperty(CSGProp.YEAR)), 9, 3, 1, 1);
         courseInfoBox.add(yearBox, 10, 3, 1, 1);
         titleField = new TextField();
+        titleField.setText(cdData.getTitle());
         instrNameField = new TextField();
+        instrNameField.setText(cdData.getInstructorName());
         instrHomeField = new TextField();
+        instrHomeField.setText(cdData.getInstructorHome());
         courseInfoBox.add(new Label(props.getProperty(CSGProp.TITLE)), 0, 4, 1, 1);
         courseInfoBox.add(titleField, 1, 4, 10, 1);
         courseInfoBox.add(new Label(props.getProperty(CSGProp.INSTRNAME)), 0, 5, 1, 1);
@@ -124,7 +133,7 @@ public class CDTab extends Tab{
         courseInfoBox.add(new Label(props.getProperty(CSGProp.INSTRHOME)), 0, 6, 1, 1);
         courseInfoBox.add(instrHomeField, 1, 6, 10, 1);
         courseInfoBox.add(new Label(props.getProperty(CSGProp.CHANGEEXPORTDIR)), 0, 7, 1, 1);
-        courseInfoBox.add(new Label("..\\..\\Courses\\CSE219\\Summer2017\\public"), 1, 7, 9, 1);
+        courseInfoBox.add(new Label(cdData.getExportDirPath()), 1, 7, 9, 1);
         changeExportButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         courseInfoBox.add(changeExportButton, 10, 7, 1, 1);
         
@@ -132,20 +141,14 @@ public class CDTab extends Tab{
         siteTemplateHeader = new Label(props.getProperty(CSGProp.SITETEMP_HEADER));
         siteTemplateBox.getChildren().add(siteTemplateHeader);
         siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITETEMP_NOTE)));
-        siteTemplateBox.getChildren().add(new Label(".\\templates\\CSE219"));
+        siteTemplateBox.getChildren().add(new Label(cdData.getSiteTemplateDir()));
         selectTemplateButton = new Button(props.getProperty(CSGProp.SELECTTEMPLATEDIR));
         siteTemplateBox.getChildren().add(selectTemplateButton);
         siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITEPAGES)));
         
-        siteTemplates = FXCollections.observableArrayList(
-                new SiteTemplate("Home", "index.html", "HomeBuilder.js"),
-                new SiteTemplate("Syllabus", "syllabus.html", "SyllabusBuilder.js"),
-                new SiteTemplate("Schedule", "schedule.html", "ScheduleBuilder.js"),
-                new SiteTemplate("HWs", "hws.html", "HWsBuilder"),
-                new SiteTemplate("Projects", "projects.html", "ProjectBuilder.js")
-        );
+
         siteTemplateTable = new TableView();
-        siteTemplateTable.setItems(siteTemplates);
+        siteTemplateTable.setItems(cdData.getSiteTemplates());
         useColumn = new TableColumn(props.getProperty(CSGProp.USE_COL));
         useColumn.setCellValueFactory((CellDataFeatures<SiteTemplate, Boolean> param) -> param.getValue().getUse());
         useColumn.setCellFactory(CheckBoxTableCell.forTableColumn(useColumn));
@@ -168,7 +171,11 @@ public class CDTab extends Tab{
         pageStyleHeader = new Label(props.getProperty(CSGProp.PAGESTYLE_HEADER));
         pageStyleBox.add(pageStyleHeader, 0, 0, 2, 2);
         pageStyleBox.add(new Label(props.getProperty(CSGProp.BANNER)), 0, 2, 1, 1);
-        String imagePath = FILE_PROTOCOL + PATH_IMAGES + "yale.png";
+        String imagePath;
+        if(cdData.getBannerImagePath() != null)
+            imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
+        else
+            imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
         pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 2, 5, 1);
         changeBannerButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeBannerButton, 6, 2, 1, 1);
@@ -182,6 +189,7 @@ public class CDTab extends Tab{
         pageStyleBox.add(changeRightFootButton, 6, 4, 1, 1);
         pageStyleBox.add(new Label(props.getProperty(CSGProp.STYLESHEET)), 0, 5, 1, 1);
         styleSheetBox = new ComboBox();
+        styleSheetBox.setValue(cdData.getStyleSheet());
         pageStyleBox.add(styleSheetBox, 1, 5, 1, 1);
         pageStyleBox.add(new Label(props.getProperty(CSGProp.STYLESHEET_NOTE)), 0, 6, 10, 1);
         

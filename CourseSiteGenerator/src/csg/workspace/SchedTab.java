@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CSGApp;
 import csg.CSGProp;
+import csg.data.SchedData;
 import csg.data.ScheduleItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Tab;
@@ -79,6 +80,7 @@ public class SchedTab extends Tab{
         this.controller = controller;
         this.workspace = workspace;
         this.setText(props.getProperty(CSGProp.SCHEDTAB_HEADER));
+        SchedData schedData = app.getCSGData().getSchedData();
         
         box = new VBox();
         tabHeader = new Label(props.getProperty(CSGProp.SCHEDULE));
@@ -108,7 +110,7 @@ public class SchedTab extends Tab{
                 new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
                 new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""));
         itemsTable = new TableView();
-        itemsTable.setItems(items);
+        itemsTable.setItems(schedData.getItems());
         typeCol = new TableColumn(props.getProperty(CSGProp.TYPE_COL));
         dateCol = new TableColumn(props.getProperty(CSGProp.DATE_COL));
         titleCol = new TableColumn(props.getProperty(CSGProp.TITLE_COL));

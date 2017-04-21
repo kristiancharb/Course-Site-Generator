@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CSGApp;
 import csg.CSGProp;
+import csg.data.ProjectData;
 import csg.data.Team;
 import csg.data.Student;
 import javafx.scene.control.Tab;
@@ -92,6 +93,7 @@ public class ProjectTab extends Tab{
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
+        ProjectData projectData = app.getCSGData().getProjectData();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         
         box = new VBox();
@@ -111,7 +113,7 @@ public class ProjectTab extends Tab{
         teams = FXCollections.observableArrayList(
         new Team("Atomic Comics", "552211", "ffffff", "atomiccomic.com"),
                 new Team("C4 Comics", "235511", "ffffff", "c4comic.com"));
-        teamTable.setItems(teams);
+        teamTable.setItems(projectData.getTeams());
         nameCol = new TableColumn(props.getProperty(CSGProp.NAME_COL));
         colorCol = new TableColumn(props.getProperty(CSGProp.COLOR_COL));
         textColorCol = new TableColumn(props.getProperty(CSGProp.TEXTCOLOR_COL));
@@ -161,7 +163,7 @@ public class ProjectTab extends Tab{
         new Student("Joe", "Shmo", "Atomic Comics", "Lead Designer"),
                 new Student("Jane", "Doe", "Atomic Comics", "Lead Programmer"),
                 new Student("Bob", "Johnson", "C4 Comics", "Lead Designer"));
-        studentTable.setItems(students);
+        studentTable.setItems(projectData.getStudents());
         firstNameCol = new TableColumn(props.getProperty(CSGProp.FIRSTNAME_COL));
         lastNameCol = new TableColumn(props.getProperty(CSGProp.LASTNAME_COL));
         teamCol = new TableColumn(props.getProperty(CSGProp.TEAM_COL));
@@ -207,7 +209,7 @@ public class ProjectTab extends Tab{
         sPane.setContent(box);
         box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
         this.setContent(sPane);
-        this.setText(props.getProperty(CSGProp.CDTAB_HEADER));
+        this.setText(props.getProperty(CSGProp.PROJTAB_HEADER));
     }
     
     public ScrollPane getSPane(){

@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CSGApp;
 import csg.CSGProp;
+import csg.data.RecData;
 import csg.data.Recitation;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,7 +48,6 @@ public class RecTab extends Tab{
     Label headerLabel;
     GridPane addBox;
     
-    ObservableList recitations;
     TableView<Recitation> recTable;
     TableColumn<Recitation, String> sectionCol;
     TableColumn<Recitation, String> instructorCol;
@@ -73,6 +73,7 @@ public class RecTab extends Tab{
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
+        RecData recData = app.getCSGData().getRecData();
         this.setText(props.getProperty(CSGProp.RECTAB_HEADER));
         
         sPane = new ScrollPane();
@@ -83,14 +84,9 @@ public class RecTab extends Tab{
         header.getChildren().addAll(headerLabel, removeButton);
         box.getChildren().add(header);
         
-        recitations = FXCollections.observableArrayList(
-                new Recitation("R02", "McKenna", "Wed 3:30pm - 4:23pm", "Old CS 2114",
-                "Jane Doe", "Joe Shmo"),
-                new Recitation("R05", "Banerjee", "Tues 5:30pm-6:23pm", "Old CS 2114",
-                "", "")
-        );
+       
         recTable = new TableView();
-        recTable.setItems(recitations);
+        recTable.setItems(recData.getRecitations());
         sectionCol = new TableColumn(props.getProperty(CSGProp.SECTION_COL));
         sectionCol.setCellValueFactory(new PropertyValueFactory<>("section"));
         instructorCol = new TableColumn(props.getProperty(CSGProp.INSTRUCTOR_COL));

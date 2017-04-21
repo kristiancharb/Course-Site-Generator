@@ -23,6 +23,12 @@ public class SiteTemplate {
         this.fileName = fileName;
         this.script = script;
     }
+    public SiteTemplate(boolean b, String navbarTitle, String fileName, String script){
+        this.use = new SimpleBooleanProperty(b);
+        this.navbarTitle = navbarTitle;
+        this.fileName = fileName;
+        this.script = script;
+    }
     
     public String getNavbarTitle(){
         return navbarTitle;
@@ -37,6 +43,10 @@ public class SiteTemplate {
     }
     public BooleanProperty getUse(){
         return use;
+    }
+    public void toggleUse(){
+        boolean bool = use.getValue();
+        use = new SimpleBooleanProperty(!bool);
     }
    
 }

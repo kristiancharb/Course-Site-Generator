@@ -178,7 +178,7 @@
         
         
         
-        <property name="CHANGE_BUTTON"     value="Wechseln: "></property>
+        <property name="CHANGE_BUTTON"     value="Wechseln"></property>
         <property name="REMOVE_BUTTON"     value=" - "></property>
         <property name="ADDEDIT_BUTTON"     value="Hinzufügen/Aktualisieren"></property>
         <property name="CLEAR_BUTTON"     value="Löschen"></property>
