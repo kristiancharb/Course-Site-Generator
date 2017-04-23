@@ -1,72 +1,44 @@
 
 [
     {
-        "startHour":"1",
-        "endHour":"11",
+        "startHour":"0",
+        "endHour":"23",
         "undergrad_tas":[
             {
+                "grad":true,
                 "name":"Bob",
-                "email":"bob@gmail.com"
+                "email":"bob@yahoo.com"
             },
             {
-                "name":"john",
-                "email":"j@gmail.com"
+                "grad":true,
+                "name":"Jane Doe",
+                "email":"jane@gmail.com"
+            },
+            {
+                "grad":true,
+                "name":"John Doe",
+                "email":"jdoe@gmail.com"
             }
         ],
         "officeHours":[
-            {
-                "day":"MONDAY",
-                "time":"2_30am",
-                "name":"Bob"
-            },
-            {
-                "day":"WEDNESDAY",
-                "time":"2_30am",
-                "name":"Bob"
-            },
-            {
-                "day":"THURSDAY",
-                "time":"2_30am",
-                "name":"john"
-            },
-            {
-                "day":"TUESDAY",
-                "time":"3_00am",
-                "name":"john"
-            },
-            {
-                "day":"MONDAY",
-                "time":"3_30am",
-                "name":"john"
-            },
-            {
-                "day":"THURSDAY",
-                "time":"3_30am",
-                "name":"Bob"
-            },
-            {
-                "day":"WEDNESDAY",
-                "time":"4_30am",
-                "name":"john"
-            }
         ]
     },
     {
-        "subject":"null",
-        "semester":"null",
-        "number":"null",
-        "year":"null",
-        "title":"null",
-        "instructorName":"null",
-        "instructorHome":"null",
-        "exportDirPath":"null",
-        "siteTemplateDir":"null",
+        "subject":"",
+        "semester":"",
+        "number":"",
+        "year":"",
+        "title":"",
+        "instructorName":"",
+        "instructorHome":"",
+        "exportDirPath":"",
+        "siteTemplateDir":"",
         "siteTemplates":[
         ],
         "bannerImagePath":"null",
         "leftFootPath":"null",
         "rightFootPath":"null",
-        "stylesheet":"null"
+        "stylesheet":""
     },
     {
         "recitations":[

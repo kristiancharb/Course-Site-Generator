@@ -24,6 +24,13 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     /**
      * Constructor initializes the TA name and email
      */
+    
+    public TeachingAssistant(boolean b, String initName, String initEmail) {
+        this.grad = new SimpleBooleanProperty(b);
+        name = new SimpleStringProperty(initName);
+        email = new SimpleStringProperty(initEmail);
+        
+    }
     public TeachingAssistant(String initName, String initEmail) {
         this.grad = new SimpleBooleanProperty(true);
         name = new SimpleStringProperty(initName);

@@ -56,35 +56,7 @@ public class CSGFileTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of loadData method, of class CSGFile.
-     */
-    /*
-    @Test
-    public void testLoadData() throws Exception {
-        System.out.println("loadData");
-        AppDataComponent data = null;
-        String filePath = "";
-        CSGFile instance = null;
-        instance.loadData(data, filePath);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of saveData method, of class CSGFile.
-     */
-    /*
-    @Test
-    public void testSaveData() throws Exception {
-        System.out.println("saveData");
-        AppDataComponent data = null;
-        String filePath = "";
-        CSGFile instance = null;
-        instance.saveData(data, filePath);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+  
     
     @Test
     public void testLoadCDData() throws Exception {

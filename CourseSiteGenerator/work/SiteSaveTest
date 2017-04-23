@@ -5,16 +5,19 @@
         "endHour":"12",
         "undergrad_tas":[
             {
-                "name":"John Doe",
-                "email":"jdoe@gmail.com"
+                "grad":true,
+                "name":"Bob",
+                "email":"bob@yahoo.com"
             },
             {
+                "grad":true,
                 "name":"Jane Doe",
                 "email":"jane@gmail.com"
             },
             {
-                "name":"Bob",
-                "email":"bob@yahoo.com"
+                "grad":true,
+                "name":"John Doe",
+                "email":"jdoe@gmail.com"
             }
         ],
         "officeHours":[

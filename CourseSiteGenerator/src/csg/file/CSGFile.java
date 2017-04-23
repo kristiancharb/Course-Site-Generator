@@ -10,6 +10,7 @@ import csg.CSGApp;
 import csg.data.CSGData;
 import javax.json.JsonObject;
 import djf.components.AppDataComponent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -26,6 +29,7 @@ import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -112,7 +116,26 @@ public class CSGFile implements AppFileComponent {
 
     @Override
     public void exportData(AppDataComponent data, String filePath) throws IOException {
-
+        CSGData csgData = (CSGData)data;
+        String pathToTester = "/CSGTester/public_html/";
+        String userDir = System.getProperty("user.dir");
+        String path = userDir + pathToTester;
+        File publicHTML = new File(path);
+        
+        File selectedFile = new File(filePath);
+        copyDirectory(publicHTML, selectedFile);
+        String taFilePath = filePath + "/js/OfficeHoursGridData.json";
+        String recFilePath = filePath + "/js/RecitationsData.json";
+        try {
+            taFile.exportTAData(csgData, taFilePath);
+            recFile.exportRecData(csgData, recFilePath);
+        } catch (Exception ex) {
+           ex.printStackTrace();
+        }
+    }
+    
+    public static void copyDirectory(File source, File dest) throws IOException{
+        FileUtils.copyDirectory(source, dest);
     }
 
     public JsonArray loadJSONFile(String jsonFilePath) throws IOException {
