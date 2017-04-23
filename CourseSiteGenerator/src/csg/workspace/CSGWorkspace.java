@@ -93,10 +93,9 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     @Override
     public void reloadWorkspace(AppDataComponent dataComponent){ 
         CSGData csgData = (CSGData)dataComponent;
-        TAData taData = csgData.getTAData();
-        taTab.reloadTATab(taData);
-        
-        
+        taTab.reloadTATab(csgData.getTAData());
+        cdTab.reloadCDTab();
+        schedTab.reloadSchedTab();
         
     }
     

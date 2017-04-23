@@ -9,6 +9,7 @@ import csg.CSGApp;
 import csg.CSGProp;
 import csg.data.SchedData;
 import csg.data.ScheduleItem;
+import java.time.LocalDate;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -31,20 +32,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.util.StringConverter;
 import properties_manager.PropertiesManager;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author kristiancharbonneau
  */
-public class SchedTab extends Tab{
+public class SchedTab extends Tab {
+
     CSGApp app;
     CSGController controller;
     CSGWorkspace workspace;
-    
+
     ScrollPane sPane;
     VBox box;
     GridPane boundariesBox;
-    VBox itemsBox; 
+    VBox itemsBox;
     HBox itemsHeaderBox;
     GridPane addBox;
     ObservableList<ScheduleItem> items;
@@ -53,13 +58,12 @@ public class SchedTab extends Tab{
     TableColumn<ScheduleItem, String> dateCol;
     TableColumn<ScheduleItem, String> titleCol;
     TableColumn<ScheduleItem, String> topicCol;
-    
+
     Label tabHeader;
     Label boundariesHeader;
     Label itemsHeader;
     Label addHeader;
-   
-    
+
     DatePicker startPicker;
     DatePicker endPicker;
     TextField typeField;
@@ -69,25 +73,66 @@ public class SchedTab extends Tab{
     TextField topicField;
     TextField linkField;
     TextField criteriaField;
-    
+
     Button removeButton;
     Button addButton;
     Button clearButton;
-    
-    public SchedTab(CSGApp app, CSGController controller, CSGWorkspace workspace){
+
+    public SchedTab(CSGApp app, CSGController controller, CSGWorkspace workspace) {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
         this.setText(props.getProperty(CSGProp.SCHEDTAB_HEADER));
         SchedData schedData = app.getCSGData().getSchedData();
-        
+
         box = new VBox();
         tabHeader = new Label(props.getProperty(CSGProp.SCHEDULE));
         box.getChildren().add(tabHeader);
         boundariesHeader = new Label(props.getProperty(CSGProp.BOUNDARIES));
         startPicker = new DatePicker();
+
+        startPicker.setConverter(new StringConverter<LocalDate>() {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+            @Override
+            public String toString(LocalDate localDate) {
+                if (localDate == null) {
+                    return "";
+                }
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(dateString, dateTimeFormatter);
+            }
+        });
+
         endPicker = new DatePicker();
+        
+        endPicker.setConverter(new StringConverter<LocalDate>() {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+            @Override
+            public String toString(LocalDate localDate) {
+                if (localDate == null) {
+                    return "";
+                }
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(dateString, dateTimeFormatter);
+            }
+        });
         boundariesBox = new GridPane();
         boundariesBox.setHgap(10);
         boundariesBox.setVgap(10);
@@ -97,16 +142,16 @@ public class SchedTab extends Tab{
         boundariesBox.add(startPicker, 1, 4, 5, 1);
         boundariesBox.add(endPicker, 11, 4, 5, 1);
         box.getChildren().add(boundariesBox);
-        
+
         itemsBox = new VBox();
         itemsHeaderBox = new HBox();
         removeButton = new Button(props.getProperty(CSGProp.REMOVE_BUTTON));
         itemsHeader = new Label(props.getProperty(CSGProp.SCHEDULEITEMS));
         itemsHeaderBox.getChildren().addAll(itemsHeader, removeButton);
         itemsBox.getChildren().add(itemsHeaderBox);
-        
+
         items = FXCollections.observableArrayList(
-            new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
+                new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
                 new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
                 new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""));
         itemsTable = new TableView();
@@ -121,13 +166,13 @@ public class SchedTab extends Tab{
         topicCol.setCellValueFactory(new PropertyValueFactory<>("topic"));
         itemsTable.getColumns().addAll(typeCol, dateCol, titleCol, topicCol);
         itemsTable.setMaxHeight(200);
-        
+
         itemsBox.getChildren().add(itemsTable);
-        
+
         addBox = new GridPane();
         addBox.setHgap(10);
         addBox.setVgap(10);
-        addBox.setPadding(new Insets(5,5,5,5));
+        addBox.setPadding(new Insets(5, 5, 5, 5));
         addHeader = new Label(props.getProperty(CSGProp.ADDEDIT));
         addBox.add(addHeader, 0, 0, 2, 2);
         typeField = new TextField();
@@ -163,95 +208,131 @@ public class SchedTab extends Tab{
         sPane = new ScrollPane();
         sPane.setContent(box);
         box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
-      
+
         this.setContent(sPane);
-        
+
     }
-    
-    public ScrollPane getSPane(){
-      return sPane;
+
+    public ScrollPane getSPane() {
+        return sPane;
     }
-    public Label getTabHeader(){
+
+    public Label getTabHeader() {
         return tabHeader;
     }
-    public VBox getBox(){
-      return box;
+
+    public VBox getBox() {
+        return box;
     }
-    public GridPane getBoundariesBox(){
-      return boundariesBox; 
+
+    public GridPane getBoundariesBox() {
+        return boundariesBox;
     }
-    public VBox getItemsBox(){
-      return itemsBox;
-    } 
-    public HBox getItemsHeaderBox(){
-      return itemsHeaderBox;
+
+    public VBox getItemsBox() {
+        return itemsBox;
     }
-    public GridPane getAddBox(){
-      return addBox;
+
+    public HBox getItemsHeaderBox() {
+        return itemsHeaderBox;
     }
-    public TableView<ScheduleItem> getItemsTable(){
-      return itemsTable;
+
+    public GridPane getAddBox() {
+        return addBox;
     }
-    public TableColumn<ScheduleItem, String> getTypeCol(){
-      return typeCol;
+
+    public TableView<ScheduleItem> getItemsTable() {
+        return itemsTable;
     }
-    public TableColumn<ScheduleItem, String> getDateCol(){
-      return dateCol;
+
+    public TableColumn<ScheduleItem, String> getTypeCol() {
+        return typeCol;
     }
-    public TableColumn<ScheduleItem, String> getTitleCol(){
-      return titleCol;
+
+    public TableColumn<ScheduleItem, String> getDateCol() {
+        return dateCol;
     }
-    public TableColumn<ScheduleItem, String> getTopicCol(){
-      return topicCol;
+
+    public TableColumn<ScheduleItem, String> getTitleCol() {
+        return titleCol;
     }
-    
-    public Label getBoundariesHeader(){
-      return boundariesHeader;
+
+    public TableColumn<ScheduleItem, String> getTopicCol() {
+        return topicCol;
     }
-    public Label getItemsHeader(){
-      return itemsHeader;
+
+    public Label getBoundariesHeader() {
+        return boundariesHeader;
     }
-    public Label getAddHeader(){
-      return addHeader;
+
+    public Label getItemsHeader() {
+        return itemsHeader;
     }
-   
-    
-    public DatePicker getStartPicker(){
-      return startPicker;
+
+    public Label getAddHeader() {
+        return addHeader;
     }
-    public DatePicker getEndPicker(){
-      return endPicker; 
+
+    public DatePicker getStartPicker() {
+        return startPicker;
     }
-    public TextField getTypeField(){
-      return typeField;
+
+    public DatePicker getEndPicker() {
+        return endPicker;
     }
-    public DatePicker getDatePicker(){
-      return datePicker; 
+
+    public TextField getTypeField() {
+        return typeField;
     }
-    public TextField getTimeField(){
-      return timeField; 
+
+    public DatePicker getDatePicker() {
+        return datePicker;
     }
-    public TextField getTitleField(){
-      return titleField; 
+
+    public TextField getTimeField() {
+        return timeField;
     }
-    public TextField getTopicField(){
-      return topicField;
+
+    public TextField getTitleField() {
+        return titleField;
     }
-    public TextField getLinkField(){
-      return linkField;
+
+    public TextField getTopicField() {
+        return topicField;
     }
-    public TextField getCriteriaField(){
-      return criteriaField;
+
+    public TextField getLinkField() {
+        return linkField;
     }
-    
-    public Button getRemoveButton(){
-      return removeButton;
+
+    public TextField getCriteriaField() {
+        return criteriaField;
     }
-    public Button getAddButton(){
-      return addButton;
+
+    public Button getRemoveButton() {
+        return removeButton;
     }
-    public Button getClearButton(){
-      return clearButton;
+
+    public Button getAddButton() {
+        return addButton;
     }
-    
+
+    public Button getClearButton() {
+        return clearButton;
+    }
+
+    public void reloadSchedTab() {
+        SchedData schedData = app.getCSGData().getSchedData();
+        String startDateString = schedData.getStartingMon();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        if(startDateString == null) return;
+        LocalDate startDate = LocalDate.parse(startDateString, formatter);
+        startPicker.setValue(startDate);
+        
+        String endDateString = schedData.getEndingFri();
+        if(endDateString == null) return;
+        LocalDate endDate = LocalDate.parse(endDateString, formatter);
+        endPicker.setValue(endDate);
+    }
+
 }

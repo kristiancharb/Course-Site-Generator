@@ -559,6 +559,8 @@ public class TATab extends Tab {
         // SO IT CAN MANAGE ALL CHANGES
         dataComponent.setCellProperty(col, row, cellLabel.textProperty());        
     }
+    
+   
 
    
 }

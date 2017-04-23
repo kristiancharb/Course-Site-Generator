@@ -54,6 +54,8 @@ public class CDTab extends Tab{
     Label courseInfoHeader;
     Label siteTemplateHeader;
     Label pageStyleHeader;
+    Label siteTemplateDir;
+    Label exportDir;
     
     ComboBox subjectBox;
     ComboBox semesterBox;
@@ -76,13 +78,18 @@ public class CDTab extends Tab{
     TableColumn<SiteTemplate, String> scriptColumn;
     
     Image bannerImage;
+    ImageView bannerImageView;
     Button changeBannerButton;
     Image leftFootImage;
+    ImageView leftFootImageView;
     Button changeLeftFootButton;
     Image rightFootImage;
+    ImageView rightFootImageView;
     Button changeRightFootButton;
     
     ComboBox styleSheetBox;
+    
+    
     
     
     
@@ -133,7 +140,8 @@ public class CDTab extends Tab{
         courseInfoBox.add(new Label(props.getProperty(CSGProp.INSTRHOME)), 0, 6, 1, 1);
         courseInfoBox.add(instrHomeField, 1, 6, 10, 1);
         courseInfoBox.add(new Label(props.getProperty(CSGProp.CHANGEEXPORTDIR)), 0, 7, 1, 1);
-        courseInfoBox.add(new Label(cdData.getExportDirPath()), 1, 7, 9, 1);
+        exportDir = new Label(cdData.getExportDirPath());
+        courseInfoBox.add(exportDir, 1, 7, 9, 1);
         changeExportButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         courseInfoBox.add(changeExportButton, 10, 7, 1, 1);
         
@@ -141,7 +149,8 @@ public class CDTab extends Tab{
         siteTemplateHeader = new Label(props.getProperty(CSGProp.SITETEMP_HEADER));
         siteTemplateBox.getChildren().add(siteTemplateHeader);
         siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITETEMP_NOTE)));
-        siteTemplateBox.getChildren().add(new Label(cdData.getSiteTemplateDir()));
+        siteTemplateDir = new Label(cdData.getSiteTemplateDir());
+        siteTemplateBox.getChildren().add(siteTemplateDir);
         selectTemplateButton = new Button(props.getProperty(CSGProp.SELECTTEMPLATEDIR));
         siteTemplateBox.getChildren().add(selectTemplateButton);
         siteTemplateBox.getChildren().add(new Label(props.getProperty(CSGProp.SITEPAGES)));
@@ -171,20 +180,29 @@ public class CDTab extends Tab{
         pageStyleHeader = new Label(props.getProperty(CSGProp.PAGESTYLE_HEADER));
         pageStyleBox.add(pageStyleHeader, 0, 0, 2, 2);
         pageStyleBox.add(new Label(props.getProperty(CSGProp.BANNER)), 0, 2, 1, 1);
+        
         String imagePath;
-        if(cdData.getBannerImagePath() != null)
-            imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
-        else
-            imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
-        pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 2, 5, 1);
+        imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
+        bannerImage = new Image(imagePath, 110, 20, true, true);
+        bannerImageView = new ImageView(bannerImage);
+        pageStyleBox.add(bannerImageView, 1, 2, 5, 1);
         changeBannerButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeBannerButton, 6, 2, 1, 1);
+        
+        
         pageStyleBox.add(new Label(props.getProperty(CSGProp.LEFTFOOT)), 0, 3, 1, 1);
-        pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 3, 5, 1);
+        imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getLeftFootPath();
+        leftFootImage = new Image(imagePath, 110, 20, true, true);
+        leftFootImageView = new ImageView(leftFootImage);
+        pageStyleBox.add(leftFootImageView, 1, 3, 5, 1);
         changeLeftFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeLeftFootButton, 6, 3, 1, 1);
+        
         pageStyleBox.add(new Label(props.getProperty(CSGProp.RIGHTFOOT)), 0, 4, 1, 1);
-        pageStyleBox.add(new ImageView(new Image(imagePath, 110, 20, true, true)), 1, 4, 5, 1);
+        imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getRightFootPath();
+        rightFootImage = new Image(imagePath, 110, 20, true, true);
+        rightFootImageView = new ImageView(rightFootImage);
+        pageStyleBox.add(rightFootImageView, 1, 4, 5, 1);
         changeRightFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
         pageStyleBox.add(changeRightFootButton, 6, 4, 1, 1);
         pageStyleBox.add(new Label(props.getProperty(CSGProp.STYLESHEET)), 0, 5, 1, 1);
@@ -286,6 +304,31 @@ public class CDTab extends Tab{
     }
     public TableColumn<SiteTemplate, String> getScriptColumn(){
         return scriptColumn;
+    }
+    
+    public void reloadCDTab(){
+        CDData cdData = app.getCSGData().getCDData();
+        subjectBox.setValue(cdData.getSubject());
+        numberBox.setValue(cdData.getNumber());
+        semesterBox.setValue(cdData.getSemester());
+        yearBox.setValue(cdData.getYear());
+        titleField.setText(cdData.getTitle());
+        instrNameField.setText(cdData.getInstructorName());
+        instrHomeField.setText(cdData.getInstructorHome());
+        siteTemplateDir.setText(cdData.getSiteTemplateDir());
+        exportDir.setText(cdData.getExportDirPath());
+        styleSheetBox.setValue(cdData.getStyleSheet());
+        String imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
+        bannerImage = new Image(imagePath, 110, 20, true, true);
+        bannerImageView.setImage(bannerImage);
+        imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getLeftFootPath();
+        leftFootImage = new Image(imagePath, 110, 20, true, true);
+        leftFootImageView.setImage(bannerImage);
+        imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getRightFootPath();
+        rightFootImage = new Image(imagePath, 110, 20, true, true);
+        rightFootImageView.setImage(bannerImage);
+        
+        
     }
     
 }
