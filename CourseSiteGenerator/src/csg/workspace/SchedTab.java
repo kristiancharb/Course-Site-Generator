@@ -93,7 +93,7 @@ public class SchedTab extends Tab {
         startPicker = new DatePicker();
 
         startPicker.setConverter(new StringConverter<LocalDate>() {
-            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
 
             @Override
             public String toString(LocalDate localDate) {
@@ -115,7 +115,7 @@ public class SchedTab extends Tab {
         endPicker = new DatePicker();
         
         endPicker.setConverter(new StringConverter<LocalDate>() {
-            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
 
             @Override
             public String toString(LocalDate localDate) {
@@ -324,7 +324,7 @@ public class SchedTab extends Tab {
     public void reloadSchedTab() {
         SchedData schedData = app.getCSGData().getSchedData();
         String startDateString = schedData.getStartingMon();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         if(startDateString == null) return;
         LocalDate startDate = LocalDate.parse(startDateString, formatter);
         startPicker.setValue(startDate);

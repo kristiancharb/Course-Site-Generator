@@ -6,8 +6,8 @@
         "undergrad_tas":[
             {
                 "grad":true,
-                "name":"Bob",
-                "email":"bob@yahoo.com"
+                "name":"John Doe",
+                "email":"jdoe@gmail.com"
             },
             {
                 "grad":true,
@@ -16,8 +16,8 @@
             },
             {
                 "grad":true,
-                "name":"John Doe",
-                "email":"jdoe@gmail.com"
+                "name":"Bob",
+                "email":"bob@yahoo.com"
             }
         ],
         "officeHours":[
@@ -74,7 +74,7 @@
                 "script":"HWsBuilder"
             },
             {
-                "use":true,
+                "use":false,
                 "navbarTitle":"Projects",
                 "fileName":"projects.html",
                 "script":"ProjectBuilder.js"
@@ -106,8 +106,8 @@
         ]
     },
     {
-        "startingMonday":"23.04.2017",
-        "endingFriday":"30.06.2017",
+        "startingMonday":"4/23/2017",
+        "endingFriday":"10/30/2017",
         "items":[
             {
                 "type":"Holiday",
@@ -126,6 +126,18 @@
                 "date":"3/3/17",
                 "title":"Spring Break",
                 "topic":""
+            },
+            {
+                "type":"Homework",
+                "date":"3/13/17",
+                "title":"Homework 3",
+                "topic":"UML"
+            },
+            {
+                "type":"Homework",
+                "date":"3/26/17",
+                "title":"Homework 4",
+                "topic":"GUI"
             }
         ]
     },

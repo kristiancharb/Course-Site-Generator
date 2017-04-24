@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package csg.data;
+import java.awt.Color;
 
 /**
  *
@@ -33,5 +34,17 @@ public class Team {
     }
     public String getLink(){
         return link;
+    }
+    public String getRed(){
+        Color col = Color.decode(color);
+        return Integer.toString(col.getRed());
+    }
+    public String getBlue(){
+        Color col = Color.decode(color);
+        return Integer.toString(col.getBlue());
+    }
+    public String getGreen(){
+        Color col = Color.decode(color);
+        return Integer.toString(col.getGreen());
     }
 }

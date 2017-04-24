@@ -66,7 +66,7 @@ public class TestSave {
                 new SiteTemplate("Syllabus", "syllabus.html", "SyllabusBuilder.js"),
                 new SiteTemplate("Schedule", "schedule.html", "ScheduleBuilder.js"),
                 new SiteTemplate("HWs", "hws.html", "HWsBuilder"),
-                new SiteTemplate("Projects", "projects.html", "ProjectBuilder.js"));
+                new SiteTemplate(false, "Projects", "projects.html", "ProjectBuilder.js"));
     }
     
     public void fillRecData(CSGData csgData){
@@ -80,12 +80,16 @@ public class TestSave {
     
     public void fillSchedData(CSGData csgData){
         SchedData schedData = csgData.getSchedData();
-        schedData.setStartingMon("23.04.2017");
-        schedData.setEndingFri("30.06.2017");
+        schedData.setStartingMon("4/23/2017");
+        schedData.setEndingFri("10/30/2017");
         schedData.getItems().addAll(
                 new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
                 new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
-                new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""));
+                new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""),
+                new ScheduleItem("Homework", "3/13/17", "Homework 3", "UML"),
+                new ScheduleItem("Homework", "3/26/17", "Homework 4", "GUI")
+        );
+     
     }
     
     public void fillProjectData(CSGData csgData){

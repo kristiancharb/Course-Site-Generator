@@ -7,12 +7,22 @@ package csg.file;
 
 import csg.CSGApp;
 import csg.data.SchedData;
+import csg.data.CSGData;
 import csg.data.ScheduleItem;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
+import javax.json.stream.JsonGenerator;
 
 /**
  *
@@ -61,6 +71,116 @@ public class SchedFile {
         
         schedData.setStartingMon(json.getString("startingMonday"));
         schedData.setEndingFri(json.getString("endingFriday"));
+    }
+    
+    public void exportSchedData(CSGData csgData, String filePath) throws Exception{
+        SchedData schedData = csgData.getSchedData();
+        
+        JsonArrayBuilder holidaysArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder lecturesArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder referencesArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder hwsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<ScheduleItem> items = schedData.getItems();
+        
+        for (ScheduleItem item: items) {
+            JsonObject json = Json.createObjectBuilder().build();
+            if (item.getType().equalsIgnoreCase("Holiday")) {
+                String date = item.getDate();
+                String[] dates = date.split("/");
+                json = Json.createObjectBuilder()
+                        .add("month", dates[0])
+                        .add("day", dates[1])
+                        .add("title", item.getTitle())
+                        .add("link", item.getLink()).build();
+                holidaysArrayBuilder.add(json);
+            }
+            if(item.getType().equalsIgnoreCase("Lecture")){
+                String date = item.getDate();
+                String[] dates = date.split("/");
+                json = Json.createObjectBuilder()
+                        .add("month", dates[0])
+                        .add("day", dates[1])
+                        .add("title", item.getTitle())
+                        .add("topic", item.getTopic())
+                        .add("link", item.getLink()).build();
+                lecturesArrayBuilder.add(json);
+            }
+            if(item.getType().equalsIgnoreCase("Reference")){
+                String date = item.getDate();
+                String[] dates = date.split("/");
+                json = Json.createObjectBuilder()
+                        .add("month", dates[0])
+                        .add("day", dates[1])
+                        .add("title", item.getTitle())
+                        .add("topic", item.getTopic())
+                        .add("link", item.getLink()).build();
+                referencesArrayBuilder.add(json);
+            }
+            if(item.getType().equalsIgnoreCase("Recitation")){
+                String date = item.getDate();
+                String[] dates = date.split("/");
+                json = Json.createObjectBuilder()
+                        .add("month", dates[0])
+                        .add("day", dates[1])
+                        .add("title", item.getTitle())
+                        .add("topic", item.getTopic())
+                        .add("link", item.getLink()).build();
+                recitationsArrayBuilder.add(json);
+            }
+            if(item.getType().equalsIgnoreCase("Homework")){
+                String date = item.getDate();
+                String[] dates = date.split("/");
+                json = Json.createObjectBuilder()
+                        .add("month", dates[0])
+                        .add("day", dates[1])
+                        .add("title", item.getTitle())
+                        .add("topic", item.getTopic())
+                        .add("link", item.getLink())
+                        .add("time", item.getTime())
+                        .add("criteria", item.getCriteria()).build();
+                hwsArrayBuilder.add(json);
+            }    
+        }
+        JsonArray holidaysArray = holidaysArrayBuilder.build();
+        JsonArray lecturesArray = lecturesArrayBuilder.build();
+        JsonArray referencesArray = referencesArrayBuilder.build();
+        JsonArray recitationsArray = recitationsArrayBuilder.build();
+        JsonArray hwsArray = hwsArrayBuilder.build();
+        
+        String startDate = "" + schedData.getStartingMon();
+        String endDate = "" + schedData.getEndingFri();
+        String[] startDateArr = startDate.split("/");
+        String[] endDateArr = endDate.split("/");
+        JsonObject schedJson = Json.createObjectBuilder()
+                .add("startingMondayMonth", startDateArr[0])
+                .add("startingMondayDay", startDateArr[1])
+                .add("endingFridayMonth", endDateArr[0])
+                .add("endingFridayDay", endDateArr[1])
+                .add("holidays", holidaysArray)
+                .add("lectures", lecturesArray)
+                .add("references", referencesArray)
+                .add("recitations", recitationsArray)
+                .add("hws", hwsArray)
+                .build();
+        
+        // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(schedJson);
+	jsonWriter.close();
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(schedJson);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
     }
 
 }

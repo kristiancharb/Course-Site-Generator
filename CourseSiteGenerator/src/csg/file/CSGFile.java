@@ -126,9 +126,13 @@ public class CSGFile implements AppFileComponent {
         copyDirectory(publicHTML, selectedFile);
         String taFilePath = filePath + "/js/OfficeHoursGridData.json";
         String recFilePath = filePath + "/js/RecitationsData.json";
+        String schedFilePath = filePath + "/js/ScheduleData.json";
+        String projFilePath = filePath + "/js/TeamsAndStudents.json";
         try {
             taFile.exportTAData(csgData, taFilePath);
             recFile.exportRecData(csgData, recFilePath);
+            schedFile.exportSchedData(csgData, schedFilePath);
+            projectFile.exportTeamsAndStudents(csgData, projFilePath);
         } catch (Exception ex) {
            ex.printStackTrace();
         }

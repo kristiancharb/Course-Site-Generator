@@ -5,14 +5,25 @@
  */
 package csg.file;
 import csg.CSGApp;
+import csg.data.CSGData;
 import csg.data.ProjectData;
 import csg.data.Student;
 import csg.data.Team;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
+import javax.json.stream.JsonGenerator;
 /**
  *
  * @author kristiancharbonneau
@@ -80,6 +91,68 @@ public class ProjectFile {
             projData.getStudents().add(s);
         }
         
+    }
+    
+    public void exportTeamsAndStudents(CSGData csgData, String filePath) throws Exception{
+        ProjectData projectData = csgData.getProjectData();
+        
+        JsonArrayBuilder teamsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Team> teams = projectData.getTeams();
+        for(Team t: teams){
+            String textColor = "";
+            if(t.getTextColor().equals("000000"))
+                textColor = "black";
+            else if(t.getTextColor().equals("ffffff"))
+                textColor = "white";
+            else 
+                textColor = t.getTextColor();
+                       
+            JsonObject json = Json.createObjectBuilder()
+                    .add("name", t.getName())
+                    .add("red", t.getRed())
+                    .add("green", t.getGreen())
+                    .add("blue", t.getBlue())
+                    .add("text_color", textColor)
+                    .build();
+            teamsArrayBuilder.add(json);
+        }
+        JsonArray teamsArray = teamsArrayBuilder.build();
+        
+        JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Student> students = projectData.getStudents();
+        for(Student s: students){
+            JsonObject json = Json.createObjectBuilder()
+                    .add("lastName", s.getLastName())
+                    .add("firstName", s.getFirstName())
+                    .add("team", s.getTeam())
+                    .add("role", s.getRole())
+                    .build();
+            studentsArrayBuilder.add(json);
+        }
+        JsonArray studentsArray = studentsArrayBuilder.build();
+        
+        JsonObject json = Json.createObjectBuilder()
+                .add("teams", teamsArray)
+                .add("students", studentsArray)
+                .build();
+        
+                // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(json);
+	jsonWriter.close();
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(json);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
     }
     
 }

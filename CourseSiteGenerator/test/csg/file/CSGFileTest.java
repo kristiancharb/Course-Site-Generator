@@ -86,7 +86,7 @@ public class CSGFileTest {
         templates.add(new SiteTemplate("Syllabus", "syllabus.html", "SyllabusBuilder.js"));
         templates.add(new SiteTemplate("Schedule", "schedule.html", "ScheduleBuilder.js"));
         templates.add(new SiteTemplate("HWs", "hws.html", "HWsBuilder"));
-        templates.add(new SiteTemplate("Projects", "projects.html", "ProjectBuilder.js"));
+        templates.add(new SiteTemplate(false, "Projects", "projects.html", "ProjectBuilder.js"));
         ObservableList<SiteTemplate> loadTemp = cdData.getSiteTemplates();
         for(int i = 0; i < templates.size(); i++){
             assertTrue(loadTemp.get(i).getUse().getValue().equals(templates.get(i).getUse().getValue()));
@@ -177,15 +177,18 @@ public class CSGFileTest {
         JsonArray jsonArray = csgFile.loadJSONFile(System.getProperty("user.dir") + "/work/SiteSaveTest");
         schedFile.loadSchedData(schedData, jsonArray.getJsonObject(3));
         
-        assertTrue(schedData.getStartingMon().equals("23.04.2017"));
-        assertTrue(schedData.getEndingFri().equals("30.06.2017"));
+        assertTrue(schedData.getStartingMon().equals("4/23/2017"));
+        assertTrue(schedData.getEndingFri().equals("10/30/2017"));
         
         ObservableList<ScheduleItem> loadItems = schedData.getItems();
         ObservableList<ScheduleItem> items =FXCollections.observableArrayList();
         items.addAll(
                 new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
                 new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
-                new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""));
+                new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""),
+                new ScheduleItem("Homework", "3/13/17", "Homework 3", "UML"),
+                new ScheduleItem("Homework", "3/26/17", "Homework 4", "GUI")
+        );
         
         for(int i = 0; i < items.size(); i++){
             assertTrue(loadItems.get(i).getTitle().equals(items.get(i).getTitle()));
