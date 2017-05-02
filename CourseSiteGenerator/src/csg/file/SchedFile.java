@@ -45,6 +45,9 @@ public class SchedFile {
                     .add("date", s.getDate())
                     .add("title", s.getTitle())
                     .add("topic", s.getTopic())
+                    .add("link", s.getLink())
+                    .add("time", s.getTime())
+                    .add("criteria", s.getCriteria())
                     .build();
             itemsArrayBuilder.add(tsJson);
         }
@@ -58,6 +61,7 @@ public class SchedFile {
     }
     
     public void loadSchedData(SchedData schedData, JsonObject json){
+        
         JsonArray jsonArray = json.getJsonArray("items");
         for(int i = 0; i < jsonArray.size(); i++){
             JsonObject jsonObj = jsonArray.getJsonObject(i);
@@ -65,7 +69,11 @@ public class SchedFile {
             String date = jsonObj.getString("date");
             String title = jsonObj.getString("title");
             String topic = jsonObj.getString("topic");
-            ScheduleItem item = new ScheduleItem(type, date, title, topic);
+            String link = jsonObj.getString("link");
+            String time = jsonObj.getString("time");
+            String criteria = jsonObj.getString("criteria");
+            
+            ScheduleItem item = new ScheduleItem(type, date, title, topic, link, criteria, time);
             schedData.getItems().add(item);
         }
         

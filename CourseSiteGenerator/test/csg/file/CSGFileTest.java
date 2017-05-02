@@ -115,8 +115,12 @@ public class CSGFileTest {
         tas.addAll(
                 new TeachingAssistant("John Doe", "jdoe@gmail.com"),
                 new TeachingAssistant("Jane Doe", "jane@gmail.com"),
-                new TeachingAssistant("Bob", "bob@yahoo.com"));
+                new TeachingAssistant("Bob", "bob@yahoo.com"),
+                new TeachingAssistant(false, "Grad", "grad@yah.com"),
+                new TeachingAssistant(false, "Grad2", "grad2@gmail.com")
+        );
         Collections.sort(tas);
+        Collections.sort(loadTas);
         
         for(int i = 0; i < tas.size(); i++){
             assertTrue(loadTas.get(i).getGrad().getValue().equals(tas.get(i).getGrad().getValue()));
@@ -128,7 +132,12 @@ public class CSGFileTest {
         ArrayList<TimeSlot> hoursList = new ArrayList<>();
         hoursList.add(new TimeSlot("MONDAY", "2_30am", "Bob"));
         hoursList.add(new TimeSlot("TUESDAY", "4_00am", "John Doe"));
-        hoursList.add(new TimeSlot("MONDAY", "4_30am", "Bob")); 
+        hoursList.add(new TimeSlot("MONDAY", "4_30am", "Bob"));
+        hoursList.add(new TimeSlot("THURSDAY", "2_00am", "Bob"));
+        hoursList.add(new TimeSlot("TUESDAY", "3_00am", "John Doe"));
+        hoursList.add(new TimeSlot("FRIDAY", "4_00am", "Jane Doe"));
+        hoursList.add(new TimeSlot("WEDNESDAY", "3_30am", "Jane Doe"));
+        hoursList.add(new TimeSlot("TUESDAY", "3_00am", "Grad"));
         
         for(int i = 0; i < hoursList.size(); i++){
             assertTrue(loadHoursList.get(i).getDay().equals(hoursList.get(i).getDay()));
@@ -154,7 +163,13 @@ public class CSGFileTest {
                 new Recitation("R02", "McKenna", "Wed 3:30pm - 4:23pm", "Old CS 2114",
                 "Jane Doe", "Joe Shmo"),
                 new Recitation("R05", "Banerjee", "Tues 5:30pm-6:23pm", "Old CS 2114",
-                "", ""));
+                "Bob", "Rob"),
+                new Recitation("R03", "Banerjee", "Wed 5:30pm-6:23pm", "Old CS 2114",
+                "Cob", "Mob"),
+                new Recitation("R06", "McKenna", "Thurs 5:30pm-6:23pm", "Old CS 2114",
+                "Joe", "Jane"),
+                new Recitation("R01", "Banerjee", "Fri 5:30pm-6:23pm", "Old CS 2114",
+                "TA1", "TA2"));
         
         for(int i = 0; i < recs.size(); i++){
             assertTrue(loadRecs.get(i).getInstructor().equals(recs.get(i).getInstructor()));
@@ -177,8 +192,8 @@ public class CSGFileTest {
         JsonArray jsonArray = csgFile.loadJSONFile(System.getProperty("user.dir") + "/work/SiteSaveTest");
         schedFile.loadSchedData(schedData, jsonArray.getJsonObject(3));
         
-        assertTrue(schedData.getStartingMon().equals("4/23/2017"));
-        assertTrue(schedData.getEndingFri().equals("10/30/2017"));
+        assertTrue(schedData.getStartingMon().equals("1/23/2017"));
+        assertTrue(schedData.getEndingFri().equals("5/19/2017"));
         
         ObservableList<ScheduleItem> loadItems = schedData.getItems();
         ObservableList<ScheduleItem> items =FXCollections.observableArrayList();
@@ -187,7 +202,9 @@ public class CSGFileTest {
                 new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
                 new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""),
                 new ScheduleItem("Homework", "3/13/17", "Homework 3", "UML"),
-                new ScheduleItem("Homework", "3/26/17", "Homework 4", "GUI")
+                new ScheduleItem("Homework", "3/24/17", "Homework 4", "GUI"),
+                new ScheduleItem("Homework", "2/15/17", "Homework 5", "", "www.hw.com", "criteria", "11:59"),
+                new ScheduleItem("Lecture", "3/21/17", "Lecture 4 ", "Dumb")
         );
         
         for(int i = 0; i < items.size(); i++){
@@ -223,8 +240,14 @@ public class CSGFileTest {
         }
         
         ObservableList<Student> students = FXCollections.observableArrayList();
-        students.addAll(new Student("Joe", "Shmo", "Atomic Comics", "Lead Designer"),
+        students.addAll(
+                new Student("Joe", "Shmo", "Atomic Comics", "Lead Designer"),
                 new Student("Jane", "Doe", "Atomic Comics", "Lead Programmer"),
+                new Student("Bob", "Rob", "Atomic Comics", "Project Manager"),
+                new Student("Chris", "Shmo", "Atomic Comics", "Data Designer"),
+                new Student("Sara", "Doe", "C4 Comics", "Data Designer"),
+                new Student("Martha", "Stewart", "C4 Comics", "Project Manager"),
+                new Student("Matt", "Batt", "C4 Comics", "Lead Programmer"),
                 new Student("Bob", "Johnson", "C4 Comics", "Lead Designer"));
         ObservableList<Student> loadStudents = projectData.getStudents();
         

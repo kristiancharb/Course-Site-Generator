@@ -31,4 +31,26 @@ public class RecData {
         return recitations;
     }
     
+    public void addRec(String section, String instr, String time, String location, String ta1, String ta2){
+        Recitation rec = new Recitation(section, instr, time, location, ta1, ta2);
+        
+        recitations.add(rec);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+        
+    }
+    
+    public void updateRec(Recitation rec, String section, String instr, String time, String location, String ta1, String ta2){
+        recitations.remove(rec);
+        
+        Recitation newRec = new Recitation(section, instr, time, location, ta1, ta2);  
+        recitations.add(newRec);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
+    public void deleteRec(Recitation rec){
+        if(rec != null){
+            recitations.remove(rec);
+            app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+        }
+    }
 }

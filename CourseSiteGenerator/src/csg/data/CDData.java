@@ -49,6 +49,10 @@ public class CDData {
         exportDirPath = "";
         siteTemplateDir = "";
         styleSheet = "";
+        bannerImagePath = "";
+        leftFootPath = "";
+        rightFootPath = "";
+       
         siteTemplates = FXCollections.observableArrayList();
     }
 
@@ -158,6 +162,23 @@ public class CDData {
 
     public ObservableList getSiteTemplates() {
         return siteTemplates;
+    }
+    
+    public void resetCDData(){
+        siteTemplates.clear();
+        subject = "";
+        semester = "";
+        number = "";
+        year = "";
+        title = "";
+        instructorName = "";
+        instructorHome = "";
+        exportDirPath = "";
+        siteTemplateDir = "";
+        styleSheet = "";
+        bannerImagePath = "";
+        leftFootPath = "";
+        rightFootPath = "";
     }
 
 }

@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.input.KeyCode;
 import properties_manager.PropertiesManager;
 
 /**
@@ -210,6 +211,61 @@ public class ProjectTab extends Tab{
         box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
         this.setContent(sPane);
         this.setText(props.getProperty(CSGProp.PROJTAB_HEADER));
+        
+        teamComboBox.setItems(app.getCSGData().getProjectData().getTeams());
+        
+        addTeamButton.setOnAction(e -> {
+            if(teamTable.getSelectionModel().isEmpty()){
+                controller.handleAddTeam();
+            }else{
+                controller.handleUpdateTeam();
+            }
+        });
+        teamTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            controller.handleSelectedTeam();
+        });
+        teamTable.setOnMouseClicked(e -> {
+            controller.handleSelectedTeam();
+        });
+        sPane.setOnKeyPressed(e -> {
+            if ((e.getCode() == KeyCode.Z) && (e.isControlDown())) {
+                //jTPS.undoTransaction();
+
+            }
+            if ((e.getCode() == KeyCode.Y) && (e.isControlDown())) {
+                //jTPS.doTransaction();
+
+            }
+            if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {
+                controller.handleDeleteTeam();
+                controller.handleDeleteStudent();
+            }
+        });
+        removeTeamButton.setOnAction(e -> {
+            controller.handleDeleteTeam();
+        });
+        clearTeamButton.setOnAction(e -> {
+            controller.handleClearTeam();
+        });
+        addStudentButton.setOnAction(e -> {
+            if(studentTable.getSelectionModel().isEmpty()){
+                controller.handleAddStdeunt();
+            }else{
+                controller.handleUpdateStdeunt();
+            }
+        });
+        studentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            controller.handleSelectedStudent();
+        });
+        studentTable.setOnMouseClicked(e -> {
+            controller.handleSelectedStudent();
+        });
+        removeStudentButton.setOnAction(e -> {
+            controller.handleDeleteStudent();
+        });
+        clearStudentButton.setOnAction(e -> {
+            controller.handleClearStudent();
+        });
     }
     
     public ScrollPane getSPane(){

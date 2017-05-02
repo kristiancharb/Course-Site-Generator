@@ -1,0 +1,46 @@
+
+{
+    "work":[
+        {
+            "semester":"Spring 2016",
+            "projects":[
+                {
+                    "name":"Atomic Comics",
+                    "students":[
+                        {
+                            "":"Joe Shmo"
+                        },
+                        {
+                            "":"Jane Doe"
+                        },
+                        {
+                            "":"Bob Rob"
+                        },
+                        {
+                            "":"Chris Shmo"
+                        }
+                    ],
+                    "link":"atomiccomic.com"
+                },
+                {
+                    "name":"C4 Comics",
+                    "students":[
+                        {
+                            "":"Sara Doe"
+                        },
+                        {
+                            "":"Martha Stewart"
+                        },
+                        {
+                            "":"Matt Batt"
+                        },
+                        {
+                            "":"Bob Johnson"
+                        }
+                    ],
+                    "link":"c4comic.com"
+                }
+            ]
+        }
+    ]
+}

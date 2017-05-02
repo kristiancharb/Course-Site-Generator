@@ -28,6 +28,16 @@ public class ScheduleItem {
         this.time = "";
     }
     
+    public ScheduleItem(String type, String date, String title, String topic, String link, String criteria, String time){
+        this.type = type;
+        this.date = date;
+        this.title = title;
+        this.topic = topic;
+        this.link = link;
+        this.criteria = criteria;
+        this.time = time;
+    }
+    
     public String getType(){
         return type;
     }

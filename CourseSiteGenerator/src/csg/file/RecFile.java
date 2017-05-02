@@ -61,6 +61,7 @@ public class RecFile {
     }
 
     public void loadRecData(RecData recData, JsonObject json) {
+       
         JsonArray jsonArray = json.getJsonArray("recitations");
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject jsonObj = jsonArray.getJsonObject(i);

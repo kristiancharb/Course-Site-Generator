@@ -82,7 +82,7 @@ public class TAData {
         gridHeaders.addAll(dowHeaders);
     }
     
-    public void resetData() {
+    public void resetTAData() {
         startHour = MIN_START_HOUR;
         endHour = MAX_END_HOUR;
         teachingAssistants.clear();
@@ -207,6 +207,10 @@ public class TAData {
     
     public void setOfficeHoursList(ArrayList<TimeSlot> list){
         officeHoursList = list;
+    }
+    
+    public void setTAsList(ObservableList<TeachingAssistant> tas){
+        teachingAssistants = tas;
     }
 
     private void initOfficeHours(int initStartHour, int initEndHour) {

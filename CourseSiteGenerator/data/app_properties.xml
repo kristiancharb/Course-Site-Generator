@@ -97,6 +97,42 @@
         <property name="OFFICE_HOURS_CONFLICT_TITLE"     value="Office Hours Conflict"></property>
         <property name="OFFICE_HOURS_CONFLICT_MESSAGE"     value="Office Hours outside the start and end time will be removed. Do you wish to continue?"></property>
         
+        <property name="MISSING_SECTION_TITLE"          value="Missing Section"></property>
+        <property name="MISSING_SECTION_MESSAGE"        value="You must provide a section"></property>
+        <property name="MISSING_LOCATION_TITLE"          value="Missing Location"></property>
+        <property name="MISSING_LOCATION_MESSAGE"        value="You must provide a location"></property>
+        <property name="MISSING_TIME_TITLE"          value="Missing Time"></property>
+        <property name="MISSING_TIME_MESSAGE"        value="You must provide a time"></property>
+        <property name="MISSING_NAME_TITLE"          value="Missing Name"></property>
+        <property name="MISSING_NAME_MESSAGE"        value="You must provide a name"></property>
+        <property name="MISSING_LINK_TITLE"          value="Missing Link"></property>
+        <property name="MISSING_LINK_MESSAGE"        value="You must provide a link"></property>
+        <property name="MISSING_COLOR_TITLE"          value="Missing Color"></property>
+        <property name="MISSING_COLOR_MESSAGE"        value="You must provide a color"></property>
+        <property name="MISSING_TEXTCOLOR_TITLE"          value="Missing Text Color"></property>
+        <property name="MISSING_TEXTCOLOR_MESSAGE"        value="You must provide a text color"></property>
+        <property name="MISSING_FIRSTNAME_TITLE"          value="Missing First Name"></property>
+        <property name="MISSING_FIRSTNAME_MESSAGE"        value="You must provide a first name"></property>
+        <property name="MISSING_LASTNAME_TITLE"          value="Missing Last Name"></property>
+        <property name="MISSING_LASTNAME_MESSAGE"        value="You must provide a last name"></property>
+        <property name="MISSING_TEAM_TITLE"          value="Missing Team"></property>
+        <property name="MISSING_TEAM_MESSAGE"        value="You must provide a team"></property>
+        <property name="MISSING_ROLE_TITLE"          value="Missing Role"></property>
+        <property name="MISSING_ROLE_MESSAGE"        value="You must provide a role"></property>
+        <property name="MISSING_DATE_TITLE"          value="Missing Date"></property>
+        <property name="MISSING_DATE_MESSAGE"        value="You must provide a date"></property>
+        <property name="MISSING_TITLE_TITLE"          value="Missing Title"></property>
+        <property name="MISSING_TITLE_MESSAGE"        value="You must provide a title"></property>
+        
+        <property name="STARTDATE_AFTER_TITLE"          value="Starting Monday Invalid"></property>
+        <property name="STARTDATE_AFTER_MESSAGE"        value="Starting Monday must be before ending Friday"></property>
+        <property name="STARTDATE_INVALID_TITLE"          value="Starting Monday Invalid"></property>
+        <property name="STARTDATE_INVALID_MESSAGE"        value="Starting Monday must be a Monday"></property>
+        <property name="ENDDATE_BEFORE_TITLE"          value="Ending Friday Invalid"></property>
+        <property name="ENDDATE_BEFORE_MESSAGE"        value="Ending Friday must be after starting Monday"></property>
+        <property name="ENDDATE_INVALID_TITLE"          value="Ending Friday Invalid"></property>
+        <property name="ENDDATE_INVALID_MESSAGE"        value="Ending Friday must be a Friday"></property>
+        
         <property name="ADDEDIT"     value="Add/Edit"></property>
         <property name="CDTAB_HEADER"     value="Course Details"></property>
         <property name="COURSEINFO_HEADER"     value="Course Information"></property>

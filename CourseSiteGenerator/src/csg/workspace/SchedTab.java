@@ -10,18 +10,12 @@ import csg.CSGProp;
 import csg.data.SchedData;
 import csg.data.ScheduleItem;
 import java.time.LocalDate;
-import javafx.scene.control.Tab;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
@@ -35,6 +29,7 @@ import javafx.scene.control.DatePicker;
 import javafx.util.StringConverter;
 import properties_manager.PropertiesManager;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.input.KeyCode;
 
 /**
  *
@@ -66,7 +61,7 @@ public class SchedTab extends Tab {
 
     DatePicker startPicker;
     DatePicker endPicker;
-    TextField typeField;
+    ComboBox typeBox;
     DatePicker datePicker;
     TextField timeField;
     TextField titleField;
@@ -175,8 +170,27 @@ public class SchedTab extends Tab {
         addBox.setPadding(new Insets(5, 5, 5, 5));
         addHeader = new Label(props.getProperty(CSGProp.ADDEDIT));
         addBox.add(addHeader, 0, 0, 2, 2);
-        typeField = new TextField();
+        typeBox = new ComboBox();
         datePicker = new DatePicker();
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
+
+            @Override
+            public String toString(LocalDate localDate) {
+                if (localDate == null) {
+                    return "";
+                }
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(dateString, dateTimeFormatter);
+            }
+        });
         timeField = new TextField();
         titleField = new TextField();
         topicField = new TextField();
@@ -185,7 +199,7 @@ public class SchedTab extends Tab {
         addButton = new Button(props.getProperty(CSGProp.ADDEDIT_BUTTON));
         clearButton = new Button(props.getProperty(CSGProp.CLEAR_BUTTON));
         addBox.add(new Label(props.getProperty(CSGProp.TYPE)), 0, 2, 1, 1);
-        addBox.add(typeField, 1, 2, 5, 1);
+        addBox.add(typeBox, 1, 2, 5, 1);
         addBox.add(new Label(props.getProperty(CSGProp.DATE)), 0, 3, 1, 1);
         addBox.add(datePicker, 1, 3, 5, 1);
         addBox.add(new Label(props.getProperty(CSGProp.TIME)), 0, 4, 1, 1);
@@ -210,6 +224,93 @@ public class SchedTab extends Tab {
         box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
 
         this.setContent(sPane);
+        ObservableList types = FXCollections.observableArrayList();
+        types.addAll("Holiday", "Lecture", "Reference", "Recitation", "Homework");
+        typeBox.setItems(types);
+        
+        /*
+        typeBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if(newValue == null){
+                datePicker.setDisable(false);
+                timeField.setDisable(false);
+                titleField.setDisable(false);
+                topicField.setDisable(false);
+                linkField.setDisable(false);
+                criteriaField.setDisable(false);
+            }else if(newValue.equals("Holiday")){
+                datePicker.setDisable(false);
+                timeField.setDisable(true);
+                titleField.setDisable(false);
+                topicField.setDisable(true);
+                linkField.setDisable(false);
+                criteriaField.setDisable(true);  
+            }else if(newValue.equals("Lecture")){
+                datePicker.setDisable(false);
+                timeField.setDisable(true);
+                titleField.setDisable(false);
+                topicField.setDisable(false);
+                linkField.setDisable(false);
+                criteriaField.setDisable(true); 
+            }else if(newValue.equals("Reference")){
+                datePicker.setDisable(false);
+                timeField.setDisable(true);
+                titleField.setDisable(false);
+                topicField.setDisable(false);
+                linkField.setDisable(false);
+                criteriaField.setDisable(true); 
+            }else if(newValue.equals("Recitation")){
+                datePicker.setDisable(false);
+                timeField.setDisable(true);
+                titleField.setDisable(false);
+                topicField.setDisable(false);
+                linkField.setDisable(true);
+                criteriaField.setDisable(true); 
+            }else{
+                datePicker.setDisable(false);
+                timeField.setDisable(false);
+                titleField.setDisable(false);
+                topicField.setDisable(false);
+                linkField.setDisable(false);
+                criteriaField.setDisable(false);
+            }
+        }); */
+        startPicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeMon(oldValue, newValue);
+        });
+        endPicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeFri(oldValue, newValue);
+        });
+        addButton.setOnAction(e -> {
+            if(itemsTable.getSelectionModel().isEmpty())
+                controller.handleAddItem();
+            else 
+                controller.handleUpdateItem();
+        });
+        itemsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            controller.handleSelectedItem();
+        });
+        itemsTable.setOnMouseClicked(e -> {
+            controller.handleSelectedItem();
+        });
+        sPane.setOnKeyPressed(e -> {
+            if ((e.getCode() == KeyCode.Z) && (e.isControlDown())) {
+                //jTPS.undoTransaction();
+
+            }
+            if ((e.getCode() == KeyCode.Y) && (e.isControlDown())) {
+                //jTPS.doTransaction();
+
+            }
+            if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {
+                controller.handleDeleteItem();
+            }
+        });
+        removeButton.setOnAction(e -> {
+            controller.handleDeleteItem();
+        });
+        clearButton.setOnAction(e -> {
+            controller.handleClearSched();
+        });
 
     }
 
@@ -281,8 +382,8 @@ public class SchedTab extends Tab {
         return endPicker;
     }
 
-    public TextField getTypeField() {
-        return typeField;
+    public ComboBox getTypeBox() {
+        return typeBox;
     }
 
     public DatePicker getDatePicker() {
@@ -325,14 +426,23 @@ public class SchedTab extends Tab {
         SchedData schedData = app.getCSGData().getSchedData();
         String startDateString = schedData.getStartingMon();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
-        if(startDateString == null) return;
-        LocalDate startDate = LocalDate.parse(startDateString, formatter);
-        startPicker.setValue(startDate);
+        if(startDateString != null){
+            LocalDate startDate = LocalDate.parse(startDateString, formatter);
+            startPicker.setValue(startDate);
+        }else{
+            startPicker.getEditor().clear();
+            startPicker.setValue(null);
+        }
         
         String endDateString = schedData.getEndingFri();
-        if(endDateString == null) return;
-        LocalDate endDate = LocalDate.parse(endDateString, formatter);
-        endPicker.setValue(endDate);
+        if(endDateString != null){
+            LocalDate endDate = LocalDate.parse(endDateString, formatter);
+            endPicker.setValue(endDate);
+        }
+        else{
+            endPicker.getEditor().clear();
+            endPicker.setValue(null);
+        }
     }
 
 }

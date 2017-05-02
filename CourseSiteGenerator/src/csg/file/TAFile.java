@@ -15,6 +15,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -85,6 +86,7 @@ public class TAFile {
     
     public void loadTAData(TAData taData, JsonObject json){
         	// LOAD THE START AND END HOURS
+        
 	taData.setStartHour(Integer.parseInt(json.getString(JSON_START_HOUR)));
         taData.setEndHour(Integer.parseInt(json.getString(JSON_END_HOUR)));
         
@@ -92,6 +94,7 @@ public class TAFile {
         
 
         // NOW LOAD ALL THE UNDERGRAD TAs
+        
         JsonArray jsonTAArray = json.getJsonArray(JSON_UNDERGRAD_TAS);
         for (int i = 0; i < jsonTAArray.size(); i++) {
             JsonObject jsonTA = jsonTAArray.getJsonObject(i);
@@ -99,8 +102,9 @@ public class TAFile {
             String name = jsonTA.getString(JSON_NAME);
             String email = jsonTA.getString(JSON_EMAIL);
             TeachingAssistant ta = new TeachingAssistant(grad, name, email);
-            taData.addTALoad(name, email);
+            taData.getTeachingAssistants().add(ta);
         }
+        
 
         // AND THEN ALL THE OFFICE HOURS
         ArrayList<TimeSlot> officeHoursList = new ArrayList<>();
@@ -132,7 +136,6 @@ public class TAFile {
             JsonObject taJson = Json.createObjectBuilder().build();
             if (ta.getGrad().getValue() == true) {
                 taJson = Json.createObjectBuilder()
-                        .add(JSON_GRAD, ta.getGrad().getValue())
                         .add(JSON_NAME, ta.getName())
                         .add(JSON_EMAIL, ta.getEmail()).build();
                 taArrayBuilder.add(taJson);
@@ -145,7 +148,6 @@ public class TAFile {
             JsonObject taJson = Json.createObjectBuilder().build();
             if (ta.getGrad().getValue() == false) {
                 taJson = Json.createObjectBuilder()
-                        .add(JSON_GRAD, ta.getGrad().getValue())
                         .add(JSON_NAME, ta.getName())
                         .add(JSON_EMAIL, ta.getEmail()).build();
                 gradTAArrayBuilder.add(taJson);

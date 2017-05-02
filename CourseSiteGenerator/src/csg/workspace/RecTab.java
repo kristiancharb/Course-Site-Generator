@@ -31,23 +31,25 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
+import javafx.scene.input.KeyCode;
 import properties_manager.PropertiesManager;
 
 /**
  *
  * @author kristiancharbonneau
  */
-public class RecTab extends Tab{
+public class RecTab extends Tab {
+
     CSGApp app;
     CSGController controller;
     CSGWorkspace workspace;
-    
+
     ScrollPane sPane;
     VBox box;
     HBox header;
     Label headerLabel;
     GridPane addBox;
-    
+
     TableView<Recitation> recTable;
     TableColumn<Recitation, String> sectionCol;
     TableColumn<Recitation, String> instructorCol;
@@ -55,9 +57,9 @@ public class RecTab extends Tab{
     TableColumn<Recitation, String> locationCol;
     TableColumn<Recitation, String> ta1Col;
     TableColumn<Recitation, String> ta2Col;
-    
+
     Button removeButton;
-    
+
     Label addHeader;
     TextField sectionField;
     TextField instructorField;
@@ -66,16 +68,16 @@ public class RecTab extends Tab{
     ComboBox ta1Box;
     ComboBox ta2Box;
     Button addButton;
-    Button clearButton; 
-    
-    public RecTab(CSGApp app, CSGController controller, CSGWorkspace workspace){
+    Button clearButton;
+
+    public RecTab(CSGApp app, CSGController controller, CSGWorkspace workspace) {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         this.app = app;
         this.controller = controller;
         this.workspace = workspace;
         RecData recData = app.getCSGData().getRecData();
         this.setText(props.getProperty(CSGProp.RECTAB_HEADER));
-        
+
         sPane = new ScrollPane();
         box = new VBox();
         header = new HBox();
@@ -83,8 +85,7 @@ public class RecTab extends Tab{
         removeButton = new Button(props.getProperty(CSGProp.REMOVE_BUTTON));
         header.getChildren().addAll(headerLabel, removeButton);
         box.getChildren().add(header);
-        
-       
+
         recTable = new TableView();
         recTable.setItems(recData.getRecitations());
         sectionCol = new TableColumn(props.getProperty(CSGProp.SECTION_COL));
@@ -104,11 +105,11 @@ public class RecTab extends Tab{
         recTable.setMaxWidth(800);
         recTable.setMaxHeight(200);
         box.getChildren().add(recTable);
-        
+
         addBox = new GridPane();
         addBox.setHgap(10);
         addBox.setVgap(10);
-        addBox.setPadding(new Insets(5,5,5,5));
+        addBox.setPadding(new Insets(5, 5, 5, 5));
         addHeader = new Label(props.getProperty(CSGProp.ADDEDIT));
         addBox.add(addHeader, 0, 0, 2, 2);
         addBox.add(new Label(props.getProperty(CSGProp.SECTION)), 0, 3, 1, 1);
@@ -133,87 +134,143 @@ public class RecTab extends Tab{
         clearButton = new Button(props.getProperty(CSGProp.CLEAR_BUTTON));
         addBox.add(addButton, 0, 9, 1, 1);
         addBox.add(clearButton, 1, 9, 1, 1);
-        
+
         addBox.setMaxWidth(800);
         header.setMaxWidth(800);
-        
+
         box.getChildren().add(addBox);
         box.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
         box.prefHeightProperty().bind(sPane.heightProperty().multiply(0.98));
-        
+
         sPane.setContent(box);
         this.setContent(sPane);
         
+        ta1Box.setItems(app.getCSGData().getTAData().getTeachingAssistants());
+        ta2Box.setItems(app.getCSGData().getTAData().getTeachingAssistants());
+
+        //EVENT HANDLING 
+        addButton.setOnAction(e -> {
+            if (recTable.getSelectionModel().isEmpty()) {
+                controller.handleAddRec();
+            } else {
+                controller.handleUpdateRec();
+            }
+        });
+
+        recTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            controller.handleSelectedRec();
+        });
+        recTable.setOnMouseClicked(e -> {
+            controller.handleSelectedRec();
+        });
+        sPane.setOnKeyPressed(e -> {
+            if ((e.getCode() == KeyCode.Z) && (e.isControlDown())) {
+                //jTPS.undoTransaction();
+
+            }
+            if ((e.getCode() == KeyCode.Y) && (e.isControlDown())) {
+                //jTPS.doTransaction();
+
+            }
+            if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {
+                controller.handleDeleteRec();
+            }
+        });
+        removeButton.setOnAction(e -> {
+            controller.handleDeleteRec();
+        });
+        clearButton.setOnAction(e -> {
+            controller.handleClearRec();
+        });
+
     }
-    
-    public ScrollPane getSPane(){
+
+    public ScrollPane getSPane() {
         return sPane;
     }
-    public VBox getBox(){
+
+    public VBox getBox() {
         return box;
     }
-    public HBox getHeader(){
+
+    public HBox getHeader() {
         return header;
     }
-    public Label getHeaderLabel(){
+
+    public Label getHeaderLabel() {
         return headerLabel;
     }
-    public GridPane getAddBox(){
+
+    public GridPane getAddBox() {
         return addBox;
     }
-    
-    public TableView<Recitation> getRecTable(){
+
+    public TableView<Recitation> getRecTable() {
         return recTable;
     }
-    public TableColumn<Recitation, String> getSectionCol(){
+
+    public TableColumn<Recitation, String> getSectionCol() {
         return sectionCol;
     }
-    public TableColumn<Recitation, String> getInstructorCol(){
+
+    public TableColumn<Recitation, String> getInstructorCol() {
         return instructorCol;
     }
-    public TableColumn<Recitation, String> getTimeCol(){
+
+    public TableColumn<Recitation, String> getTimeCol() {
         return timeCol;
     }
-    public TableColumn<Recitation, String> getLocationCol(){
+
+    public TableColumn<Recitation, String> getLocationCol() {
         return locationCol;
     }
-    public TableColumn<Recitation, String> getTa1Col(){
+
+    public TableColumn<Recitation, String> getTa1Col() {
         return ta1Col;
     }
-    public TableColumn<Recitation, String> getTa2Col(){
+
+    public TableColumn<Recitation, String> getTa2Col() {
         return ta2Col;
     }
-    
-    public Button getRemoveButton(){
+
+    public Button getRemoveButton() {
         return removeButton;
     }
-    
-    public Label getAddHeader(){
+
+    public Label getAddHeader() {
         return addHeader;
     }
-    public TextField getSectionField(){
+
+    public TextField getSectionField() {
         return sectionField;
     }
-    public TextField getInstructorField(){
+
+    public TextField getInstructorField() {
         return instructorField;
     }
-    public TextField getTimeField(){
+
+    public TextField getTimeField() {
         return timeField;
     }
-    public TextField getLocationField(){
+
+    public TextField getLocationField() {
         return locationField;
     }
-    public ComboBox ta1Box(){
+
+    public ComboBox getTa1Box() {
         return ta1Box;
     }
-    public ComboBox ta2Box(){
+
+    public ComboBox getTa2Box() {
         return ta2Box;
     }
-    public Button getAddButton(){
+
+    public Button getAddButton() {
         return addButton;
     }
-    public Button getClearButton(){
+
+    public Button getClearButton() {
         return clearButton;
-    } 
-    
+    }
+
 }

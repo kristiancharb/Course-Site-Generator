@@ -86,7 +86,10 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     
     @Override
     public void resetWorkspace(){
-        taTab.resetTATab(); 
+        taTab.resetTATab();
+        controller.handleClearRec();
+        controller.handleClearTeam();
+        controller.handleClearStudent();
         
     }
     

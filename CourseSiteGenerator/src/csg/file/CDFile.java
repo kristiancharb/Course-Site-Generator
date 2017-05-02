@@ -57,6 +57,7 @@ public class CDFile {
     }
     
     public void loadCDData(CDData cdData, JsonObject json){
+        
         cdData.setSubject(json.getString("subject"));
         cdData.setSemester(json.getString("semester"));
         cdData.setNumber(json.getString("number"));

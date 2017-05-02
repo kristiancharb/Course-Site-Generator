@@ -47,4 +47,8 @@ public class Team {
         Color col = Color.decode(color);
         return Integer.toString(col.getGreen());
     }
+    @Override
+    public String toString(){
+        return name;
+    }
 }

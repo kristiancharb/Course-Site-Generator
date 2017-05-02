@@ -13,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.collections.ObservableList;
@@ -69,6 +68,7 @@ public class ProjectFile {
     }
     
     public void loadProjectData(ProjectData projData, JsonObject json){
+        
         JsonArray teamsArray = json.getJsonArray("teams");
         for(int i = 0; i < teamsArray.size(); i++){
             JsonObject jsonObj = teamsArray.getJsonObject(i);
@@ -153,6 +153,61 @@ public class ProjectFile {
 	PrintWriter pw = new PrintWriter(filePath);
 	pw.write(prettyPrinted);
 	pw.close();
+    }
+    
+    public void exportProjects(CSGData csgData, String filePath) throws Exception{
+        ProjectData projectData = csgData.getProjectData();
+       
+        JsonArrayBuilder projectsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Team> teams = projectData.getTeams();
+        ObservableList<Student> students = projectData.getStudents();
+        for(Team t: teams){
+            String name = t.getName();
+            JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+            for(Student s: students){
+                if(s.getTeam().equals(name)){
+                    studentsArrayBuilder.add(s.getFirstName() + " " + s.getLastName());
+                } 
+            }
+            JsonArray studentsArray = studentsArrayBuilder.build();
+            
+            JsonObject project = Json.createObjectBuilder()
+                    .add("name", name)
+                    .add("students", studentsArray)
+                    .add("link", t.getLink())
+                    .build();
+            
+            projectsArrayBuilder.add(project);
+            
+        }
+        JsonArray projectsArray = projectsArrayBuilder.build();
+        JsonObject json = Json.createObjectBuilder()
+                .add("semester", "Spring 2016")
+                .add("projects", projectsArray)
+                .build();
+        
+        JsonArrayBuilder jsonArr = Json.createArrayBuilder();
+        jsonArr.add(json);
+        JsonObject work = Json.createObjectBuilder()
+                .add("work", jsonArr).build();
+        
+        
+        Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(work);
+	jsonWriter.close();
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(work);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();       
     }
     
 }
