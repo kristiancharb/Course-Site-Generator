@@ -32,6 +32,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.scene.input.KeyCode;
+import jtps.jTPS;
 import properties_manager.PropertiesManager;
 
 /**
@@ -163,13 +164,14 @@ public class RecTab extends Tab {
         recTable.setOnMouseClicked(e -> {
             controller.handleSelectedRec();
         });
+        jTPS jTPS = workspace.getJTPS();
         sPane.setOnKeyPressed(e -> {
             if ((e.getCode() == KeyCode.Z) && (e.isControlDown())) {
-                //jTPS.undoTransaction();
+                jTPS.undoTransaction();
 
             }
             if ((e.getCode() == KeyCode.Y) && (e.isControlDown())) {
-                //jTPS.doTransaction();
+                jTPS.doTransaction();
 
             }
             if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {

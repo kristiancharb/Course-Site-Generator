@@ -9,17 +9,11 @@ import csg.CSGApp;
 import csg.CSGProp;
 import csg.data.CDData;
 import csg.data.SiteTemplate;
-import csg.data.TeachingAssistant;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
 import static djf.settings.AppStartupConstants.PATH_IMAGES;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
@@ -33,7 +27,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.beans.property.BooleanProperty;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 
@@ -223,6 +216,18 @@ public class CDTab extends Tab{
         pane.prefWidthProperty().bind(sPane.widthProperty().multiply(0.98));
 
         this.setContent(sPane);
+        
+        styleSheetBox.setItems(cdData.getStylesheets());
+        
+        changeExportButton.setOnAction(e -> {
+            controller.handleChangeExportDir();
+        });
+        selectTemplateButton.setOnAction(e -> {
+            controller.handleChangeTemplateDir();
+        });
+        changeBannerButton.setOnAction(e -> {
+            controller.handleChangeBannerImage();
+        });
     }
     
     public GridPane getCourseInfoBox(){
@@ -323,10 +328,10 @@ public class CDTab extends Tab{
         bannerImageView.setImage(bannerImage);
         imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getLeftFootPath();
         leftFootImage = new Image(imagePath, 110, 20, true, true);
-        leftFootImageView.setImage(bannerImage);
+        leftFootImageView.setImage(leftFootImage);
         imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getRightFootPath();
         rightFootImage = new Image(imagePath, 110, 20, true, true);
-        rightFootImageView.setImage(bannerImage);
+        rightFootImageView.setImage(rightFootImage);
         
         
     }

@@ -79,7 +79,14 @@ function addHWs() {
                         + "<br />" + dayOfWeek + ", " + month + "/" + day
                         + "<br /><br /><br />"
                         + "</td>";
-                       
+        if (hw.criteria.valueOf() === "none".valueOf()) {
+            textToAppend += "<td class=\"hw\" style=\"padding-right: 60px\"><br />TBA<br /><br /><br /></td>";
+        }
+        else {
+            textToAppend += "<td class=\"hw\" style=\"padding-right: 60px\">"
+            + "<a href=\"" + hw.criteria + "\"><br />" + hw.title + " Grading Criteria</a><br /><br /><br /></td>";
+        }
+                        
         textToAppend += "</tr>";
         tBody.append(textToAppend);
         red -= redInc;
@@ -89,8 +96,8 @@ function addHWs() {
 }
 function getDayOfWeek(gDay, gMonth) {
     var date = new Date();
-    date.setDate(gDay);
+    date.setDate(1);
     date.setMonth(gMonth-1);
+    date.setDate(gDay);
     return daysOfWeek[date.getDay()];
 }
-

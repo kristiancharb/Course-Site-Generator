@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CSGApp;
 import csg.CSGProp;
+import csg.data.CDData;
 import csg.data.ProjectData;
 import csg.data.RecData;
 import csg.data.Recitation;
@@ -17,8 +18,19 @@ import csg.data.TAData;
 import csg.data.TeachingAssistant;
 import csg.data.Team;
 import csg.file.TimeSlot;
+import csg.transactions.sched.AddItem_Transaction;
+import csg.transactions.sched.RemoveItem_Transaction;
+import csg.transactions.sched.UpdateItem_Transaction;
+import csg.transactions.ta.AddTA_Transaction;
+import csg.transactions.ta.ChangeEndHour_Transaction;
+import csg.transactions.ta.ChangeStartHour_Transaction;
+import csg.transactions.ta.RemoveTA_Transaction;
+import csg.transactions.ta.ToggleTACell_Transaction;
+import csg.transactions.ta.UpdateTA_Transaction;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
+import java.io.File;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import javafx.scene.control.ColorPicker;
 import java.util.ArrayList;
@@ -31,7 +43,12 @@ import javafx.scene.paint.Color;
 import properties_manager.PropertiesManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.stage.FileChooser;
 import javafx.scene.control.DatePicker;
+import javafx.stage.DirectoryChooser;
+import jtps.jTPS;
+import jtps.jTPS_Transaction;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -80,9 +97,9 @@ public class CSGController {
         else {
             TeachingAssistant ta = new TeachingAssistant(name, email);
             ArrayList<TimeSlot> TAHoursList = new ArrayList<>();
-            //jTPS_Transaction transaction = new AddTA_Transaction(app, ta, TAHoursList);
-            //jTPS jTPS = workspace.getJTPS();
-            //jTPS.addTransaction(transaction);
+            jTPS_Transaction transaction = new AddTA_Transaction(app, ta, TAHoursList);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             // ADD THE NEW TA TO THE DATA
             data.addTA(name, email);
 
@@ -109,9 +126,9 @@ public class CSGController {
         }
         TAData taData = app.getCSGData().getTAData();
         ArrayList<TimeSlot> TAHoursList = TimeSlot.buildTATimeSlotList(taData, ta);
-        //jTPS_Transaction transaction = new RemoveTA_Transaction(app, ta, TAHoursList);
-        //jTPS jTPS = workspace.getJTPS();
-        //jTPS.addTransaction(transaction);
+        jTPS_Transaction transaction = new RemoveTA_Transaction(app, ta, TAHoursList);
+        jTPS jTPS = app.getCSGWorkspace().getJTPS();
+        jTPS.addTransaction(transaction);
         taData.removeTA(ta);
 
     }
@@ -140,9 +157,9 @@ public class CSGController {
         String cellKey = pane.getId();
 
         // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL
-        //jTPS_Transaction transaction = new ToggleTACell_Transaction(app, cellKey, taName);
-        //jTPS jTPS = workspace.getJTPS();
-        //jTPS.addTransaction(transaction);
+        jTPS_Transaction transaction = new ToggleTACell_Transaction(app, cellKey, taName);
+        jTPS jTPS = app.getCSGWorkspace().getJTPS();
+        jTPS.addTransaction(transaction);
         taData.toggleTAOfficeHours(cellKey, taName);
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
 
@@ -232,9 +249,9 @@ public class CSGController {
 
         } // EVERYTHING IS FINE, UPDATE TA
         else {
-            //jTPS_Transaction transaction = new UpdateTA_Transaction(app, ta, name, email);
-            //jTPS jTPS = workspace.getJTPS();
-            //jTPS.addTransaction(transaction);
+            jTPS_Transaction transaction = new UpdateTA_Transaction(app, ta, name, email);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             data.updateTA(ta, name, email);
         }
     }
@@ -296,9 +313,9 @@ public class CSGController {
             }
         }
 
-        //jTPS_Transaction transaction = new ChangeStartHour_Transaction(app, data.getStartHour(), hour, officeHoursList);
-        //jTPS jTPS = workspace.getJTPS();
-        //jTPS.addTransaction(transaction);
+        jTPS_Transaction transaction = new ChangeStartHour_Transaction(app, data.getStartHour(), hour, officeHoursList);
+        jTPS jTPS = app.getCSGWorkspace().getJTPS();
+        jTPS.addTransaction(transaction);
         data.changeStartHour(hour);
 
     }
@@ -340,9 +357,9 @@ public class CSGController {
             }
         }
 
-        //jTPS_Transaction transaction = new ChangeEndHour_Transaction(app, data.getEndHour(), hour, officeHoursList);
-        //jTPS jTPS = workspace.getJTPS();
-        //jTPS.addTransaction(transaction);
+        jTPS_Transaction transaction = new ChangeEndHour_Transaction(app, data.getEndHour(), hour, officeHoursList);
+        jTPS jTPS = app.getCSGWorkspace().getJTPS();
+        jTPS.addTransaction(transaction);
         data.changeEndHour(hour);
 
     }
@@ -720,6 +737,7 @@ public class CSGController {
     }
 
     public void handleChangeMon(LocalDate oldVal, LocalDate newVal) {
+        if(newVal == null) return;
         SchedData schedData = app.getCSGData().getSchedData();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -727,6 +745,7 @@ public class CSGController {
         if (schedData.getEndingFri() != null) {
             endDate = LocalDate.parse(schedData.getEndingFri(), formatter);
         }
+       
         if (newVal.isAfter(endDate)) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.STARTDATE_AFTER_TITLE), props.getProperty(CSGProp.STARTDATE_AFTER_MESSAGE));
@@ -742,6 +761,7 @@ public class CSGController {
     }
 
     public void handleChangeFri(LocalDate oldVal, LocalDate newVal) {
+        if(newVal == null) return;
         SchedData schedData = app.getCSGData().getSchedData();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -775,7 +795,7 @@ public class CSGController {
         TextField linkField = schedTab.getLinkField();
         TextField criteriaField = schedTab.getCriteriaField();
         String type = (String) typeBox.getValue();
-        String date = datePicker.getValue().format(formatter);
+        
         String time = timeField.getText();
         String title = titleField.getText();
         String topic = topicField.getText();
@@ -787,10 +807,15 @@ public class CSGController {
         if (title == null || title.isEmpty()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_TITLE_TITLE), props.getProperty(CSGProp.MISSING_TITLE_MESSAGE));
-        } else if (date == null || date.isEmpty()) {
+        } else if (datePicker.getValue() == null) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_DATE_TITLE), props.getProperty(CSGProp.MISSING_DATE_MESSAGE));
         } else {
+            String date = datePicker.getValue().format(formatter);
+            ScheduleItem item = new ScheduleItem(type, date, title, topic, link, criteria, time);
+            jTPS_Transaction transaction = new AddItem_Transaction(app, item);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             schedData.addItem(type, date, time, title, topic, link, criteria);
             handleClearSched();
         }
@@ -828,6 +853,10 @@ public class CSGController {
                 AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                 dialog.show(props.getProperty(CSGProp.MISSING_DATE_TITLE), props.getProperty(CSGProp.MISSING_DATE_MESSAGE));
             } else {
+                ScheduleItem newItem= new ScheduleItem(type, date, title, topic, link, criteria, time);
+                jTPS_Transaction transaction = new UpdateItem_Transaction(app, item, newItem);
+                jTPS jTPS = app.getCSGWorkspace().getJTPS();
+                jTPS.addTransaction(transaction);
                 schedData.updateItem(item, type, date, time, title, topic, link, criteria);
                 handleClearSched();
             }
@@ -862,6 +891,9 @@ public class CSGController {
         SchedTab schedTab = app.getCSGWorkspace().getSchedTab();
         if (!schedTab.getItemsTable().getSelectionModel().isEmpty()) {
             ScheduleItem item = schedTab.getItemsTable().getSelectionModel().getSelectedItem();
+            jTPS_Transaction transaction = new RemoveItem_Transaction(app, item);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             schedData.removeItem(item);
         }
     }
@@ -887,5 +919,50 @@ public class CSGController {
         criteriaField.setText("");
         typeBox.requestFocus();
         schedTab.getItemsTable().getSelectionModel().clearSelection();
+    }
+    
+    public void handleChangeExportDir(){
+        CDData cdData = app.getCSGData().getCDData();
+        final DirectoryChooser directoryChooser =new DirectoryChooser();
+        final File selectedDirectory = directoryChooser.showDialog(app.getGUI().getWindow());
+        if (selectedDirectory != null) {
+            String filePath = selectedDirectory.getAbsolutePath();
+            cdData.changeExportDir(filePath);
+        }
+        app.getCSGWorkspace().getCDTab().reloadCDTab();
+    }
+    
+    public void handleChangeTemplateDir(){
+        CDData cdData = app.getCSGData().getCDData();
+        final DirectoryChooser directoryChooser =new DirectoryChooser();
+        final File selectedDirectory = directoryChooser.showDialog(app.getGUI().getWindow());
+        if (selectedDirectory != null) {
+            String filePath = selectedDirectory.getAbsolutePath();
+            cdData.changeTemplateDir(filePath);
+        }
+        app.getCSGWorkspace().getCDTab().reloadCDTab();
+    }
+    
+    public void handleChangeBannerImage(){
+        CDData cdData = app.getCSGData().getCDData();
+        String userDir = System.getProperty("user.dir");
+        final FileChooser fileChooser =new FileChooser();
+        final File selectedFile = fileChooser.showOpenDialog(app.getGUI().getWindow());
+        String filePath = "";
+        if (selectedFile != null) {
+            filePath = selectedFile.getAbsolutePath();
+        }
+        File source = new File(filePath);
+        String imagePath = userDir + "/images";
+        File dest = new File(imagePath);
+        
+        try {
+            FileUtils.copyFileToDirectory(source, dest);
+            cdData.changeBannerImage(filePath);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        app.getCSGWorkspace().getCDTab().reloadCDTab();
+        
     }
 }

@@ -56,7 +56,6 @@ public class CSGFile implements AppFileComponent {
 
     @Override
     public void loadData(AppDataComponent data, String filePath) throws IOException {
-        System.out.println(filePath);
         CSGData csgData = (CSGData) data;
         JsonArray jsonArray = loadJSONFile(filePath);
         taFile.loadTAData(csgData.getTAData(), jsonArray.getJsonObject(0));
@@ -117,6 +116,7 @@ public class CSGFile implements AppFileComponent {
     @Override
     public void exportData(AppDataComponent data, String filePath) throws IOException {
         CSGData csgData = (CSGData)data;
+        filePath = csgData.getCDData().getExportDirPath();
         String pathToTester = "/CSGTester/public_html/";
         String userDir = System.getProperty("user.dir");
         String path = userDir + pathToTester;
@@ -124,17 +124,26 @@ public class CSGFile implements AppFileComponent {
         
         File selectedFile = new File(filePath);
         copyDirectory(publicHTML, selectedFile);
+        String cdFilePath = filePath + "/js/CDData.json";
         String taFilePath = filePath + "/js/OfficeHoursGridData.json";
         String recFilePath = filePath + "/js/RecitationsData.json";
         String schedFilePath = filePath + "/js/ScheduleData.json";
         String teamsAndStudentsFilePath = filePath + "/js/TeamsAndStudents.json";
         String projFilePath = filePath + "/js/ProjectsData.json";
+        String cssFileDest = filePath + "/css";
+        String imageFileDest = filePath + "/images";
+        String cssFileSource = userDir + "/work/css";
+        String imageFileSource = userDir + "/images";
         try {
             taFile.exportTAData(csgData, taFilePath);
             recFile.exportRecData(csgData, recFilePath);
             schedFile.exportSchedData(csgData, schedFilePath);
             projectFile.exportTeamsAndStudents(csgData, teamsAndStudentsFilePath);
             projectFile.exportProjects(csgData, projFilePath);
+            cdFile.exportCDData(csgData, cdFilePath);
+            copyDirectory(new File(cssFileSource), new File(cssFileDest));
+            copyDirectory(new File(imageFileSource), new File(imageFileDest));
+            
         } catch (Exception ex) {
            ex.printStackTrace();
         }

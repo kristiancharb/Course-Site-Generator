@@ -32,23 +32,13 @@
         ],
         "officeHours":[
             {
-                "day":"MONDAY",
-                "time":"2_30am",
-                "name":"Bob"
-            },
-            {
-                "day":"TUESDAY",
-                "time":"4_00am",
-                "name":"John Doe"
-            },
-            {
-                "day":"MONDAY",
-                "time":"4_30am",
-                "name":"Bob"
-            },
-            {
                 "day":"THURSDAY",
                 "time":"2_00am",
+                "name":"Bob"
+            },
+            {
+                "day":"MONDAY",
+                "time":"2_30am",
                 "name":"Bob"
             },
             {
@@ -57,9 +47,9 @@
                 "name":"John Doe"
             },
             {
-                "day":"FRIDAY",
-                "time":"4_00am",
-                "name":"Jane Doe"
+                "day":"TUESDAY",
+                "time":"3_00am",
+                "name":"Grad"
             },
             {
                 "day":"WEDNESDAY",
@@ -68,8 +58,18 @@
             },
             {
                 "day":"TUESDAY",
-                "time":"3_00am",
-                "name":"Grad"
+                "time":"4_00am",
+                "name":"John Doe"
+            },
+            {
+                "day":"FRIDAY",
+                "time":"4_00am",
+                "name":"Jane Doe"
+            },
+            {
+                "day":"MONDAY",
+                "time":"4_30am",
+                "name":"Bob"
             }
         ]
     },
@@ -81,7 +81,7 @@
         "title":"Comp Sci III",
         "instructorName":"McKenna",
         "instructorHome":"mckenna.com",
-        "exportDirPath":"CSE219\\Summer2017\\public",
+        "exportDirPath":"/Users/kristiancharbonneau/Desktop/TestSite/public_html",
         "siteTemplateDir":"\\templates\\CSE219",
         "siteTemplates":[
             {

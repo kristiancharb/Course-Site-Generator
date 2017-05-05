@@ -18,6 +18,9 @@ public class ScheduleItem {
     String time;
     String criteria;
     
+    public ScheduleItem(){
+    }
+    
     public ScheduleItem(String type, String date, String title, String topic){
         this.type = type;
         this.date = date;
@@ -58,6 +61,19 @@ public class ScheduleItem {
     }
     public String getTime(){
         return time;
+    }
+    
+    public boolean equals(ScheduleItem item){
+        if(item.getType().equals(this.getType()) &&
+                item.getTitle().equals(this.getTitle()) &&
+                item.getTopic().equals(this.getTopic()) &&
+                item.getDate().equals(this.getDate()) &&
+                item.getLink().equals(this.getLink()) &&
+                item.getCriteria().equals(this.getCriteria())){
+            return true;
+        }else{ 
+            return false;
+        }
     }
     
 }

@@ -35,6 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import jtps.jTPS;
 import properties_manager.PropertiesManager;
 
 /**
@@ -237,15 +238,8 @@ public class TATab extends Tab {
         taTable.setOnMouseClicked(e -> {
             controller.handleSelectedTA();
         });
-        sPane.setOnKeyPressed(e -> {           
-            if((e.getCode() == KeyCode.Z) && (e.isControlDown())){
-                //jTPS.undoTransaction();
-                
-            }
-            if((e.getCode() == KeyCode.Y) && (e.isControlDown())){
-                //jTPS.doTransaction();
-                
-            }
+        jTPS jTPS = csgWorkspace.getJTPS();
+        sPane.setOnKeyPressed(e -> {          
             if(e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE))
                 controller.handleDeleteTA();
         });

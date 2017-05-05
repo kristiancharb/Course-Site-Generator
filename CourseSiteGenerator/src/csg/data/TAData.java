@@ -279,6 +279,21 @@ public class TAData {
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
     
+    public void addTA(boolean grad, String initName, String initEmail) {
+        // MAKE THE TA
+        TeachingAssistant ta = new TeachingAssistant(grad, initName, initEmail);
+
+        // ADD THE TA
+        if ((!containsTA(initName, initEmail)) && isValidEmail(initEmail)) {
+            teachingAssistants.add(ta);
+        }
+
+        // SORT THE TAS
+        Collections.sort(teachingAssistants);
+
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
     public void addTALoad(String initName, String initEmail) {
         // MAKE THE TA
         TeachingAssistant ta = new TeachingAssistant(initName, initEmail);

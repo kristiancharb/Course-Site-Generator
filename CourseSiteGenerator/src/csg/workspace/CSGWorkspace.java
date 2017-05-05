@@ -13,6 +13,7 @@ import csg.data.TAData;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import jtps.jTPS;
 
@@ -41,6 +42,7 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         controller = new CSGController(initApp);
         
+        jTPS = new jTPS();
         tabs = new TabPane();
         cdTab = new CDTab(initApp, controller, this); 
         taTab = new TATab(initApp, controller, this);
@@ -51,7 +53,18 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         workspace = new BorderPane();
         ((BorderPane) workspace).setCenter(tabs);
         
-        jTPS = new jTPS();   
+        workspace.setOnKeyPressed(e -> {
+            if((e.getCode() == KeyCode.Z) && (e.isControlDown())){
+                jTPS.undoTransaction();
+                
+            }
+            if((e.getCode() == KeyCode.Y) && (e.isControlDown())){
+                jTPS.doTransaction();
+                
+            }
+        });
+        
+           
     }
     
     public TATab getTATab(){
@@ -76,6 +89,15 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     
     public ProjectTab getProjectTab(){
         return projectTab;
+    }
+    public jTPS getJTPS(){
+        return jTPS;
+    }
+    public void jumpToTATab(){
+        tabs.getSelectionModel().select(taTab);
+    }
+    public void jumpToSchedTab(){
+        tabs.getSelectionModel().select(schedTab);
     }
     
     

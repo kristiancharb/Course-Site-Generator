@@ -42,18 +42,24 @@
 img.sbu_navbar
 {
 	float:right;
+        max-width: 200px;
+        max-height: 75px;
 }
 
 img.photo_floating_right
 {
 	float:right;
 	padding-left:20px;
+        max-width: 200px;
+        max-height: 75px;
 }
 
 img.photo_floating_left
 {
 	float:left;
 	padding-right:20px;
+        max-width: 200px;
+        max-height: 75px;
 }
 
 p.footer

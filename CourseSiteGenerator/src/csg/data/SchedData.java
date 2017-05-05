@@ -79,5 +79,18 @@ public class SchedData {
             app.getGUI().getAppFileController().markAsEdited(app.getGUI());
         }
     }
+    public void removeItemTransaction(ScheduleItem item){
+        ScheduleItem toRemove = new ScheduleItem();
+        for(ScheduleItem i: items){
+            if(item.equals(i)){
+                toRemove = i; 
+            }
+        }
+        if(toRemove != null){
+            items.remove(toRemove);
+            app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+        }
+        
+    }
     
 }

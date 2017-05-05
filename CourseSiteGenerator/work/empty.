@@ -1,0 +1,44 @@
+
+[
+    {
+        "startHour":"0",
+        "endHour":"23",
+        "undergrad_tas":[
+        ],
+        "officeHours":[
+        ]
+    },
+    {
+        "subject":"",
+        "semester":"",
+        "number":"",
+        "year":"",
+        "title":"",
+        "instructorName":"",
+        "instructorHome":"",
+        "exportDirPath":"",
+        "siteTemplateDir":"",
+        "siteTemplates":[
+        ],
+        "bannerImagePath":"",
+        "leftFootPath":"",
+        "rightFootPath":"",
+        "stylesheet":""
+    },
+    {
+        "recitations":[
+        ]
+    },
+    {
+        "startingMonday":"null",
+        "endingFriday":"null",
+        "items":[
+        ]
+    },
+    {
+        "teams":[
+        ],
+        "students":[
+        ]
+    }
+]
