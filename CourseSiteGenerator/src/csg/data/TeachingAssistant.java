@@ -76,6 +76,6 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
     
     @Override
     public String toString() {
-        return name.getValue() + " " + email.getValue();
+        return name.getValue();
     }
 }

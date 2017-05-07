@@ -1,0 +1,69 @@
+
+{
+    "teams":[
+        {
+            "name":"Atomic Comics",
+            "red":"8",
+            "green":"109",
+            "blue":"19",
+            "text_color":"white"
+        },
+        {
+            "name":"C4 Comics",
+            "red":"3",
+            "green":"151",
+            "blue":"247",
+            "text_color":"white"
+        }
+    ],
+    "students":[
+        {
+            "lastName":"Shmo",
+            "firstName":"Joe",
+            "team":"Atomic Comics",
+            "role":"Lead Designer"
+        },
+        {
+            "lastName":"Doe",
+            "firstName":"Jane",
+            "team":"Atomic Comics",
+            "role":"Lead Programmer"
+        },
+        {
+            "lastName":"Rob",
+            "firstName":"Bob",
+            "team":"Atomic Comics",
+            "role":"Project Manager"
+        },
+        {
+            "lastName":"Shmo",
+            "firstName":"Chris",
+            "team":"Atomic Comics",
+            "role":"Data Designer"
+        },
+        {
+            "lastName":"Doe",
+            "firstName":"Sara",
+            "team":"C4 Comics",
+            "role":"Data Designer"
+        },
+        {
+            "lastName":"Stewart",
+            "firstName":"Martha",
+            "team":"C4 Comics",
+            "role":"Project Manager"
+        },
+        {
+            "lastName":"Batt",
+            "firstName":"Matt",
+            "team":"C4 Comics",
+            "role":"Lead Programmer"
+        },
+        {
+            "lastName":"Johnson",
+            "firstName":"Bob",
+            "team":"C4 Comics",
+            "role":"Lead Designer"
+        }
+    ]
+}

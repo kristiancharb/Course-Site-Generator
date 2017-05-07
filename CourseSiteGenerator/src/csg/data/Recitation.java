@@ -9,7 +9,7 @@ package csg.data;
  *
  * @author kristiancharbonneau
  */
-public class Recitation {
+public class Recitation <E extends Comparable<E>> implements Comparable<E>{
     String section;
     String instructor;
     String time;
@@ -47,6 +47,21 @@ public class Recitation {
     }
     public String getTa2(){
         return ta2;
+    }
+    public void setTa1(String taName){
+        ta1 = taName;
+    }
+    public void setTa2(String taName){
+        ta2 = taName;
+    }
+    public boolean equals(Recitation r){
+        return section.equals(r.getSection()) && instructor.equals(r.getInstructor()) && time.equals(r.getTime()) &&
+                location.equals(r.getLocation()) && ta1.equals(r.getTa1()) && ta2.equals(r.getTa2());
+    }
+    
+    @Override
+    public int compareTo(E otherRec){
+        return section.compareTo(((Recitation)otherRec).getSection());
     }
     
 }

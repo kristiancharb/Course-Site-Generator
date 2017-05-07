@@ -15,11 +15,6 @@
                 "email":"grad@yah.com"
             },
             {
-                "grad":false,
-                "name":"Grad2",
-                "email":"grad2@gmail.com"
-            },
-            {
                 "grad":true,
                 "name":"Jane Doe",
                 "email":"jane@gmail.com"
@@ -28,6 +23,11 @@
                 "grad":true,
                 "name":"John Doe",
                 "email":"jdoe@gmail.com"
+            },
+            {
+                "grad":false,
+                "name":"TA",
+                "email":"grad2@gmail.com"
             }
         ],
         "officeHours":[
@@ -82,8 +82,14 @@
         "instructorName":"McKenna",
         "instructorHome":"mckenna.com",
         "exportDirPath":"/Users/kristiancharbonneau/Desktop/TestSite/public_html",
-        "siteTemplateDir":"\\templates\\CSE219",
+        "siteTemplateDir":"/Users/kristiancharbonneau/Desktop/CSE219Project/CourseSiteGenerator/308SiteTemplate/public_html",
         "siteTemplates":[
+            {
+                "use":true,
+                "navbarTitle":"HWs",
+                "fileName":"hws.html",
+                "script":"HWsBuilder.js"
+            },
             {
                 "use":true,
                 "navbarTitle":"Home",
@@ -92,9 +98,9 @@
             },
             {
                 "use":true,
-                "navbarTitle":"Syllabus",
-                "fileName":"syllabus.html",
-                "script":"SyllabusBuilder.js"
+                "navbarTitle":"Projects",
+                "fileName":"projects.html",
+                "script":"ProjectsBuilder.js"
             },
             {
                 "use":true,
@@ -104,15 +110,9 @@
             },
             {
                 "use":true,
-                "navbarTitle":"HWs",
-                "fileName":"hws.html",
-                "script":"HWsBuilder"
-            },
-            {
-                "use":false,
-                "navbarTitle":"Projects",
-                "fileName":"projects.html",
-                "script":"ProjectBuilder.js"
+                "navbarTitle":"Syllabus",
+                "fileName":"syllabus.html",
+                "script":"SyllabusBuilder.js"
             }
         ],
         "bannerImagePath":"yale.png",

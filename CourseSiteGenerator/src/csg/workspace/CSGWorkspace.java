@@ -10,6 +10,7 @@ import djf.components.AppWorkspaceComponent;
 import csg.CSGApp;
 import csg.data.CSGData;
 import csg.data.TAData;
+import java.util.Collections;
 import properties_manager.PropertiesManager;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -99,6 +100,12 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     public void jumpToSchedTab(){
         tabs.getSelectionModel().select(schedTab);
     }
+    public void jumpToProjectTab(){
+        tabs.getSelectionModel().select(projectTab);
+    }
+    public void jumpToRecTab(){
+        tabs.getSelectionModel().select(recTab);
+    }
     
     
     @Override
@@ -121,6 +128,10 @@ public class CSGWorkspace extends AppWorkspaceComponent{
         taTab.reloadTATab(csgData.getTAData());
         cdTab.reloadCDTab();
         schedTab.reloadSchedTab();
+        Collections.sort(csgData.getProjectData().getStudents());
+        Collections.sort(csgData.getProjectData().getTeams());
+        Collections.sort(csgData.getRecData().getRecitations());
+        Collections.sort(csgData.getSchedData().getItems());
         
     }
     

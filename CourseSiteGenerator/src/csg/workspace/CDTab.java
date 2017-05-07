@@ -11,6 +11,7 @@ import csg.data.CDData;
 import csg.data.SiteTemplate;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
 import static djf.settings.AppStartupConstants.PATH_IMAGES;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
@@ -105,12 +106,16 @@ public class CDTab extends Tab{
         courseInfoHeader = new Label(props.getProperty(CSGProp.COURSEINFO_HEADER));
         courseInfoBox.add(courseInfoHeader, 0, 0, 2, 2);
         subjectBox = new ComboBox();
+        subjectBox.setItems(FXCollections.observableArrayList("CSE", "MAT", "AMS", "ECE", "EST", "MEC", "PHY", "AST", "ISE", "BME"));
         subjectBox.setValue(cdData.getSubject());
         numberBox = new ComboBox();
+        numberBox.setItems(FXCollections.observableArrayList("101", "114", "214", "215", "219", "220", "260", "300", "303", "320"));
         numberBox.setValue(cdData.getNumber());
         semesterBox = new ComboBox();
+        semesterBox.setItems(FXCollections.observableArrayList("Fall", "Winter", "Spring", "Summer"));
         semesterBox.setValue(cdData.getSemester());
         yearBox = new ComboBox();
+        yearBox.setItems(FXCollections.observableArrayList("2015", "2016", "2017", "2018", "2019", "2020"));
         yearBox.setValue(cdData.getYear());
         courseInfoBox.add(new Label(props.getProperty(CSGProp.SUBJECT)), 0, 2, 1, 1);
         courseInfoBox.add(subjectBox, 1, 2, 1, 1);
@@ -176,7 +181,7 @@ public class CDTab extends Tab{
         
         String imagePath;
         imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getBannerImagePath();
-        bannerImage = new Image(imagePath, 110, 20, true, true);
+        bannerImage = new Image(imagePath, 300, 100 , true, true);
         bannerImageView = new ImageView(bannerImage);
         pageStyleBox.add(bannerImageView, 1, 2, 5, 1);
         changeBannerButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
@@ -185,7 +190,7 @@ public class CDTab extends Tab{
         
         pageStyleBox.add(new Label(props.getProperty(CSGProp.LEFTFOOT)), 0, 3, 1, 1);
         imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getLeftFootPath();
-        leftFootImage = new Image(imagePath, 110, 20, true, true);
+        leftFootImage = new Image(imagePath, 300, 100, true, true);
         leftFootImageView = new ImageView(leftFootImage);
         pageStyleBox.add(leftFootImageView, 1, 3, 5, 1);
         changeLeftFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
@@ -193,7 +198,7 @@ public class CDTab extends Tab{
         
         pageStyleBox.add(new Label(props.getProperty(CSGProp.RIGHTFOOT)), 0, 4, 1, 1);
         imagePath = FILE_PROTOCOL + PATH_IMAGES + cdData.getRightFootPath();
-        rightFootImage = new Image(imagePath, 110, 20, true, true);
+        rightFootImage = new Image(imagePath, 300, 100, true, true);
         rightFootImageView = new ImageView(rightFootImage);
         pageStyleBox.add(rightFootImageView, 1, 4, 5, 1);
         changeRightFootButton = new Button(props.getProperty(CSGProp.CHANGE_BUTTON));
@@ -227,6 +232,37 @@ public class CDTab extends Tab{
         });
         changeBannerButton.setOnAction(e -> {
             controller.handleChangeBannerImage();
+        });
+        changeLeftFootButton.setOnAction(e -> {
+            controller.handleChangeLeftFootImage(); 
+        });
+        changeRightFootButton.setOnAction(e -> {
+            controller.handleChangeRightFootImage();
+        });
+        subjectBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeSubject((String)newValue);
+        });
+        semesterBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeSemester((String)newValue);
+        });
+        numberBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeNumber((String)newValue);
+        });
+        yearBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeYear((String)newValue);
+        });
+    
+        titleField.textProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeTitle((String)newValue);
+        });
+        instrNameField.textProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeInstrName((String)newValue);
+        });
+        instrHomeField.textProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeInstrHome((String)newValue);
+        });
+        styleSheetBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            controller.handleChangeStylesheet((String)newValue);
         });
     }
     

@@ -1,0 +1,71 @@
+
+{
+    "startHour":"1",
+    "endHour":"12",
+    "undergrad_tas":[
+        {
+            "name":"Bob",
+            "email":"bob@yahoo.com"
+        },
+        {
+            "name":"Jane Doe",
+            "email":"jane@gmail.com"
+        },
+        {
+            "name":"John Doe",
+            "email":"jdoe@gmail.com"
+        }
+    ],
+    "grad_tas":[
+        {
+            "name":"Grad",
+            "email":"grad@yah.com"
+        },
+        {
+            "name":"Grad2",
+            "email":"grad2@gmail.com"
+        }
+    ],
+    "officeHours":[
+        {
+            "day":"THURSDAY",
+            "time":"2_00am",
+            "name":"Bob"
+        },
+        {
+            "day":"MONDAY",
+            "time":"2_30am",
+            "name":"Bob"
+        },
+        {
+            "day":"TUESDAY",
+            "time":"3_00am",
+            "name":"John Doe"
+        },
+        {
+            "day":"TUESDAY",
+            "time":"3_00am",
+            "name":"Grad"
+        },
+        {
+            "day":"WEDNESDAY",
+            "time":"3_30am",
+            "name":"Jane Doe"
+        },
+        {
+            "day":"TUESDAY",
+            "time":"4_00am",
+            "name":"John Doe"
+        },
+        {
+            "day":"FRIDAY",
+            "time":"4_00am",
+            "name":"Jane Doe"
+        },
+        {
+            "day":"MONDAY",
+            "time":"4_30am",
+            "name":"Bob"
+        }
+    ]
+}

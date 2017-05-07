@@ -10,17 +10,11 @@ import csg.CSGProp;
 import csg.data.ProjectData;
 import csg.data.Team;
 import csg.data.Student;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
@@ -111,9 +105,7 @@ public class ProjectTab extends Tab{
         teamsBox.getChildren().add(teamsHeaderBox);
         
         teamTable = new TableView();
-        teams = FXCollections.observableArrayList(
-        new Team("Atomic Comics", "552211", "ffffff", "atomiccomic.com"),
-                new Team("C4 Comics", "235511", "ffffff", "c4comic.com"));
+        teams = projectData.getTeams();
         teamTable.setItems(projectData.getTeams());
         nameCol = new TableColumn(props.getProperty(CSGProp.NAME_COL));
         colorCol = new TableColumn(props.getProperty(CSGProp.COLOR_COL));
@@ -160,10 +152,7 @@ public class ProjectTab extends Tab{
         studentsBox.getChildren().add(studentsHeaderBox);
         
         studentTable = new TableView();
-        students = FXCollections.observableArrayList(
-        new Student("Joe", "Shmo", "Atomic Comics", "Lead Designer"),
-                new Student("Jane", "Doe", "Atomic Comics", "Lead Programmer"),
-                new Student("Bob", "Johnson", "C4 Comics", "Lead Designer"));
+        students = projectData.getStudents();
         studentTable.setItems(projectData.getStudents());
         firstNameCol = new TableColumn(props.getProperty(CSGProp.FIRSTNAME_COL));
         lastNameCol = new TableColumn(props.getProperty(CSGProp.LASTNAME_COL));
@@ -193,6 +182,7 @@ public class ProjectTab extends Tab{
         addStudentsBox.add(lastNameField, 1, 4, 10, 1);
         addStudentsBox.add(new Label(props.getProperty(CSGProp.TEAM)), 0, 5, 1, 1);
         teamComboBox = new ComboBox();
+        teamComboBox.setItems(teams);
         addStudentsBox.add(teamComboBox, 1, 5, 10, 1);
         addStudentsBox.add(new Label(props.getProperty(CSGProp.ROLE)), 0, 6, 1, 1);
         roleField = new TextField();
@@ -384,6 +374,10 @@ public class ProjectTab extends Tab{
     }
     public  TextField getRoleField(){
         return roleField;
+    }
+    public void reloadProjectTab(){
+        teamTable.refresh();
+        studentTable.refresh();
     }
     
 }

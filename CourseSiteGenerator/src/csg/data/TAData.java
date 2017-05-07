@@ -326,15 +326,21 @@ public class TAData {
 
             }
         }
+        RecData recData = app.getCSGData().getRecData();
+        recData.removeTAFromRecs(taName);
         teachingAssistants.remove(ta);
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
 
-    public void updateTA(TeachingAssistant ta, String newName, String newEmail) {
+    public void updateTA(TeachingAssistant ta, boolean grad, String newName, String newEmail) {
         //Remove old TA from data and from grid while adding new one
+        RecData recData = app.getCSGData().getRecData();
+        recData.updateTAinRecs(ta.getName(), newName);
         removeTAByName(ta.getName());
-        addTA(newName, newEmail);
+        addTA(grad, newName, newEmail);
         TATab taTab = app.getCSGWorkspace().getTATab();
+        
+        
 
         HashMap<String, StringProperty> officeHours = getOfficeHours();
         for (int i = 2; i < 7; i++) {
@@ -375,6 +381,8 @@ public class TAData {
 
             }
         }
+        RecData recData = app.getCSGData().getRecData();
+        recData.removeTAFromRecs(taName);
         removeTAByName(taName);
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }

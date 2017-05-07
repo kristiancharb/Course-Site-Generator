@@ -9,7 +9,7 @@ package csg.data;
  *
  * @author kristiancharbonneau
  */
-public class ScheduleItem {
+public class ScheduleItem <E extends Comparable<E>> implements Comparable<E>{
     String type;
     String date;
     String title;
@@ -74,6 +74,11 @@ public class ScheduleItem {
         }else{ 
             return false;
         }
+    }
+    
+    @Override
+    public int compareTo(E otherItem){
+        return type.compareTo(((ScheduleItem)otherItem).getType());
     }
     
 }

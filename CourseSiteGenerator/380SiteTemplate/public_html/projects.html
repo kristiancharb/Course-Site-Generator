@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="description" content="CSE 308 - Software Engineering - Spring 2017 Projects Page" />
+        <title> </title> 
+        <link rel="stylesheet" type="text/css" href="./css/course_homepage_layout.css" />
+        <div id="stylesheet"> </div>
+        <style>
+            #projects_table
+            {
+                margin-left:auto; 
+                margin-right:auto;
+                width:800px;
+            }
+        </style>
+        <!-- LINK TO OUR JavaScript FILE AND JQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="./js/ProjectsBuilder.js"></script>
+        <script src="./js/CourseDetailsBuilder.js"></script>
+
+
+        <!-- ONCE THE PAGE FULLY LOADS INITIALIZE THE SLIDESHOW -->
+        <script>
+            $(document).ready()
+            {
+                initCourseDetails();
+                initProjects();
+            }
+        </script>  
+    </head>
+
+
+    <body>
+
+        <div id="content">
+
+            <div id="navbar">
+                <div id="banner_image"> </div>
+                <div id="navbarTitles"> </div>
+            </div>
+
+            <div id="banner">
+
+            </div>
+
+            <div id="desc">
+
+                <h3>STUDENT TEAM PROJECTS</h3>
+
+
+                <div id="project_tables">
+                    <!-- TO BE FILLED IN BY JAVASCRIPT -->
+                </div>
+                <hr />
+
+
+                <div id="left_foot_image"> </div>
+
+                <div id="right_foot_image"> </div>
+
+                <p style="font-size:9pt; text-align:center;">Web page created and maintained<br />
+                    by <span id="instructor_link">  </span> <br /><br /><br /><br /></p>
+            </div>
+        </div>
+
+    </body>
+</html>

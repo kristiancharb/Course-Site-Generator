@@ -72,6 +72,9 @@ public class SchedTab extends Tab {
     Button removeButton;
     Button addButton;
     Button clearButton;
+    
+    ChangeMondayListener changeMonListen;
+    ChangeFridayListener changeFriListen;
 
     public SchedTab(CSGApp app, CSGController controller, CSGWorkspace workspace) {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -274,12 +277,11 @@ public class SchedTab extends Tab {
                 criteriaField.setDisable(false);
             }
         }); */
-        startPicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-            controller.handleChangeMon(oldValue, newValue);
-        });
-        endPicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-            controller.handleChangeFri(oldValue, newValue);
-        });
+        changeMonListen = new ChangeMondayListener(controller);
+        changeFriListen = new ChangeFridayListener(controller);
+        startPicker.valueProperty().addListener(changeMonListen);
+        endPicker.valueProperty().addListener(changeFriListen);
+
         addButton.setOnAction(e -> {
             if(itemsTable.getSelectionModel().isEmpty())
                 controller.handleAddItem();
@@ -293,14 +295,6 @@ public class SchedTab extends Tab {
             controller.handleSelectedItem();
         });
         sPane.setOnKeyPressed(e -> {
-            if ((e.getCode() == KeyCode.Z) && (e.isControlDown())) {
-                //jTPS.undoTransaction();
-
-            }
-            if ((e.getCode() == KeyCode.Y) && (e.isControlDown())) {
-                //jTPS.doTransaction();
-
-            }
             if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {
                 controller.handleDeleteItem();
             }
@@ -421,11 +415,19 @@ public class SchedTab extends Tab {
     public Button getClearButton() {
         return clearButton;
     }
+    public ChangeMondayListener getMonListener(){
+        return changeMonListen;
+    }
+    public ChangeFridayListener getFriListener(){
+        return changeFriListen;
+    }
 
     public void reloadSchedTab() {
         SchedData schedData = app.getCSGData().getSchedData();
         String startDateString = schedData.getStartingMon();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
+        startPicker.valueProperty().removeListener(changeMonListen);
+        endPicker.valueProperty().removeListener(changeFriListen);
         if(startDateString != null){
             LocalDate startDate = LocalDate.parse(startDateString, formatter);
             startPicker.setValue(startDate);
@@ -443,6 +445,8 @@ public class SchedTab extends Tab {
             endPicker.getEditor().clear();
             endPicker.setValue(null);
         }
+        startPicker.valueProperty().addListener(changeMonListen);
+        endPicker.valueProperty().addListener(changeFriListen);
     }
 
 }

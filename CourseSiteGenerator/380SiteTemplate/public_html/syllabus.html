@@ -1,0 +1,264 @@
+<html>
+
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title> <div id="title"</title>
+
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+        <link href="./css/course_homepage_layout.css" rel="stylesheet" type="text/css">
+
+        <div id="stylesheet"> </div>
+
+        <!-- LINK TO OUR JavaScript FILE AND JQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="./js/SyllabusBuilder.js"></script>
+        <script src="./js/CourseDetailsBuilder.js"></script>
+
+
+        <!-- ONCE THE PAGE FULLY LOADS INITIALIZE THE SLIDESHOW -->
+        <script>
+            $(document).ready()
+            {
+                initCourseDetails();
+                buildOfficeHoursGrid();
+                buildRecitations();
+            }
+            window.on
+        </script>
+
+        <style>
+            .rec_0 {
+                background-color:rgb(255,204,153);
+                border: 5px solid white;
+                border-radius: 25px;
+                box-shadow: 5px 5px 5px #888888;
+            }
+            .rec_1 {
+                background-color:rgb(229, 204, 255);
+                border: 5px solid white;
+                border-radius: 25px;
+                box-shadow: 5px 5px 5px #888888;
+            }
+            .rec_cell {
+                padding: 10px 5px 10px 5px;
+            }
+            .ta_cell {
+                padding: 5px 5px 10px 15px;
+            }
+            .ta_name {
+                font-size:14pt;
+                color: black;
+            }
+            .ta_email {
+                font-size:10pt;
+                color: rgb(0,0,80);
+            }
+        </style>
+    </head>
+
+
+
+    <body>
+
+        <div id="content">
+
+            <div id="navbar">
+                <div id="banner_image"> </div>
+                <div id="navbarTitles"> </div>
+            </div>
+
+
+            <div id="banner"> </div>
+
+
+            <div id="desc">
+
+                <div id="custom_syllabus_content">
+
+                    <h3>COURSE DESCRIPTION</h3>
+
+
+                    <p><br /></p>
+
+                    <h3>COURSE TOPICS</h3>
+
+                    
+
+                    <p><br /></p>
+
+                    <h3>PREREQUISITES</h3>
+
+                    
+
+
+                    <p><br /></p>
+
+                    <h3>COURSE GOALS</h3>
+
+                   
+                    
+
+                    <br /><br />
+
+                    <h3>INSTRUCTOR</h3>
+
+                    <table>
+                        <tr>
+                            <td style="font-size:14pt"> <div id="instructor_link"> </div>  <br />
+
+                            </td>
+
+                    </table>
+
+                    <br />
+                    <br />
+
+                    <h3 id="tas">TEACHING ASSISTANTS (Grading Appointments in the <em>New</em> Computer Science Building, Room 106)</h3>
+
+                    
+                    <table>
+                        <tbody id="grad_tas">
+
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+
+
+                    <h3 class="ta_office_hours">HOMEWORK GURUS (Office Hours in the <em>Old</em> Computer Science Building, Room 2217)</h3>
+                    <br />
+                    <table>
+                        <tbody id="undergrad_tas">
+
+                        </tbody>
+                    </table>
+
+                    <br />
+                    <br />
+
+                    <h3 id="office_hours_grid">OFFICE HOURS GRID (in Old CS 2217)</h3>
+                    <table class="office_hours_schedule" cellspacing="0" border="1">
+                        <tbody id="office_hours_table">
+                            <tr>
+                                <th class="sch" width="150px">Start Time</th>
+                                <th class="sch" width="150px">End Time</th>
+                                <th class="sch" width="200px">MONDAY</th>
+                                <th class="sch" width="200px">TUESDAY</th>
+                                <th class="sch" width="200px">WEDNESDAY</th>
+                                <th class="sch" width="200px">THURSDAY</th>
+                                <th class="sch" width="200px">FRIDAY</th>
+                            </tr>                        
+                        </tbody>
+                    </table>
+                    <br /> 
+                    <br />
+
+                    <h3 id="ceas_tutoring">COLLEGE OF ENGINEERING TUTORING SERVICES (Engineering 236B)</h3>
+
+                    
+
+                    <ul>
+                        <li><strong>Monday:</strong> TBA</li>
+                        <li><strong>Tuesday:</strong> TBA</li>
+                        <li><strong>Wednesday:</strong> TBA</li>
+                        <li><strong>Thursday:</strong> TBA</li>
+                        <li><strong>Friday:</strong> TBA</li>
+                    </ul>
+                    <br />
+                    <br />
+
+                    <h3>LECTURE - Section 02</h3>
+                    
+                    <br />
+
+                    <h3 id="recitations">RECITATIONS</h3>
+
+                    <table>
+                        <tbody id="rec_table">
+                            <!-- THIS WILL BE GENERATED BY JavaScript-->
+                        </tbody>
+                    </table>
+                    <br /><br />
+
+                    <h3>PLATFORMS</h3>
+
+                    
+                    <br /><br />
+
+                    <h3>TEXTBOOKS (both are online via provided links below)</h3>
+
+                    
+                    <br />
+                    <br />
+
+
+                    <h3>COURSE COMPONENTS</h3>
+                    
+
+                    <p><br /></p>
+
+                    <h3>GRADING BREAKDOWN</h3>
+
+                    <table>
+                        <tr>
+                            <td>Recitation Exercises</td>
+                            <td align="right">5%</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>5 Homework Assignments</td>
+                            <td align="right">25 %</td>
+                            <td align="right">(5 % each)</td>
+                        </tr>
+                        <tr>
+                            <td>Final Project</td>
+                            <td align="right">20 %</td>
+                        </tr>
+                        <tr>
+                            <td>Midterm Exam</td>
+                            <td align="right">25 %</td>
+                        </tr>
+                        <tr>
+                            <td>Final Exam</td>
+                            <td align="right">25 %</td>
+                        </tr>
+                        <tr style="background-color:rgb(255,190,150)">
+                            <td></td>
+                            <td align="right"><strong>100 %</strong></td>
+                        </tr>
+                    </table>
+
+
+                    <p><br /></p>
+
+                    <h3>ACADEMIC DISHONESTY</h3>
+
+                    
+                    <p><br /></p>
+
+                    <h3>SPECIAL ASSISTANCE</h3>
+
+                    <hr />
+                </div>
+
+                <br>
+
+
+                <div id="left_foot_image"> </div>
+                <div id="right_foot_image"> </div>
+
+
+                <p style="font-size:9pt; text-align:center;">Web page created and maintained<br>
+                    by <span id="instructor_link">  </span>
+                <br><br><br><br></p>
+
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>

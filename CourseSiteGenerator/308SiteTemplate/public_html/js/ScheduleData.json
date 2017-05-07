@@ -1,0 +1,70 @@
+
+{
+    "startingMondayMonth":"1",
+    "startingMondayDay":"23",
+    "endingFridayMonth":"5",
+    "endingFridayDay":"19",
+    "holidays":[
+        {
+            "month":"2",
+            "day":"09",
+            "title":"Snow Day",
+            "link":""
+        },
+        {
+            "month":"3",
+            "day":"03",
+            "title":"Spring Break",
+            "link":""
+        }
+    ],
+    "lectures":[
+        {
+            "month":"2",
+            "day":"14",
+            "title":"Lecture 3",
+            "topic":"Event Programming",
+            "link":""
+        },
+        {
+            "month":"3",
+            "day":"21",
+            "title":"Lecture 4 ",
+            "topic":"Dumb",
+            "link":""
+        }
+    ],
+    "references":[
+    ],
+    "recitations":[
+    ],
+    "hws":[
+        {
+            "month":"3",
+            "day":"13",
+            "title":"Homework 3",
+            "topic":"UML",
+            "link":"",
+            "time":"",
+            "criteria":""
+        },
+        {
+            "month":"3",
+            "day":"24",
+            "title":"Homework 4",
+            "topic":"GUI",
+            "link":"",
+            "time":"",
+            "criteria":""
+        },
+        {
+            "month":"2",
+            "day":"15",
+            "title":"Homework 5",
+            "topic":"",
+            "link":"www.hw.com",
+            "time":"11:59",
+            "criteria":"criteria"
+        }
+    ]
+}

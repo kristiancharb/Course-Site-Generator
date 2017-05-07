@@ -117,9 +117,8 @@ public class CSGFile implements AppFileComponent {
     public void exportData(AppDataComponent data, String filePath) throws IOException {
         CSGData csgData = (CSGData)data;
         filePath = csgData.getCDData().getExportDirPath();
-        String pathToTester = "/CSGTester/public_html/";
         String userDir = System.getProperty("user.dir");
-        String path = userDir + pathToTester;
+        String path = csgData.getCDData().getSiteTemplateDir();
         File publicHTML = new File(path);
         
         File selectedFile = new File(filePath);

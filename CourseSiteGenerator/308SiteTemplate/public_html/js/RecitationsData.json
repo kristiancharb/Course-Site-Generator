@@ -1,0 +1,40 @@
+
+{
+    "recitations":[
+        {
+            "section":"<strong>R02</strong> (McKenna)",
+            "day_time":"Wed 3:30pm - 4:23pm",
+            "location":"Old CS 2114",
+            "ta_1":"Jane Doe",
+            "ta_2":"Joe Shmo"
+        },
+        {
+            "section":"<strong>R05</strong> (Banerjee)",
+            "day_time":"Tues 5:30pm-6:23pm",
+            "location":"Old CS 2114",
+            "ta_1":"Bob",
+            "ta_2":"Rob"
+        },
+        {
+            "section":"<strong>R03</strong> (Banerjee)",
+            "day_time":"Wed 5:30pm-6:23pm",
+            "location":"Old CS 2114",
+            "ta_1":"Cob",
+            "ta_2":"Mob"
+        },
+        {
+            "section":"<strong>R06</strong> (McKenna)",
+            "day_time":"Thurs 5:30pm-6:23pm",
+            "location":"Old CS 2114",
+            "ta_1":"Joe",
+            "ta_2":"Jane"
+        },
+        {
+            "section":"<strong>R01</strong> (Banerjee)",
+            "day_time":"Fri 5:30pm-6:23pm",
+            "location":"Old CS 2114",
+            "ta_1":"TA1",
+            "ta_2":"TA2"
+        }
+    ]
+}

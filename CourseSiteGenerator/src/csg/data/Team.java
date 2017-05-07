@@ -4,17 +4,20 @@
  * and open the template in the editor.
  */
 package csg.data;
-import java.awt.Color;
+
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author kristiancharbonneau
  */
-public class Team {
+public class Team <E extends Comparable<E>> implements Comparable<E>{
     String name;
     String color;
     String textColor;
     String link;
+    
+    public Team(){}
     
     public Team(String name, String color, String textColor, String link){
         this.name = name;
@@ -36,19 +39,33 @@ public class Team {
         return link;
     }
     public String getRed(){
-        Color col = Color.decode(color);
-        return Integer.toString(col.getRed());
+        Color col = Color.valueOf(color);
+        return Integer.toString((int)(col.getRed()*255));
     }
     public String getBlue(){
-        Color col = Color.decode(color);
-        return Integer.toString(col.getBlue());
+        Color col = Color.valueOf(color);
+        return Integer.toString((int)(col.getBlue()*255));
     }
     public String getGreen(){
-        Color col = Color.decode(color);
-        return Integer.toString(col.getGreen());
+        Color col = Color.valueOf(color);
+        return Integer.toString((int)(col.getGreen()*255));
     }
     @Override
     public String toString(){
         return name;
+    }
+
+    public boolean equals(Team t){
+        if(t.getName().equals(name) && t.getColor().equals(color) 
+                && t.getTextColor().equals(textColor) && t.getLink().equals(link)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    @Override
+    public int compareTo(E otherTeam){
+        return name.compareTo(((Team)otherTeam).getName());
     }
 }

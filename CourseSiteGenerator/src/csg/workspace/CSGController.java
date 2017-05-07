@@ -18,7 +18,17 @@ import csg.data.TAData;
 import csg.data.TeachingAssistant;
 import csg.data.Team;
 import csg.file.TimeSlot;
+import csg.transactions.project.AddStudent_Transaction;
+import csg.transactions.project.AddTeam_Transaction;
+import csg.transactions.project.RemoveStudent_Transaction;
+import csg.transactions.project.RemoveTeam_Transaction;
+import csg.transactions.project.UpdateStudent_Transaction;
+import csg.transactions.project.UpdateTeam_Transaction;
+import csg.transactions.rec.AddRec_Transaction;
+import csg.transactions.rec.RemoveRec_Transaction;
+import csg.transactions.rec.UpdateRec_Transaction;
 import csg.transactions.sched.AddItem_Transaction;
+import csg.transactions.sched.EndingFri_Transaction;
 import csg.transactions.sched.RemoveItem_Transaction;
 import csg.transactions.sched.UpdateItem_Transaction;
 import csg.transactions.ta.AddTA_Transaction;
@@ -27,6 +37,7 @@ import csg.transactions.ta.ChangeStartHour_Transaction;
 import csg.transactions.ta.RemoveTA_Transaction;
 import csg.transactions.ta.ToggleTACell_Transaction;
 import csg.transactions.ta.UpdateTA_Transaction;
+import csg.transactions.sched.StartMon_Transaction;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
 import java.io.File;
@@ -43,6 +54,7 @@ import javafx.scene.paint.Color;
 import properties_manager.PropertiesManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.control.CheckBox;
 import javafx.stage.FileChooser;
 import javafx.scene.control.DatePicker;
 import javafx.stage.DirectoryChooser;
@@ -227,6 +239,8 @@ public class CSGController {
         TextField emailTextField = taTab.getEmailTextField();
         String name = nameTextField.getText();
         String email = emailTextField.getText();
+        boolean grad = ta.getGrad().get();
+       
 
         // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
         TAData data = app.getCSGData().getTAData();
@@ -252,7 +266,7 @@ public class CSGController {
             jTPS_Transaction transaction = new UpdateTA_Transaction(app, ta, name, email);
             jTPS jTPS = app.getCSGWorkspace().getJTPS();
             jTPS.addTransaction(transaction);
-            data.updateTA(ta, name, email);
+            data.updateTA(ta, grad, name, email);
         }
     }
 
@@ -398,8 +412,10 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_LOCATION_TITLE), props.getProperty(CSGProp.MISSING_LOCATION_MESSAGE));
         } else {
+            jTPS_Transaction transaction = new AddRec_Transaction(app, new Recitation(section, instr, time, location, ta1, ta2));
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             recData.addRec(section, instr, time, location, ta1, ta2);
-
             handleClearRec();
         }
     }
@@ -420,10 +436,10 @@ public class CSGController {
         String ta1 = "";
         String ta2 = "";
         if (ta1Box.getValue() != null) {
-            ta1 = ((TeachingAssistant) ta1Box.getValue()).getName();
+            ta1 = ta1Box.getValue().toString();
         }
         if (ta2Box.getValue() != null) {
-            ta2 = ((TeachingAssistant) ta2Box.getValue()).getName();
+            ta2 = ta2Box.getValue().toString();
         }
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -439,6 +455,9 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_LOCATION_TITLE), props.getProperty(CSGProp.MISSING_LOCATION_MESSAGE));
         } else {
+            jTPS_Transaction transaction = new UpdateRec_Transaction(app, rec, new Recitation(section, instr, time, location, ta1, ta2));
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             recData.updateRec(rec, section, instr, time, location, ta1, ta2);
 
             handleClearRec();
@@ -474,6 +493,9 @@ public class CSGController {
 
         if (!recTable.getSelectionModel().isEmpty()) {
             Recitation rec = (Recitation) recTable.getSelectionModel().getSelectedItem();
+            jTPS_Transaction transaction = new RemoveRec_Transaction(app, rec);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             recData.deleteRec(rec);
 
         }
@@ -512,8 +534,8 @@ public class CSGController {
         TextField linkField = projTab.getLinkField();
         String name = nameField.getText();
         String link = linkField.getText();
-        String color = colorPick.getValue().toString();
-        String textColor = textColorPick.getValue().toString();
+        String color = colorPick.getValue().toString().substring(2, 8);
+        String textColor = textColorPick.getValue().toString().substring(2, 8);
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ProjectData projData = app.getCSGData().getProjectData();
@@ -531,6 +553,10 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_TEXTCOLOR_TITLE), props.getProperty(CSGProp.MISSING_TEXTCOLOR_MESSAGE));
         } else {
+            Team team = new Team(name, color, textColor, link);
+            jTPS_Transaction transaction = new AddTeam_Transaction(app, team);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.addTeam(name, color, textColor, link);
             handleClearTeam();
         }
@@ -547,8 +573,8 @@ public class CSGController {
         TextField linkField = projTab.getLinkField();
         String name = nameField.getText();
         String link = linkField.getText();
-        String color = colorPick.getValue().toString();
-        String textColor = textColorPick.getValue().toString();
+        String color = colorPick.getValue().toString().substring(2, 8);
+        String textColor = textColorPick.getValue().toString().substring(2, 8);
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ProjectData projData = app.getCSGData().getProjectData();
@@ -566,6 +592,9 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_TEXTCOLOR_TITLE), props.getProperty(CSGProp.MISSING_TEXTCOLOR_MESSAGE));
         } else {
+            jTPS_Transaction transaction = new UpdateTeam_Transaction(app, t, new Team(name, color, textColor, link));
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.updateTeam(t, name, color, textColor, link);
             handleClearTeam();
         }
@@ -612,6 +641,10 @@ public class CSGController {
 
         if (!teamTable.getSelectionModel().isEmpty()) {
             Team t = (Team) teamTable.getSelectionModel().getSelectedItem();
+            ArrayList<Student> students = projData.getStudentsInTeam(t);
+            jTPS_Transaction transaction = new RemoveTeam_Transaction(app, t, students);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.removeTeam(t);
         }
     }
@@ -647,6 +680,10 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_ROLE_TITLE), props.getProperty(CSGProp.MISSING_ROLE_MESSAGE));
         } else {
+            Student s = new Student(firstName, lastName, team, role);
+            jTPS_Transaction transaction = new AddStudent_Transaction(app, s);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.addStudent(firstName, lastName, team, role);
             handleClearStudent();
         }
@@ -666,7 +703,7 @@ public class CSGController {
         String role = roleField.getText();
         String team = "";
         if (teamBox.getValue() != null) {
-            team = ((Team) teamBox.getValue()).getName();
+            team =  teamBox.getValue().toString();
         }
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -684,6 +721,9 @@ public class CSGController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.MISSING_ROLE_TITLE), props.getProperty(CSGProp.MISSING_ROLE_MESSAGE));
         } else {
+            jTPS_Transaction transaction = new UpdateStudent_Transaction(app, s, new Student(firstName, lastName, team, role));
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.updateStudent(s, firstName, lastName, team, role);
             handleClearStudent();
         }
@@ -719,7 +759,7 @@ public class CSGController {
             Student s = (Student) studentTable.getSelectionModel().getSelectedItem();
             firstNameField.setText(s.getFirstName());
             lastNameField.setText(s.getLastName());
-            roleField.setText(s.getLastName());
+            roleField.setText(s.getRole());
             teamBox.setValue(s.getTeam());
         }
 
@@ -732,20 +772,25 @@ public class CSGController {
 
         if (!studentTable.getSelectionModel().isEmpty()) {
             Student s = (Student) studentTable.getSelectionModel().getSelectedItem();
+            jTPS_Transaction transaction = new RemoveStudent_Transaction(app, s);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             projData.removeStudent(s);
         }
     }
 
     public void handleChangeMon(LocalDate oldVal, LocalDate newVal) {
-        if(newVal == null) return;
+        if (newVal == null) {
+            return;
+        }
         SchedData schedData = app.getCSGData().getSchedData();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        LocalDate endDate = LocalDate.parse("1/01/1900", formatter);
-        if (schedData.getEndingFri() != null) {
+        LocalDate endDate = LocalDate.parse("1/01/2090", formatter);
+        if ((schedData.getEndingFri() != null) && (!schedData.getEndingFri().isEmpty())) {
             endDate = LocalDate.parse(schedData.getEndingFri(), formatter);
         }
-       
+
         if (newVal.isAfter(endDate)) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.STARTDATE_AFTER_TITLE), props.getProperty(CSGProp.STARTDATE_AFTER_MESSAGE));
@@ -756,17 +801,22 @@ public class CSGController {
             dialog.show(props.getProperty(CSGProp.STARTDATE_INVALID_TITLE), props.getProperty(CSGProp.STARTDATE_INVALID_MESSAGE));
             app.getCSGWorkspace().getSchedTab().getStartPicker().setValue(oldVal);
         } else {
+            jTPS_Transaction transaction = new StartMon_Transaction(app, oldVal, newVal);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             schedData.changeStartMon(newVal);
         }
     }
 
     public void handleChangeFri(LocalDate oldVal, LocalDate newVal) {
-        if(newVal == null) return;
+        if (newVal == null) {
+            return;
+        }
         SchedData schedData = app.getCSGData().getSchedData();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        LocalDate startDate = LocalDate.parse("1/01/2099", formatter);
-        if (schedData.getEndingFri() != null) {
+        LocalDate startDate = LocalDate.parse("1/01/1900", formatter);
+        if ((schedData.getStartingMon() != null) && (!schedData.getStartingMon().isEmpty())) {
             startDate = LocalDate.parse(schedData.getStartingMon(), formatter);
         }
         if (newVal.isBefore(startDate)) {
@@ -779,6 +829,9 @@ public class CSGController {
             dialog.show(props.getProperty(CSGProp.ENDDATE_INVALID_TITLE), props.getProperty(CSGProp.ENDDATE_INVALID_MESSAGE));
             app.getCSGWorkspace().getSchedTab().getEndPicker().setValue(oldVal);
         } else {
+            jTPS_Transaction transaction = new EndingFri_Transaction(app, oldVal, newVal);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
             schedData.changeEndFri(newVal);
         }
     }
@@ -795,7 +848,7 @@ public class CSGController {
         TextField linkField = schedTab.getLinkField();
         TextField criteriaField = schedTab.getCriteriaField();
         String type = (String) typeBox.getValue();
-        
+
         String time = timeField.getText();
         String title = titleField.getText();
         String topic = topicField.getText();
@@ -853,7 +906,7 @@ public class CSGController {
                 AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                 dialog.show(props.getProperty(CSGProp.MISSING_DATE_TITLE), props.getProperty(CSGProp.MISSING_DATE_MESSAGE));
             } else {
-                ScheduleItem newItem= new ScheduleItem(type, date, title, topic, link, criteria, time);
+                ScheduleItem newItem = new ScheduleItem(type, date, title, topic, link, criteria, time);
                 jTPS_Transaction transaction = new UpdateItem_Transaction(app, item, newItem);
                 jTPS jTPS = app.getCSGWorkspace().getJTPS();
                 jTPS.addTransaction(transaction);
@@ -907,10 +960,10 @@ public class CSGController {
         TextField topicField = schedTab.getTopicField();
         TextField linkField = schedTab.getLinkField();
         TextField criteriaField = schedTab.getCriteriaField();
-        
+
         typeBox.getSelectionModel().clearSelection();
         typeBox.setValue(null);
-    
+
         datePicker.setValue(null);
         timeField.setText("");
         titleField.setText("");
@@ -919,34 +972,37 @@ public class CSGController {
         criteriaField.setText("");
         typeBox.requestFocus();
         schedTab.getItemsTable().getSelectionModel().clearSelection();
+        
     }
-    
-    public void handleChangeExportDir(){
+
+    public void handleChangeExportDir() {
         CDData cdData = app.getCSGData().getCDData();
-        final DirectoryChooser directoryChooser =new DirectoryChooser();
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
         final File selectedDirectory = directoryChooser.showDialog(app.getGUI().getWindow());
         if (selectedDirectory != null) {
             String filePath = selectedDirectory.getAbsolutePath();
             cdData.changeExportDir(filePath);
         }
         app.getCSGWorkspace().getCDTab().reloadCDTab();
+        
     }
-    
-    public void handleChangeTemplateDir(){
+
+    public void handleChangeTemplateDir() {
         CDData cdData = app.getCSGData().getCDData();
-        final DirectoryChooser directoryChooser =new DirectoryChooser();
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
         final File selectedDirectory = directoryChooser.showDialog(app.getGUI().getWindow());
         if (selectedDirectory != null) {
             String filePath = selectedDirectory.getAbsolutePath();
             cdData.changeTemplateDir(filePath);
         }
         app.getCSGWorkspace().getCDTab().reloadCDTab();
+        
     }
-    
-    public void handleChangeBannerImage(){
+
+    public void handleChangeBannerImage() {
         CDData cdData = app.getCSGData().getCDData();
         String userDir = System.getProperty("user.dir");
-        final FileChooser fileChooser =new FileChooser();
+        final FileChooser fileChooser = new FileChooser();
         final File selectedFile = fileChooser.showOpenDialog(app.getGUI().getWindow());
         String filePath = "";
         if (selectedFile != null) {
@@ -955,7 +1011,7 @@ public class CSGController {
         File source = new File(filePath);
         String imagePath = userDir + "/images";
         File dest = new File(imagePath);
-        
+
         try {
             FileUtils.copyFileToDirectory(source, dest);
             cdData.changeBannerImage(filePath);
@@ -963,6 +1019,98 @@ public class CSGController {
             ex.printStackTrace();
         }
         app.getCSGWorkspace().getCDTab().reloadCDTab();
-        
+
+    }
+
+    public void handleChangeLeftFootImage() {
+        CDData cdData = app.getCSGData().getCDData();
+        String userDir = System.getProperty("user.dir");
+        final FileChooser fileChooser = new FileChooser();
+        final File selectedFile = fileChooser.showOpenDialog(app.getGUI().getWindow());
+        String filePath = "";
+        if (selectedFile != null) {
+            filePath = selectedFile.getAbsolutePath();
+        }
+        File source = new File(filePath);
+        String imagePath = userDir + "/images";
+        File dest = new File(imagePath);
+
+        try {
+            FileUtils.copyFileToDirectory(source, dest);
+            cdData.changeLeftFootImage(filePath);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        app.getCSGWorkspace().getCDTab().reloadCDTab();
+    }
+
+    public void handleChangeRightFootImage() {
+        CDData cdData = app.getCSGData().getCDData();
+        String userDir = System.getProperty("user.dir");
+        final FileChooser fileChooser = new FileChooser();
+        final File selectedFile = fileChooser.showOpenDialog(app.getGUI().getWindow());
+        String filePath = "";
+        if (selectedFile != null) {
+            filePath = selectedFile.getAbsolutePath();
+        }
+        File source = new File(filePath);
+        String imagePath = userDir + "/images";
+        File dest = new File(imagePath);
+
+        try {
+            FileUtils.copyFileToDirectory(source, dest);
+            cdData.changeRightFootImage(filePath);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        app.getCSGWorkspace().getCDTab().reloadCDTab();
+    }
+
+    public void handleChangeSubject(String subject) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setSubject(subject);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeYear(String year) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setYear(year);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeTitle(String title) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setTitle(title);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeSemester(String semester) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setSemester(semester);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeNumber(String number) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setNumber(number);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeInstrName(String instrName) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setInstructorName(instrName);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+
+    public void handleChangeInstrHome(String instrHome) {
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setInstructorHome(instrHome);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
+    public void handleChangeStylesheet(String stylesheet){
+        CDData cdData = app.getCSGData().getCDData();
+        cdData.setStyleSheet(stylesheet);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
 }

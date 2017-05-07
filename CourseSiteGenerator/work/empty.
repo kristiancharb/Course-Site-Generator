@@ -1,44 +1,188 @@
 
 [
     {
-        "startHour":"0",
-        "endHour":"23",
+        "startHour":"1",
+        "endHour":"6",
         "undergrad_tas":[
+            {
+                "grad":true,
+                "name":"Billy Bob",
+                "email":"billy@s.com"
+            },
+            {
+                "grad":false,
+                "name":"Bob Ross",
+                "email":"bob@gmail.com"
+            }
         ],
         "officeHours":[
+            {
+                "day":"MONDAY",
+                "time":"1_30am",
+                "name":"Billy Bob"
+            },
+            {
+                "day":"WEDNESDAY",
+                "time":"2_00am",
+                "name":"Bob Ross"
+            },
+            {
+                "day":"THURSDAY",
+                "time":"2_30am",
+                "name":"Bob Ross"
+            },
+            {
+                "day":"MONDAY",
+                "time":"3_00am",
+                "name":"Bob Ross"
+            },
+            {
+                "day":"WEDNESDAY",
+                "time":"3_00am",
+                "name":"Billy Bob"
+            },
+            {
+                "day":"MONDAY",
+                "time":"4_30am",
+                "name":"Billy Bob"
+            },
+            {
+                "day":"THURSDAY",
+                "time":"4_30am",
+                "name":"Billy Bob"
+            },
+            {
+                "day":"WEDNESDAY",
+                "time":"5_00am",
+                "name":"Bob Ross"
+            }
         ]
     },
     {
-        "subject":"",
-        "semester":"",
-        "number":"",
-        "year":"",
-        "title":"",
-        "instructorName":"",
-        "instructorHome":"",
-        "exportDirPath":"",
-        "siteTemplateDir":"",
+        "subject":"AMS",
+        "semester":"Spring",
+        "number":"300",
+        "year":"2017",
+        "title":"Graphs",
+        "instructorName":"John",
+        "instructorHome":"Bobble",
+        "exportDirPath":"/Users/kristiancharbonneau/Desktop/TestSite/public_html",
+        "siteTemplateDir":"/Users/kristiancharbonneau/Desktop/CSE219Project/CourseSiteGenerator/CSGTester/public_html",
         "siteTemplates":[
+            {
+                "use":true,
+                "navbarTitle":"HWs",
+                "fileName":"hws.html",
+                "script":"HWsBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Home",
+                "fileName":"index.html",
+                "script":"HomeBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Projects",
+                "fileName":"projects.html",
+                "script":"ProjectsBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Schedule",
+                "fileName":"schedule.html",
+                "script":"ScheduleBuilder.js"
+            },
+            {
+                "use":true,
+                "navbarTitle":"Syllabus",
+                "fileName":"syllabus.html",
+                "script":"SyllabusBuilder.js"
+            }
         ],
-        "bannerImagePath":"",
-        "leftFootPath":"",
-        "rightFootPath":"",
+        "bannerImagePath":"stony.png",
+        "leftFootPath":"albany.png",
+        "rightFootPath":"yale.png",
         "stylesheet":""
     },
     {
         "recitations":[
+            {
+                "section":"R01",
+                "instructor":"Johnny",
+                "time":"4:20",
+                "location":"Old CS",
+                "ta1":"Billy Bob",
+                "ta2":"Bob Ross"
+            },
+            {
+                "section":"R02",
+                "instructor":"Johnny",
+                "time":"2:40",
+                "location":"Old CS",
+                "ta1":"Bob Ross",
+                "ta2":"Billy Bob"
+            }
         ]
     },
     {
-        "startingMonday":"null",
-        "endingFriday":"null",
+        "startingMonday":"5/01/2017",
+        "endingFriday":"6/30/2017",
         "items":[
+            {
+                "type":"Holiday",
+                "date":"5/15/2017",
+                "title":"Fun",
+                "topic":"",
+                "link":"fun.com",
+                "time":"",
+                "criteria":""
+            },
+            {
+                "type":"Lecture",
+                "date":"5/24/2017",
+                "title":"Lecture 4",
+                "topic":"Stuff",
+                "link":"",
+                "time":"4:20",
+                "criteria":""
+            }
         ]
     },
     {
         "teams":[
+            {
+                "name":"Cool Kids",
+                "color":"ff9999",
+                "textColor":"ffffff",
+                "link":"coolkids.com"
+            }
         ],
         "students":[
+            {
+                "firstName":"Cool",
+                "lastName":"Guy",
+                "team":"Cool Kids",
+                "role":"Lead Programmer"
+            },
+            {
+                "firstName":"dsa",
+                "lastName":"dsa",
+                "team":"Cool Kids",
+                "role":"Data Designer"
+            },
+            {
+                "firstName":"adsas",
+                "lastName":"asdads",
+                "team":"Cool Kids",
+                "role":"Lead Designer"
+            },
+            {
+                "firstName":"das",
+                "lastName":"dsa",
+                "team":"Cool Kids",
+                "role":"Project Manager"
+            }
         ]
     }
 ]

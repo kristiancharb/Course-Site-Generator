@@ -31,7 +31,7 @@ public class UpdateTA_Transaction implements jTPS_Transaction{
     public void doTransaction(){
         app.getCSGWorkspace().jumpToTATab();
         TAData data = app.getCSGData().getTAData();
-        data.updateTA(oldTA, newName, newEmail);
+        data.updateTA(oldTA, oldTA.getGrad().get(), newName, newEmail);
     }
     
     @Override
@@ -39,7 +39,7 @@ public class UpdateTA_Transaction implements jTPS_Transaction{
         app.getCSGWorkspace().jumpToTATab();
         TAData data = app.getCSGData().getTAData();
         TeachingAssistant newTA = new TeachingAssistant(newName, newEmail);
-        data.updateTA(newTA, oldTA.getName(), oldTA.getEmail());
+        data.updateTA(newTA, oldTA.getGrad().get(), oldTA.getName(), oldTA.getEmail());
     }
     
     

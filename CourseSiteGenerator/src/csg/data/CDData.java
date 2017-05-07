@@ -262,5 +262,26 @@ public class CDData {
         
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
+    
+    public void changeLeftFootImage(String filePath){
+        String[] paths = filePath.split("/");
+        String imagePath = paths[paths.length-1];
+        System.out.println(imagePath);
+        leftFootPath = imagePath;
+        
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
+    public void changeRightFootImage(String filePath){
+        String[] paths = filePath.split("/");
+        String imagePath = paths[paths.length-1];
+        System.out.println(imagePath);
+        rightFootPath = imagePath;
+        
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
+    }
+    
+   
+    
 
 }
