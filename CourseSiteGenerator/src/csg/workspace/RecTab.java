@@ -102,6 +102,12 @@ public class RecTab extends Tab {
         ta2Col = new TableColumn(props.getProperty(CSGProp.TA_COL));
         ta2Col.setCellValueFactory(new PropertyValueFactory<>("ta2"));
         recTable.getColumns().addAll(sectionCol, instructorCol, timeCol, locationCol, ta1Col, ta2Col);
+        sectionCol.prefWidthProperty().bind(recTable.widthProperty().multiply(0.1));
+        instructorCol.prefWidthProperty().bind(recTable.widthProperty().multiply(0.2));
+        timeCol.prefWidthProperty().bind(recTable.widthProperty().multiply(0.2));
+        locationCol.prefWidthProperty().bind(recTable.widthProperty().multiply(0.1));
+        ta1Col.prefWidthProperty().bind(recTable.widthProperty().multiply(0.2));
+        ta2Col.prefWidthProperty().bind(recTable.widthProperty().multiply(0.2));
         recTable.setMinWidth(600);
         recTable.setMaxWidth(800);
         recTable.setMaxHeight(200);

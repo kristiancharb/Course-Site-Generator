@@ -240,7 +240,6 @@ public class CSGController {
         String name = nameTextField.getText();
         String email = emailTextField.getText();
         boolean grad = ta.getGrad().get();
-       
 
         // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
         TAData data = app.getCSGData().getTAData();
@@ -311,26 +310,25 @@ public class CSGController {
         if (hour > data.getEndHour()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.STARTHOUR_NOT_VALID_TITLE), props.getProperty(CSGProp.STARTHOUR_NOT_VALID_MESSAGE));
-            taTab.getStartTimeBox().setPromptText(taTab.buildCellText(data.getStartHour(), "00"));
-            taTab.getEndTimeBox().setPromptText(taTab.buildCellText(data.getEndHour(), "00"));
+            taTab.reloadComboBoxes(data);
             return;
-        }
 
-        if (TimeSlot.toBeRemoved(officeHoursList, hour, data.getEndHour())) {
+        } else if (TimeSlot.toBeRemoved(officeHoursList, hour, data.getEndHour())) {
             AppYesNoCancelDialogSingleton dialog = AppYesNoCancelDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.OFFICE_HOURS_CONFLICT_TITLE), props.getProperty(CSGProp.OFFICE_HOURS_CONFLICT_MESSAGE));
             String selection = dialog.getSelection();
             if (!selection.equals(AppYesNoCancelDialogSingleton.YES)) {
-                taTab.getStartTimeBox().setPromptText(taTab.buildCellText(data.getStartHour(), "00"));
-                taTab.getEndTimeBox().setPromptText(taTab.buildCellText(data.getEndHour(), "00"));
+                taTab.reloadComboBoxes(data);
                 return;
             }
         }
+        
 
-        jTPS_Transaction transaction = new ChangeStartHour_Transaction(app, data.getStartHour(), hour, officeHoursList);
-        jTPS jTPS = app.getCSGWorkspace().getJTPS();
-        jTPS.addTransaction(transaction);
-        data.changeStartHour(hour);
+            jTPS_Transaction transaction = new ChangeStartHour_Transaction(app, data.getStartHour(), hour, officeHoursList);
+            jTPS jTPS = app.getCSGWorkspace().getJTPS();
+            jTPS.addTransaction(transaction);
+            data.changeStartHour(hour);
+        
 
     }
 
@@ -355,18 +353,16 @@ public class CSGController {
         if (hour < data.getStartHour()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.ENDHOUR_NOT_VALID_TITLE), props.getProperty(CSGProp.ENDHOUR_NOT_VALID_MESSAGE));
-            taTab.getStartTimeBox().setPromptText(taTab.buildCellText(data.getStartHour(), "00"));
-            taTab.getEndTimeBox().setPromptText(taTab.buildCellText(data.getEndHour(), "00"));
+            taTab.reloadComboBoxes(data);
             return;
         }
 
-        if (TimeSlot.toBeRemoved(officeHoursList, data.getStartHour(), hour)) {
+        else if (TimeSlot.toBeRemoved(officeHoursList, data.getStartHour(), hour)) {
             AppYesNoCancelDialogSingleton dialog = AppYesNoCancelDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.OFFICE_HOURS_CONFLICT_TITLE), props.getProperty(CSGProp.OFFICE_HOURS_CONFLICT_MESSAGE));
             String selection = dialog.getSelection();
             if (!selection.equals(AppYesNoCancelDialogSingleton.YES)) {
-                taTab.getStartTimeBox().setPromptText(taTab.buildCellText(data.getStartHour(), "00"));
-                taTab.getEndTimeBox().setPromptText(taTab.buildCellText(data.getEndHour(), "00"));
+                taTab.reloadComboBoxes(data);
                 return;
             }
         }
@@ -703,7 +699,7 @@ public class CSGController {
         String role = roleField.getText();
         String team = "";
         if (teamBox.getValue() != null) {
-            team =  teamBox.getValue().toString();
+            team = teamBox.getValue().toString();
         }
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -822,12 +818,13 @@ public class CSGController {
         if (newVal.isBefore(startDate)) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.ENDDATE_BEFORE_TITLE), props.getProperty(CSGProp.ENDDATE_BEFORE_MESSAGE));
-            app.getCSGWorkspace().getSchedTab().getEndPicker().setValue(oldVal);
+            app.getCSGWorkspace().getSchedTab().reloadSchedTab();
+
         } else if (!newVal.getDayOfWeek()
                 .equals(DayOfWeek.FRIDAY)) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(CSGProp.ENDDATE_INVALID_TITLE), props.getProperty(CSGProp.ENDDATE_INVALID_MESSAGE));
-            app.getCSGWorkspace().getSchedTab().getEndPicker().setValue(oldVal);
+            app.getCSGWorkspace().getSchedTab().reloadSchedTab();
         } else {
             jTPS_Transaction transaction = new EndingFri_Transaction(app, oldVal, newVal);
             jTPS jTPS = app.getCSGWorkspace().getJTPS();
@@ -972,7 +969,7 @@ public class CSGController {
         criteriaField.setText("");
         typeBox.requestFocus();
         schedTab.getItemsTable().getSelectionModel().clearSelection();
-        
+
     }
 
     public void handleChangeExportDir() {
@@ -984,7 +981,7 @@ public class CSGController {
             cdData.changeExportDir(filePath);
         }
         app.getCSGWorkspace().getCDTab().reloadCDTab();
-        
+
     }
 
     public void handleChangeTemplateDir() {
@@ -996,7 +993,7 @@ public class CSGController {
             cdData.changeTemplateDir(filePath);
         }
         app.getCSGWorkspace().getCDTab().reloadCDTab();
-        
+
     }
 
     public void handleChangeBannerImage() {
@@ -1107,8 +1104,8 @@ public class CSGController {
         cdData.setInstructorHome(instrHome);
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
-    
-    public void handleChangeStylesheet(String stylesheet){
+
+    public void handleChangeStylesheet(String stylesheet) {
         CDData cdData = app.getCSGData().getCDData();
         cdData.setStyleSheet(stylesheet);
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());

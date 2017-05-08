@@ -44,12 +44,12 @@
             {
                 "day":"TUESDAY",
                 "time":"3_00am",
-                "name":"John Doe"
+                "name":"Grad"
             },
             {
                 "day":"TUESDAY",
                 "time":"3_00am",
-                "name":"Grad"
+                "name":"John Doe"
             },
             {
                 "day":"WEDNESDAY",
@@ -60,6 +60,11 @@
                 "day":"TUESDAY",
                 "time":"4_00am",
                 "name":"John Doe"
+            },
+            {
+                "day":"TUESDAY",
+                "time":"4_00am",
+                "name":"TA"
             },
             {
                 "day":"FRIDAY",
@@ -74,13 +79,13 @@
         ]
     },
     {
-        "subject":"CSE",
-        "semester":"Fall",
-        "number":"219",
+        "subject":"AMS",
+        "semester":"Winter",
+        "number":"300",
         "year":"2017",
-        "title":"Comp Sci III",
-        "instructorName":"McKenna",
-        "instructorHome":"mckenna.com",
+        "title":"Fun Class",
+        "instructorName":"Joe Bloggs",
+        "instructorHome":"blogs.com",
         "exportDirPath":"/Users/kristiancharbonneau/Desktop/TestSite/public_html",
         "siteTemplateDir":"/Users/kristiancharbonneau/Desktop/CSE219Project/CourseSiteGenerator/308SiteTemplate/public_html",
         "siteTemplates":[
@@ -116,12 +121,20 @@
             }
         ],
         "bannerImagePath":"yale.png",
-        "leftFootPath":"yale.png",
-        "rightFootPath":"yale.png",
-        "stylesheet":"seawolf.css"
+        "leftFootPath":"albany.png",
+        "rightFootPath":"stony.png",
+        "stylesheet":"sea_wolf.css"
     },
     {
         "recitations":[
+            {
+                "section":"R01",
+                "instructor":"Banerjee",
+                "time":"Fri 5:30pm-6:23pm",
+                "location":"Old CS 2114",
+                "ta1":"TA1",
+                "ta2":"TA2"
+            },
             {
                 "section":"R02",
                 "instructor":"McKenna",
@@ -129,14 +142,6 @@
                 "location":"Old CS 2114",
                 "ta1":"Jane Doe",
                 "ta2":"Joe Shmo"
-            },
-            {
-                "section":"R05",
-                "instructor":"Banerjee",
-                "time":"Tues 5:30pm-6:23pm",
-                "location":"Old CS 2114",
-                "ta1":"Bob",
-                "ta2":"Rob"
             },
             {
                 "section":"R03",
@@ -147,20 +152,20 @@
                 "ta2":"Mob"
             },
             {
+                "section":"R05",
+                "instructor":"Banerjee",
+                "time":"Tues 5:30pm-6:23pm",
+                "location":"Old CS 2114",
+                "ta1":"Bob",
+                "ta2":"Rob"
+            },
+            {
                 "section":"R06",
                 "instructor":"McKenna",
                 "time":"Thurs 5:30pm-6:23pm",
                 "location":"Old CS 2114",
                 "ta1":"Joe",
                 "ta2":"Jane"
-            },
-            {
-                "section":"R01",
-                "instructor":"Banerjee",
-                "time":"Fri 5:30pm-6:23pm",
-                "location":"Old CS 2114",
-                "ta1":"TA1",
-                "ta2":"TA2"
             }
         ]
     },
@@ -178,18 +183,18 @@
                 "criteria":""
             },
             {
-                "type":"Lecture",
-                "date":"2/14/2017",
-                "title":"Lecture 3",
-                "topic":"Event Programming",
+                "type":"Holiday",
+                "date":"3/03/2017",
+                "title":"Spring Break",
+                "topic":"",
                 "link":"",
                 "time":"",
                 "criteria":""
             },
             {
                 "type":"Holiday",
-                "date":"3/03/2017",
-                "title":"Spring Break",
+                "date":"4/03/2017",
+                "title":"Fun",
                 "topic":"",
                 "link":"",
                 "time":"",
@@ -223,10 +228,28 @@
                 "criteria":"criteria"
             },
             {
+                "type":"Homework",
+                "date":"3/01/2017",
+                "title":"ads",
+                "topic":"ads",
+                "link":"",
+                "time":"das",
+                "criteria":""
+            },
+            {
+                "type":"Lecture",
+                "date":"2/14/2017",
+                "title":"Lecture 3",
+                "topic":"Event Programming",
+                "link":"",
+                "time":"",
+                "criteria":""
+            },
+            {
                 "type":"Lecture",
                 "date":"3/21/2017",
                 "title":"Lecture 4 ",
-                "topic":"Dumb",
+                "topic":"Stuff",
                 "link":"",
                 "time":"",
                 "criteria":""
@@ -235,6 +258,12 @@
     },
     {
         "teams":[
+            {
+                "name":"A Team",
+                "color":"559911",
+                "textColor":"000000",
+                "link":"team.com"
+            },
             {
                 "name":"Atomic Comics",
                 "color":"552211",
@@ -246,9 +275,39 @@
                 "color":"235511",
                 "textColor":"ffffff",
                 "link":"c4comic.com"
+            },
+            {
+                "name":"Team B :(",
+                "color":"e6b3e6",
+                "textColor":"000000",
+                "link":"team.com"
             }
         ],
         "students":[
+            {
+                "firstName":"Johnny",
+                "lastName":"Johnson",
+                "team":"A Team",
+                "role":"Data Designer"
+            },
+            {
+                "firstName":"Bob",
+                "lastName":"Bobson",
+                "team":"A Team",
+                "role":"Lead Designer"
+            },
+            {
+                "firstName":"I can't",
+                "lastName":"think of names",
+                "team":"A Team",
+                "role":"Lead Programmer"
+            },
+            {
+                "firstName":"No",
+                "lastName":"Name",
+                "team":"A Team",
+                "role":"Project Manager"
+            },
             {
                 "firstName":"Joe",
                 "lastName":"Shmo",
@@ -295,6 +354,30 @@
                 "firstName":"Bob",
                 "lastName":"Johnson",
                 "team":"C4 Comics",
+                "role":"Lead Designer"
+            },
+            {
+                "firstName":"Cool",
+                "lastName":"Name",
+                "team":"Team B :(",
+                "role":"Data Designer"
+            },
+            {
+                "firstName":"Fun",
+                "lastName":"Name",
+                "team":"Team B :(",
+                "role":"Project Manager"
+            },
+            {
+                "firstName":"Cool",
+                "lastName":"Guy",
+                "team":"Team B :(",
+                "role":"Lead Programmer"
+            },
+            {
+                "firstName":"Bob",
+                "lastName":"Johnson",
+                "team":"Team B :(",
                 "role":"Lead Designer"
             }
         ]

@@ -85,6 +85,7 @@ public class ProjectData {
         students.remove(s);
         students.add(newS);
         Collections.sort(students);
+        app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
     
     public void removeStudent(Student s){

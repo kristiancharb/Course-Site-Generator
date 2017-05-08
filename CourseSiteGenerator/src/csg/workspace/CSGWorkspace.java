@@ -115,6 +115,7 @@ public class CSGWorkspace extends AppWorkspaceComponent{
     
     @Override
     public void resetWorkspace(){
+        jTPS = new jTPS();
         taTab.resetTATab();
         controller.handleClearRec();
         controller.handleClearTeam();

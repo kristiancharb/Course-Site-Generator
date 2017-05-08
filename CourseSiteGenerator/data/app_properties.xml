@@ -77,8 +77,8 @@
         <property name="ADD_BUTTON_TEXT"                value="Add TA"></property>
         <property name="UPDATE_BUTTON_TEXT"             value="Update TA"></property>
         <property name="CLEAR_BUTTON_TEXT"              value="Clear"></property>
-        <property name="SET_START_TIME_LABEL"           value="Set start time"></property>
-        <property name="SET_END_TIME_LABEL"             value="Set end time"></property>
+        <property name="SET_START_TIME_LABEL"           value="Start time:"></property>
+        <property name="SET_END_TIME_LABEL"             value="End time:"></property>
         <property name="OFFICE_HOURS_SUBHEADER"         value="Office Hours Grid"></property>
         
         <!-- WORKSPACE ERROR MESSAGES -->
@@ -138,7 +138,7 @@
         <property name="COURSEINFO_HEADER"     value="Course Information"></property>
         <property name="SUBJECT"     value="Subject: "></property>
         <property name="NUMBER"     value="Number: "></property>
-        <property name="SEMESTER"     value="Project Data"></property>
+        <property name="SEMESTER"     value="Semester: "></property>
         <property name="YEAR"     value="Year: "></property>
         <property name="TITLE"     value="Title: "></property>
         <property name="INSTRNAME"     value="Instructor Name: "></property>

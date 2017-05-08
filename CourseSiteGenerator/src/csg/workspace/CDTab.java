@@ -166,7 +166,11 @@ public class CDTab extends Tab{
         scriptColumn = new TableColumn(props.getProperty(CSGProp.SCRIPT_COL));
         scriptColumn.setCellValueFactory(new PropertyValueFactory<SiteTemplate, String>("script"));
         siteTemplateTable.getColumns().addAll(useColumn, titleColumn, fileNameColumn, scriptColumn);
-        siteTemplateTable.setMaxWidth(500);
+        siteTemplateTable.setMaxWidth(800);
+        useColumn.prefWidthProperty().bind(siteTemplateTable.widthProperty().multiply(0.1));
+        titleColumn.prefWidthProperty().bind(siteTemplateTable.widthProperty().multiply(0.3));
+        fileNameColumn.prefWidthProperty().bind(siteTemplateTable.widthProperty().multiply(0.3));
+        scriptColumn.prefWidthProperty().bind(siteTemplateTable.widthProperty().multiply(0.3));
         siteTemplateTable.setMaxHeight(200);
         siteTemplateTable.setEditable(true);
         siteTemplateBox.getChildren().add(siteTemplateTable);

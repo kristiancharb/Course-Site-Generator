@@ -96,6 +96,7 @@ public class SchedFile {
             if (item.getType().equalsIgnoreCase("Holiday")) {
                 String date = item.getDate();
                 String[] dates = date.split("/");
+                if(dates[1].charAt(0) == '0') dates[1] = dates[1].substring(1);
                 json = Json.createObjectBuilder()
                         .add("month", dates[0])
                         .add("day", dates[1])
@@ -106,6 +107,7 @@ public class SchedFile {
             if(item.getType().equalsIgnoreCase("Lecture")){
                 String date = item.getDate();
                 String[] dates = date.split("/");
+                if(dates[1].charAt(0) == '0') dates[1] = dates[1].substring(1);
                 json = Json.createObjectBuilder()
                         .add("month", dates[0])
                         .add("day", dates[1])
@@ -117,6 +119,7 @@ public class SchedFile {
             if(item.getType().equalsIgnoreCase("Reference")){
                 String date = item.getDate();
                 String[] dates = date.split("/");
+                if(dates[1].charAt(0) == '0') dates[1] = dates[1].substring(1);
                 json = Json.createObjectBuilder()
                         .add("month", dates[0])
                         .add("day", dates[1])
@@ -128,6 +131,7 @@ public class SchedFile {
             if(item.getType().equalsIgnoreCase("Recitation")){
                 String date = item.getDate();
                 String[] dates = date.split("/");
+                if(dates[1].charAt(0) == '0') dates[1] = dates[1].substring(1);
                 json = Json.createObjectBuilder()
                         .add("month", dates[0])
                         .add("day", dates[1])
@@ -139,6 +143,7 @@ public class SchedFile {
             if(item.getType().equalsIgnoreCase("Homework")){
                 String date = item.getDate();
                 String[] dates = date.split("/");
+                if(dates[1].charAt(0) == '0') dates[1] = dates[1].substring(1);
                 json = Json.createObjectBuilder()
                         .add("month", dates[0])
                         .add("day", dates[1])

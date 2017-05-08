@@ -13,9 +13,11 @@ import csg.data.CSGData;
 import csg.style.CSGStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -52,18 +54,21 @@ public class TATab extends Tab {
     HBox tasHeaderBox;
     Label tasHeaderLabel;
     Button removeButton;
-    
+
     // FOR THE TA TABLE
     TableView<TeachingAssistant> taTable;
     TableColumn<TeachingAssistant, String> nameColumn;
     TableColumn<TeachingAssistant, String> emailColumn;
     TableColumn<TeachingAssistant, Boolean> gradColumn;
 
+   
     // THE TA INPUT
     HBox addBox;
     TextField nameTextField;
     Button addButton;
     Button clearButton;
+    Button changeStartTime;
+    Button changeEndTime;
     TextField emailTextField;
     ComboBox startTimeBox;
     ComboBox endTimeBox;
@@ -82,7 +87,7 @@ public class TATab extends Tab {
     HashMap<String, Label> officeHoursGridTimeCellLabels;
     HashMap<String, Pane> officeHoursGridTACellPanes;
     HashMap<String, Label> officeHoursGridTACellLabels;
-    
+
     SplitPane sPane;
 
     public TATab(CSGApp app, CSGController controller, CSGWorkspace csgWorkspace) {
@@ -91,10 +96,8 @@ public class TATab extends Tab {
         this.csgWorkspace = csgWorkspace;
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         this.setText(props.getProperty(CSGProp.TATAB_HEADER));
-        
-   
-        
-                // INIT THE HEADER ON THE LEFT
+
+        // INIT THE HEADER ON THE LEFT
         tasHeaderBox = new HBox();
         String tasHeaderText = props.getProperty(CSGProp.TAS_HEADER_TEXT.toString());
         tasHeaderLabel = new Label(tasHeaderText);
@@ -105,7 +108,7 @@ public class TATab extends Tab {
         // MAKE THE TABLE AND SETUP THE DATA MODEL
         taTable = new TableView();
         taTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        TAData taData = ((CSGData)app.getDataComponent()).getTAData();
+        TAData taData = ((CSGData) app.getDataComponent()).getTAData();
         ObservableList<TeachingAssistant> tableData = taData.getTeachingAssistants();
         taTable.setItems(tableData);
         String nameColumnText = props.getProperty(CSGProp.NAME_COLUMN_TEXT.toString());
@@ -125,9 +128,11 @@ public class TATab extends Tab {
         taTable.getColumns().add(gradColumn);
         taTable.getColumns().add(nameColumn);
         taTable.getColumns().add(emailColumn);
+        gradColumn.prefWidthProperty().bind(taTable.widthProperty().multiply(0.2));
+        nameColumn.prefWidthProperty().bind(taTable.widthProperty().multiply(0.3));
+        emailColumn.prefWidthProperty().bind(taTable.widthProperty().multiply(0.5));
         taTable.setEditable(true);
-        
-        
+
         // ADD BOX FOR ADDING A TA
         String namePromptText = props.getProperty(CSGProp.NAME_PROMPT_TEXT.toString());
         String emailPromptText = props.getProperty(CSGProp.EMAIL_PROMPT_TEXT.toString());
@@ -147,14 +152,28 @@ public class TATab extends Tab {
         addBox.getChildren().add(emailTextField);
         addBox.getChildren().add(addButton);
         addBox.getChildren().add(clearButton);
-       
 
         // INIT THE HEADER ON THE RIGHT
         officeHoursHeaderBox = new HBox();
         String officeHoursGridText = props.getProperty(CSGProp.OFFICE_HOURS_SUBHEADER.toString());
         officeHoursHeaderLabel = new Label(officeHoursGridText);
         officeHoursHeaderBox.getChildren().add(officeHoursHeaderLabel);
-        
+
+        startTimeBox = new ComboBox();
+        endTimeBox = new ComboBox();
+        Label st = new Label(props.getProperty(CSGProp.SET_START_TIME_LABEL));
+        Label et = new Label(props.getProperty(CSGProp.SET_END_TIME_LABEL));
+        changeStartTime = new Button("Set");
+        changeEndTime = new Button("Set");
+        st.setPadding(new Insets(5, 5, 5, 30));
+        et.setPadding(new Insets(5, 5, 5, 30));
+        officeHoursHeaderBox.getChildren().add(st);
+        officeHoursHeaderBox.getChildren().add(startTimeBox);
+        officeHoursHeaderBox.getChildren().add(changeStartTime);
+        officeHoursHeaderBox.getChildren().add(et);
+        officeHoursHeaderBox.getChildren().add(endTimeBox);
+        officeHoursHeaderBox.getChildren().add(changeEndTime);
+
         // THESE WILL STORE PANES AND LABELS FOR OUR OFFICE HOURS GRID
         officeHoursGridPane = new GridPane();
         officeHoursGridTimeHeaderPanes = new HashMap();
@@ -165,55 +184,45 @@ public class TATab extends Tab {
         officeHoursGridTimeCellLabels = new HashMap();
         officeHoursGridTACellPanes = new HashMap();
         officeHoursGridTACellLabels = new HashMap();
-        
+
         //Combo Boxes
-        startTimeBox = new ComboBox();
-        endTimeBox = new ComboBox();
-        VBox farRightPane = new VBox();
-        farRightPane.getChildren().add(new Label(props.getProperty(CSGProp.SET_START_TIME_LABEL)));
-        farRightPane.getChildren().add(startTimeBox);
-        farRightPane.getChildren().add(new Label(props.getProperty(CSGProp.SET_END_TIME_LABEL)));
-        farRightPane.getChildren().add(endTimeBox);
-        
         int hour = 1;
         startTimeBox.getItems().add("12:00am");
         endTimeBox.getItems().add("12:00am");
-        while(hour < 24){
-            if(hour%12 == hour){
+        while (hour < 24) {
+            if (hour % 12 == hour) {
                 startTimeBox.getItems().add(hour + ":00am");
                 endTimeBox.getItems().add(hour + ":00am");
-            }else if(hour == 12){
+            } else if (hour == 12) {
                 startTimeBox.getItems().add("12:00pm");
                 endTimeBox.getItems().add("12:00pm");
-            }else{ 
-                startTimeBox.getItems().add((hour%12) + ":00pm");
-                endTimeBox.getItems().add((hour%12) + ":00pm");
+            } else {
+                startTimeBox.getItems().add((hour % 12) + ":00pm");
+                endTimeBox.getItems().add((hour % 12) + ":00pm");
             }
             hour++;
         }
-        
-            
+
         // ORGANIZE THE LEFT AND RIGHT PANES
         VBox leftPane = new VBox();
-        leftPane.getChildren().add(tasHeaderBox);        
-        leftPane.getChildren().add(taTable);        
+        leftPane.getChildren().add(tasHeaderBox);
+        leftPane.getChildren().add(taTable);
         leftPane.getChildren().add(addBox);
         VBox rightPane = new VBox();
         rightPane.getChildren().add(officeHoursHeaderBox);
         rightPane.getChildren().add(officeHoursGridPane);
-        
+        officeHoursGridPane.prefWidthProperty().bind(rightPane.widthProperty());
+        officeHoursHeaderBox.prefWidthProperty().bind(rightPane.widthProperty());
+
         // BOTH PANES WILL NOW GO IN A SPLIT PANE
-        sPane = new SplitPane(leftPane, new ScrollPane(rightPane), farRightPane);
-        sPane.setDividerPositions(0.35f, 0.9f, 0.35f);
-        
-       
-        
+        sPane = new SplitPane(leftPane, new ScrollPane(rightPane));
+        sPane.setDividerPositions(0.35f, 1f);
+        rightPane.prefWidthProperty().bind(sPane.widthProperty().multiply(0.62));
+
         this.setContent(sPane);
         taTable.prefHeightProperty().bind(sPane.heightProperty().multiply(1.9));
-        
-        
-        
-                // CONTROLS FOR ADDING TAs
+
+        // CONTROLS FOR ADDING TAs
         nameTextField.setOnAction(e -> {
             controller.handleAddTA();
         });
@@ -221,10 +230,11 @@ public class TATab extends Tab {
             controller.handleAddTA();
         });
         addButton.setOnAction(e -> {
-            if(taTable.getSelectionModel().isEmpty())
+            if (taTable.getSelectionModel().isEmpty()) {
                 controller.handleAddTA();
-            else
+            } else {
                 controller.handleUpdateTA();
+            }
         });
         removeButton.setOnAction(e -> {
             controller.handleDeleteTA();
@@ -239,37 +249,29 @@ public class TATab extends Tab {
             controller.handleSelectedTA();
         });
         jTPS jTPS = csgWorkspace.getJTPS();
-        sPane.setOnKeyPressed(e -> {          
-            if(e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE))
+        sPane.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE)) {
                 controller.handleDeleteTA();
+            }
         });
-        startTimeBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override 
-            public void changed(ObservableValue ov, String t, String t1) {
-                controller.handleChangeStartTime(t1);
-                startTimeBox.setPromptText(buildCellText(taData.getStartHour(), "00"));
-            }    
+        changeStartTime.setOnAction(e -> {
+            controller.handleChangeStartTime((String)startTimeBox.getValue());
         });
-        endTimeBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override 
-            public void changed(ObservableValue ov, String t, String t1) {                
-                controller.handleChangeEndTime(t1);
-                endTimeBox.setPromptText(buildCellText(taData.getEndHour(), "00"));
-            }    
-        }); 
-        
-        
+        changeEndTime.setOnAction(e -> {
+            controller.handleChangeEndTime((String)endTimeBox.getValue());
+        });
+       
+
     }
-    
-    
-    public CSGController getController(){
+
+    public CSGController getController() {
         return controller;
     }
-    
-    public Button getRemoveButton(){
+
+    public Button getRemoveButton() {
         return removeButton;
     }
-    
+
     public HBox getTAsHeaderBox() {
         return tasHeaderBox;
     }
@@ -281,8 +283,8 @@ public class TATab extends Tab {
     public TableView getTATable() {
         return taTable;
     }
-    
-    public SplitPane getSPane(){
+
+    public SplitPane getSPane() {
         return sPane;
     }
 
@@ -293,7 +295,7 @@ public class TATab extends Tab {
     public TextField getNameTextField() {
         return nameTextField;
     }
-    
+
     public TextField getEmailTextField() {
         return emailTextField;
     }
@@ -301,16 +303,16 @@ public class TATab extends Tab {
     public Button getAddButton() {
         return addButton;
     }
-    
+
     public Button getClearButton() {
         return clearButton;
     }
-    
-    public ComboBox getStartTimeBox(){
+
+    public ComboBox getStartTimeBox() {
         return startTimeBox;
     }
-    
-    public ComboBox getEndTimeBox(){
+
+    public ComboBox getEndTimeBox() {
         return endTimeBox;
     }
 
@@ -357,7 +359,7 @@ public class TATab extends Tab {
     public HashMap<String, Label> getOfficeHoursGridTACellLabels() {
         return officeHoursGridTACellLabels;
     }
-    
+
     public String getCellKey(Pane testPane) {
         for (String key : officeHoursGridTACellLabels.keySet()) {
             if (officeHoursGridTACellPanes.get(key) == testPane) {
@@ -370,7 +372,7 @@ public class TATab extends Tab {
     public Label getTACellLabel(String cellKey) {
         return officeHoursGridTACellLabels.get(cellKey);
     }
-    
+
     public Label getTimeCellLabel(String cellKey) {
         return officeHoursGridTimeCellLabels.get(cellKey);
     }
@@ -397,11 +399,11 @@ public class TATab extends Tab {
         }
         return cellText;
     }
-    
-        public void resetTATab() {
+
+    public void resetTATab() {
         // CLEAR OUT THE GRID PANE
         officeHoursGridPane.getChildren().clear();
-        
+
         // AND THEN ALL THE GRID PANES AND LABELS
         officeHoursGridTimeHeaderPanes.clear();
         officeHoursGridTimeHeaderLabels.clear();
@@ -413,72 +415,75 @@ public class TATab extends Tab {
         officeHoursGridTACellLabels.clear();
         //jTPS = new jTPS();
         controller.handleClear();
-        
-    }
-    
-    
-    public void reloadTATab(TAData taData) {
-        reloadOfficeHoursGrid(taData);
-        
-        
-        
+
     }
 
-    public void reloadOfficeHoursGrid(TAData dataComponent) {        
+    public void reloadTATab(TAData taData) {
+        reloadOfficeHoursGrid(taData);
+        reloadComboBoxes(taData);
+
+    }
+
+    public void reloadComboBoxes(TAData taData) {
+
+        startTimeBox.setValue(buildCellText(taData.getStartHour(), "00"));
+        endTimeBox.setValue(buildCellText(taData.getEndHour(), "00"));
+
+    }
+
+    public void reloadOfficeHoursGrid(TAData dataComponent) {
         ArrayList<String> gridHeaders = dataComponent.getGridHeaders();
-        startTimeBox.setPromptText(buildCellText(dataComponent.getStartHour(), "00"));
-        endTimeBox.setPromptText(buildCellText(dataComponent.getEndHour(), "00"));
 
         // ADD THE TIME HEADERS
         for (int i = 0; i < 2; i++) {
             addCellToGrid(dataComponent, officeHoursGridTimeHeaderPanes, officeHoursGridTimeHeaderLabels, i, 0);
             dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));
         }
-        
+
         // THEN THE DAY OF WEEK HEADERS
         for (int i = 2; i < 7; i++) {
             addCellToGrid(dataComponent, officeHoursGridDayHeaderPanes, officeHoursGridDayHeaderLabels, i, 0);
-            dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));            
+            dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));
         }
-        
+
         // THEN THE TIME AND TA CELLS
         int row = 1;
         for (int i = dataComponent.getStartHour(); i < dataComponent.getEndHour(); i++) {
             // START TIME COLUMN
             int col = 0;
-            if(i == 0){
+            if (i == 0) {
                 addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
                 dataComponent.getCellTextProperty(col, row).set("12:00am");
-                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-                dataComponent.getCellTextProperty(col, row+1).set("12:30am");
-            }else{
+                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+                dataComponent.getCellTextProperty(col, row + 1).set("12:30am");
+            } else {
                 addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
                 dataComponent.getCellTextProperty(col, row).set(buildCellText(i, "00"));
-                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-                dataComponent.getCellTextProperty(col, row+1).set(buildCellText(i, "30"));
+                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+                dataComponent.getCellTextProperty(col, row + 1).set(buildCellText(i, "30"));
             }
 
             // END TIME COLUMN
             col++;
             int endHour = i;
-            if(i == 0){
+            if (i == 0) {
                 addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
                 dataComponent.getCellTextProperty(col, row).set("12:30am");
-                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-                dataComponent.getCellTextProperty(col, row+1).set(buildCellText(endHour+1, "00"));
+                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+                dataComponent.getCellTextProperty(col, row + 1).set(buildCellText(endHour + 1, "00"));
                 col++;
-            }else{
+            } else {
                 addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
                 dataComponent.getCellTextProperty(col, row).set(buildCellText(endHour, "30"));
-                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-                dataComponent.getCellTextProperty(col, row+1).set(buildCellText(endHour+1, "00"));
+                addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+                dataComponent.getCellTextProperty(col, row + 1).set(buildCellText(endHour + 1, "00"));
                 col++;
             }
 
             // AND NOW ALL THE TA TOGGLE CELLS
             while (col < 7) {
                 addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row);
-                addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row+1);
+                addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row + 1);
                 col++;
             }
             row += 2;
@@ -490,7 +495,7 @@ public class TATab extends Tab {
                 controller.handleCellToggle((Pane) e.getSource());
             });
         }
-        
+
         for (Pane p : officeHoursGridTACellPanes.values()) {
             p.setOnMouseEntered(e -> {
                 int pRow = Integer.parseInt(dataComponent.getRow(p.getId()));
@@ -498,14 +503,15 @@ public class TATab extends Tab {
                 for (Pane pa : officeHoursGridTACellPanes.values()) {
                     int paRow = Integer.parseInt(dataComponent.getRow(pa.getId()));
                     int paCol = Integer.parseInt(dataComponent.getCol(pa.getId()));
-                    if(((pCol == paCol)&&(paRow <= pRow)) || 
-                           ((pRow == paRow)&&(paCol <= pCol)) )
+                    if (((pCol == paCol) && (paRow <= pRow))
+                            || ((pRow == paRow) && (paCol <= pCol))) {
                         controller.handleRCHigh(pa);
+                    }
                 }
                 controller.handleHighlight((Pane) e.getSource());
             });
         }
-        
+
         for (Pane p : officeHoursGridTACellPanes.values()) {
             p.setOnMouseExited(e -> {
                 int pRow = Integer.parseInt(dataComponent.getRow(p.getId()));
@@ -513,24 +519,22 @@ public class TATab extends Tab {
                 for (Pane pa : officeHoursGridTACellPanes.values()) {
                     int paRow = Integer.parseInt(dataComponent.getRow(pa.getId()));
                     int paCol = Integer.parseInt(dataComponent.getCol(pa.getId()));
-                    if(((pCol == paCol)&&(paRow <= pRow)) || 
-                           ((pRow == paRow)&&(paCol <= pCol)) )
+                    if (((pCol == paCol) && (paRow <= pRow))
+                            || ((pRow == paRow) && (paCol <= pCol))) {
                         controller.handleRCUnHigh(pa);
+                    }
                 }
                 controller.handleUnHighlight((Pane) e.getSource());
             });
         }
-        
+
         // AND MAKE SURE ALL THE COMPONENTS HAVE THE PROPER STYLE
-        CSGStyle csgStyle = (CSGStyle)app.getStyleComponent();
+        CSGStyle csgStyle = (CSGStyle) app.getStyleComponent();
         csgStyle.initOfficeHoursGridStyle();
-        
-        
-        
-        
+
     }
-    
-    public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {       
+
+    public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {
         // MAKE THE LABEL IN A PANE
         Label cellLabel = new Label("");
         HBox cellPane = new HBox();
@@ -541,23 +545,17 @@ public class TATab extends Tab {
         String cellKey = dataComponent.getCellKey(col, row);
         cellPane.setId(cellKey);
         cellLabel.setId(cellKey);
-        
+
         // NOW PUT THE CELL IN THE WORKSPACE GRID
         officeHoursGridPane.add(cellPane, col, row);
-        
+
         // AND ALSO KEEP IN IN CASE WE NEED TO STYLIZE IT
         panes.put(cellKey, cellPane);
         labels.put(cellKey, cellLabel);
-        
+
         // AND FINALLY, GIVE THE TEXT PROPERTY TO THE DATA MANAGER
         // SO IT CAN MANAGE ALL CHANGES
-        dataComponent.setCellProperty(col, row, cellLabel.textProperty());        
+        dataComponent.setCellProperty(col, row, cellLabel.textProperty());
     }
-    
-   
 
-   
 }
-
-
-

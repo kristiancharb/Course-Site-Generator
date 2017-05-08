@@ -35,6 +35,8 @@ public class ChangeStartHour_Transaction implements jTPS_Transaction{
         app.getCSGWorkspace().jumpToTATab();
         TAData data = app.getCSGData().getTAData();
         data.changeStartHour(newStartTime);
+        TATab taTab = app.getCSGWorkspace().getTATab();
+        taTab.reloadComboBoxes(data);
     }
     
     @Override
@@ -54,6 +56,7 @@ public class ChangeStartHour_Transaction implements jTPS_Transaction{
             
             data.addOfficeHoursReservation(day, time, name);
         }
+        taTab.reloadComboBoxes(data);
         
     }
     

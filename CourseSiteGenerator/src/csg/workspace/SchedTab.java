@@ -148,10 +148,7 @@ public class SchedTab extends Tab {
         itemsHeaderBox.getChildren().addAll(itemsHeader, removeButton);
         itemsBox.getChildren().add(itemsHeaderBox);
 
-        items = FXCollections.observableArrayList(
-                new ScheduleItem("Holiday", "2/9/17", "Snow Day", ""),
-                new ScheduleItem("Lecture", "2/14/17", "Lecture 3", "Event Programming"),
-                new ScheduleItem("Holiday", "3/3/17", "Spring Break", ""));
+        
         itemsTable = new TableView();
         itemsTable.setItems(schedData.getItems());
         typeCol = new TableColumn(props.getProperty(CSGProp.TYPE_COL));
@@ -163,6 +160,10 @@ public class SchedTab extends Tab {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         topicCol.setCellValueFactory(new PropertyValueFactory<>("topic"));
         itemsTable.getColumns().addAll(typeCol, dateCol, titleCol, topicCol);
+        typeCol.prefWidthProperty().bind(itemsTable.widthProperty().multiply(0.25));
+        dateCol.prefWidthProperty().bind(itemsTable.widthProperty().multiply(0.25));
+        titleCol.prefWidthProperty().bind(itemsTable.widthProperty().multiply(0.25));
+        topicCol.prefWidthProperty().bind(itemsTable.widthProperty().multiply(0.25));
         itemsTable.setMaxHeight(200);
 
         itemsBox.getChildren().add(itemsTable);

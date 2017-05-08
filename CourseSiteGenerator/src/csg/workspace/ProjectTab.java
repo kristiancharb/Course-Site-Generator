@@ -116,6 +116,10 @@ public class ProjectTab extends Tab{
         textColorCol.setCellValueFactory(new PropertyValueFactory<>("textColor"));
         linkCol.setCellValueFactory(new PropertyValueFactory<>("link"));
         teamTable.getColumns().addAll(nameCol, colorCol, textColorCol, linkCol);
+        nameCol.prefWidthProperty().bind(teamTable.widthProperty().multiply(0.3));
+        colorCol.prefWidthProperty().bind(teamTable.widthProperty().multiply(0.2));
+        textColorCol.prefWidthProperty().bind(teamTable.widthProperty().multiply(0.2));
+        linkCol.prefWidthProperty().bind(teamTable.widthProperty().multiply(0.3));
         teamsBox.getChildren().add(teamTable);
         teamTable.setMaxHeight(200);
         teamTable.setMinWidth(500);
@@ -163,6 +167,10 @@ public class ProjectTab extends Tab{
         teamCol.setCellValueFactory(new PropertyValueFactory<>("team"));
         roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
         studentTable.getColumns().addAll(firstNameCol, lastNameCol, teamCol, roleCol);
+        firstNameCol.prefWidthProperty().bind(studentTable.widthProperty().multiply(0.2));
+        lastNameCol.prefWidthProperty().bind(studentTable.widthProperty().multiply(0.2));
+        teamCol.prefWidthProperty().bind(studentTable.widthProperty().multiply(0.3));
+        roleCol.prefWidthProperty().bind(studentTable.widthProperty().multiply(0.3));
         studentTable.setMaxHeight(200);
         studentTable.setMinWidth(500);
         studentTable.setMaxWidth(800);

@@ -5,6 +5,7 @@
  */
 package csg.data;
 
+import csg.CSGApp;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;

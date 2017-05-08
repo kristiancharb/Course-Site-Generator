@@ -275,7 +275,8 @@ public class TAData {
 
         // SORT THE TAS
         Collections.sort(teachingAssistants);
-
+        
+        
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
     
@@ -291,6 +292,7 @@ public class TAData {
         // SORT THE TAS
         Collections.sort(teachingAssistants);
 
+        
         app.getGUI().getAppFileController().markAsEdited(app.getGUI());
     }
     
@@ -304,6 +306,7 @@ public class TAData {
         }
 
         // SORT THE TAS
+        
         Collections.sort(teachingAssistants);
     }
 
@@ -452,8 +455,7 @@ public class TAData {
         setStartHour(hour);
 
         TATab taTab = app.getCSGWorkspace().getTATab();
-        taTab.getStartTimeBox().setPromptText(taTab.buildCellText(getStartHour(), "00"));
-        taTab.getEndTimeBox().setPromptText(taTab.buildCellText(getEndHour(), "00"));
+        
         GridPane officeHoursGridPane = taTab.getOfficeHoursGridPane();
         officeHoursGridPane.getChildren().clear();
         taTab.reloadOfficeHoursGrid(this);
@@ -475,8 +477,7 @@ public class TAData {
         setEndHour(hour);
 
         TATab taTab = app.getCSGWorkspace().getTATab();
-        taTab.getStartTimeBox().setPromptText(taTab.buildCellText(getStartHour(), "00"));
-        taTab.getEndTimeBox().setPromptText(taTab.buildCellText(getEndHour(), "00"));
+       
         GridPane officeHoursGridPane = taTab.getOfficeHoursGridPane();
         officeHoursGridPane.getChildren().clear();
         taTab.reloadOfficeHoursGrid(this);
